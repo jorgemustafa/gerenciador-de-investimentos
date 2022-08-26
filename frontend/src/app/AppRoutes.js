@@ -26,7 +26,6 @@ class AppRoutes extends Component {
     render() {
         return (
             <Suspense fallback={<Spinner/>}>
-                <Provider store={store}>
                         <Switch>
                             <Route exact path="/dashboard" component={Dashboard}/>
                             <Route path="/basic-ui/buttons" component={Buttons}/>
@@ -46,7 +45,6 @@ class AppRoutes extends Component {
 
                             <Redirect to="/dashboard"/>
                         </Switch>
-                </Provider>
             </Suspense>
         );
     }
