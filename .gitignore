@@ -144,6 +144,8 @@ build/Release
 # Dependency directories
 */node_modules/
 jspm_packages/
+*/.pnp
+.pnp.js
 
 # Distribution directories
 dist/
@@ -165,3 +167,7 @@ typings/
 
 # Yarn Integrity file
 .yarn-integrity
+
+# production
+*/build
+.DS_Store
