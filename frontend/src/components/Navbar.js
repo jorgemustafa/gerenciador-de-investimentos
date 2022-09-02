@@ -18,7 +18,6 @@ import NOTIFICATIONS_DATA from "../data/notifications";
 import Profile3 from "../assets/img/team/profile-picture-3.jpg";
 import {logout} from "../actions/auth";
 import {Redirect} from "react-router-dom";
-import {Routes} from "../routes";
 import {connect} from "react-redux";
 
 

@@ -17,7 +17,6 @@ import Lock from "./authentication/Lock";
 import NotFoundPage from "./authentication/NotFound";
 import ServerError from "./authentication/ServerError";
 import Activate from "./authentication/Activate"
-import {logout} from "../actions/auth";
 
 // documentation pages
 import DocsOverview from "./documentation/DocsOverview";
@@ -49,7 +48,6 @@ import Tables from "./components/Tables";
 import Tabs from "./components/Tabs";
 import Tooltips from "./components/Tooltips";
 import Toasts from "./components/Toasts";
-import * as PropTypes from "prop-types";
 
 
 const RouteWithLoader = ({component: Component, ...rest}) => {
@@ -100,8 +98,11 @@ const RouteWithSidebar = ({component: Component, ...rest}) => {
         />
     );
 };
+const authLinks = (isAuthenticated) => {
 
-export default () => (
+}
+
+const Homepage = () => (
     <Provider store={store}>
         <Switch>
             <RouteWithLoader exact path={Routes.Signin.path} component={Signin}/>
@@ -112,16 +113,10 @@ export default () => (
             <RouteWithLoader exact path={Routes.Lock.path} component={Lock}/>
             <RouteWithLoader exact path={Routes.NotFound.path} component={NotFoundPage}/>
             <RouteWithLoader exact path={Routes.ServerError.path} component={ServerError}/>
-
-            {/* pages */
-            }
             <RouteWithSidebar exact path={Routes.DashboardOverview.path} component={DashboardOverview}/>
             <RouteWithSidebar exact path={Routes.Transactions.path} component={Transactions}/>
             <RouteWithSidebar exact path={Routes.Settings.path} component={Settings}/>
             <RouteWithSidebar exact path={Routes.BootstrapTables.path} component={BootstrapTables}/>
-
-            {/* components */
-            }
             <RouteWithSidebar exact path={Routes.Accordions.path} component={Accordion}/>
             <RouteWithSidebar exact path={Routes.Alerts.path} component={Alerts}/>
             <RouteWithSidebar exact path={Routes.Badges.path} component={Badges}/>
@@ -138,9 +133,6 @@ export default () => (
             <RouteWithSidebar exact path={Routes.Tabs.path} component={Tabs}/>
             <RouteWithSidebar exact path={Routes.Tooltips.path} component={Tooltips}/>
             <RouteWithSidebar exact path={Routes.Toasts.path} component={Toasts}/>
-
-            {/* documentation */
-            }
             <RouteWithSidebar exact path={Routes.DocsOverview.path} component={DocsOverview}/>
             <RouteWithSidebar exact path={Routes.DocsDownload.path} component={DocsDownload}/>
             <RouteWithSidebar exact path={Routes.DocsQuickStart.path} component={DocsQuickStart}/>
@@ -148,8 +140,9 @@ export default () => (
             <RouteWithSidebar exact path={Routes.DocsFolderStructure.path} component={DocsFolderStructure}/>
             <RouteWithSidebar exact path={Routes.DocsBuild.path} component={DocsBuild}/>
             <RouteWithSidebar exact path={Routes.DocsChangelog.path} component={DocsChangelog}/>
-
             <Redirect to={Routes.NotFound.path}/>
         </Switch>
     </Provider>
 )
+
+export default Homepage
