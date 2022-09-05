@@ -26,7 +26,7 @@ const ResetPassword = ({reset_password}) => {
     };
 
     if (requestSent) {
-        return <Redirect to='/reset-password-confirm/uid/token'/>
+        return <Redirect to='/login'/>
     }
 
     return (
