@@ -60,7 +60,7 @@ WSGI_APPLICATION = 'engine.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'invest_manager',
+        'NAME': 'voltage',
         'USER': 'postgres',
         'PASSWORD': 'postgres',
         'HOST': 'localhost'

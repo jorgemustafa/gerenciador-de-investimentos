@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faEnvelope, faUnlockAlt} from "@fortawesome/free-solid-svg-icons";
-import {faFacebookF, faGithub, faTwitter} from "@fortawesome/free-brands-svg-icons";
+import {faFacebookF, faGoogle} from "@fortawesome/free-brands-svg-icons";
 import {Col, Row, Form, Card, Button, FormCheck, Container, InputGroup} from '@themesberg/react-bootstrap';
 import {Link, Redirect} from 'react-router-dom';
 import {connect} from 'react-redux';
@@ -58,7 +58,7 @@ const Login = ({login, isAuthenticated}) => {
                         <Col xs={12} className="d-flex align-items-center justify-content-center">
                             <div className="bg-white shadow-soft border rounded border-light p-4 p-lg-5 w-100 fmxw-500">
                                 <div className="text-center text-md-center mb-4 mt-md-0">
-                                    <h3 className="mb-0">Sign in to our platform</h3>
+                                    <h3 className="mb-0">Sign in to Voltage</h3>
                                 </div>
                                 <Form className="mt-4" onSubmit={e => onSubmit(e)}>
                                     <Form.Group id="email" className="mb-4">
@@ -88,7 +88,7 @@ const Login = ({login, isAuthenticated}) => {
                                                 <Form.Control
                                                     required
                                                     type="password"
-                                                    placeholder="Password"
+                                                    placeholder="Password@123"
                                                     name='password'
                                                     value={password}
                                                     onChange={e => onChange(e)}
@@ -121,10 +121,7 @@ const Login = ({login, isAuthenticated}) => {
                                     </Button>
                                     <Button variant="outline-light"
                                             className="btn-icon-only btn-pill text-twitter me-2">
-                                        <FontAwesomeIcon icon={faTwitter}/>
-                                    </Button>
-                                    <Button variant="outline-light" className="btn-icon-only btn-pil text-dark">
-                                        <FontAwesomeIcon icon={faGithub}/>
+                                        <FontAwesomeIcon icon={faGoogle}/>
                                     </Button>
                                 </div>
                                 <div className="d-flex justify-content-center align-items-center mt-4">
