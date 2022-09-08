@@ -29,6 +29,7 @@ const Activate = ({verify, match}) => {
                             <div className="bg-white shadow-soft border rounded border-light p-4 p-lg-5 w-100 fmxw-500">
                                 <div className="text-center text-md-center mb-4 mt-md-0">
                                     <h3 className="mb-0">Welcome to Voltage!</h3>
+                                    <p>Click on button below to verify your account and login</p>
                                 </div>
                                 <Button variant="primary" type="button" className="w-100 h-100"
                                         onClick={verify_account}>
