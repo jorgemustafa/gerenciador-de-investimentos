@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faEnvelope, faUnlockAlt, faPen, faAngleLeft} from "@fortawesome/free-solid-svg-icons";
-import {faFacebookF, faGoogle} from "@fortawesome/free-brands-svg-icons";
+import {faGoogle} from "@fortawesome/free-brands-svg-icons";
 import {Col, Row, Form, Card, Button, Container, InputGroup} from '@themesberg/react-bootstrap';
 import {Link, Redirect} from 'react-router-dom';
 import {connect} from 'react-redux';
@@ -36,17 +36,7 @@ const Signup = ({signup, isAuthenticated}) => {
 
     const continueWithGoogle = async () => {
         try {
-            const res = await axios.get(`/auth/o/google-oauth2/?redirect_uri=${process.env.REACT_APP_API_URL}/google`)
-
-            window.location.replace(res.data.authorization_url);
-        } catch (err) {
-
-        }
-    };
-
-    const continueWithFacebook = async () => {
-        try {
-            const res = await axios.get(`/auth/o/facebook/?redirect_uri=${process.env.REACT_APP_API_URL}/facebook`)
+            const res = await axios.get(`${process.env.REACT_APP_API_URL}/auth/o/google-oauth2/?redirect_uri=${process.env.REACT_APP_API_URL}`)
 
             window.location.replace(res.data.authorization_url);
         } catch (err) {
@@ -171,11 +161,8 @@ const Signup = ({signup, isAuthenticated}) => {
                                 </div>
                                 <div className="d-flex justify-content-center my-4">
                                     <Button variant="outline-light"
-                                            className="btn-icon-only btn-pill text-facebook me-2">
-                                        <FontAwesomeIcon icon={faFacebookF}/>
-                                    </Button>
-                                    <Button variant="outline-light"
-                                            className="btn-icon-only btn-pill text-twitter me-2">
+                                            className="btn-icon-only btn-pill text-twitter me-2"
+                                            onClick={continueWithGoogle}>
                                         <FontAwesomeIcon icon={faGoogle}/>
                                     </Button>
                                 </div>

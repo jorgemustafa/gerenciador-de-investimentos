@@ -15,8 +15,6 @@ import {
     ACTIVATION_FAIL,
     GOOGLE_AUTH_SUCCESS,
     GOOGLE_AUTH_FAIL,
-    FACEBOOK_AUTH_SUCCESS,
-    FACEBOOK_AUTH_FAIL,
     LOGOUT
 } from '../actions/types';
 
@@ -27,20 +25,25 @@ const initialState = {
     user: null
 };
 
-export default function(state = initialState, action) {
-    const { type, payload } = action;
+export default function (state = initialState, action) {
+    const {type, payload} = action;
 
-    switch(type) {
+    switch (type) {
         case AUTHENTICATED_SUCCESS:
             return {
                 ...state,
                 isAuthenticated: true
             }
         case LOGIN_SUCCESS:
-        case GOOGLE_AUTH_SUCCESS:
-        case FACEBOOK_AUTH_SUCCESS:
             localStorage.setItem('access', payload.access);
-            localStorage.setItem('refresh', payload.refresh);
+            return {
+                ...state,
+                isAuthenticated: true,
+                access: payload.access,
+                refresh: payload.refresh
+            }
+        case GOOGLE_AUTH_SUCCESS:
+            localStorage.setItem('access', payload.access);
             return {
                 ...state,
                 isAuthenticated: true,
@@ -68,9 +71,20 @@ export default function(state = initialState, action) {
                 user: null
             }
         case GOOGLE_AUTH_FAIL:
-        case FACEBOOK_AUTH_FAIL:
+            return {
+                ...state,
+                isAuthenticated: false
+            }
         case LOGIN_FAIL:
+            return {
+                ...state,
+                isAuthenticated: false
+            }
         case SIGNUP_FAIL:
+            return {
+                ...state,
+                isAuthenticated: false
+            }
         case LOGOUT:
             localStorage.removeItem('access');
             localStorage.removeItem('refresh');

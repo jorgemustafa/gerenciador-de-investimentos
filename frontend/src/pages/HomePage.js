@@ -1,7 +1,7 @@
-import React, {Fragment, useState, useEffect} from 'react';
+import React, {useState, useEffect} from 'react';
 import {Route, Switch, Redirect} from "react-router-dom";
 import {Routes} from "../routes";
-import {connect, Provider} from "react-redux";
+import { Provider} from "react-redux";
 import store from '../store'
 
 // pages
@@ -17,15 +17,6 @@ import Lock from "./authentication/Lock";
 import NotFoundPage from "./authentication/NotFound";
 import ServerError from "./authentication/ServerError";
 import Activate from "./authentication/Activate"
-
-// documentation pages
-import DocsOverview from "./documentation/DocsOverview";
-import DocsDownload from "./documentation/DocsDownload";
-import DocsQuickStart from "./documentation/DocsQuickStart";
-import DocsLicense from "./documentation/DocsLicense";
-import DocsFolderStructure from "./documentation/DocsFolderStructure";
-import DocsBuild from "./documentation/DocsBuild";
-import DocsChangelog from "./documentation/DocsChangelog";
 
 // components
 import Sidebar from "../components/Sidebar";
@@ -133,13 +124,6 @@ const Homepage = () => (
             <RouteWithSidebar exact path={Routes.Tabs.path} component={Tabs}/>
             <RouteWithSidebar exact path={Routes.Tooltips.path} component={Tooltips}/>
             <RouteWithSidebar exact path={Routes.Toasts.path} component={Toasts}/>
-            <RouteWithSidebar exact path={Routes.DocsOverview.path} component={DocsOverview}/>
-            <RouteWithSidebar exact path={Routes.DocsDownload.path} component={DocsDownload}/>
-            <RouteWithSidebar exact path={Routes.DocsQuickStart.path} component={DocsQuickStart}/>
-            <RouteWithSidebar exact path={Routes.DocsLicense.path} component={DocsLicense}/>
-            <RouteWithSidebar exact path={Routes.DocsFolderStructure.path} component={DocsFolderStructure}/>
-            <RouteWithSidebar exact path={Routes.DocsBuild.path} component={DocsBuild}/>
-            <RouteWithSidebar exact path={Routes.DocsChangelog.path} component={DocsChangelog}/>
             <Redirect to={Routes.NotFound.path}/>
         </Switch>
     </Provider>
