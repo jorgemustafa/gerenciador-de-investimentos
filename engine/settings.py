@@ -25,10 +25,10 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'rest_framework.authtoken',
-    'djoser',
-    'social_django',
     'rest_framework_simplejwt',
     'rest_framework_simplejwt.token_blacklist',
+    'djoser',
+    'social_django',
     'frontend',
     'assets',
     'auth_users',
@@ -133,7 +133,7 @@ DJOSER = {
     'ACTIVATION_URL': 'activate/{uid}/{token}',
     'SEND_ACTIVATION_EMAIL': True,
     'SOCIAL_AUTH_TOKEN_STRATEGY': 'djoser.social.token.jwt.TokenStrategy',
-    'SOCIAL_AUTH_ALLOWED_REDIRECT_URIS': 'http://localhost:8000',
+    'SOCIAL_AUTH_ALLOWED_REDIRECT_URIS': 'http://localhost:8000/google',
     'SERIALIZERS': {
         'user_create': 'auth_users.serializers.UserCreateSerializer',
         'user': 'auth_users.serializers.UserCreateSerializer',
@@ -165,7 +165,7 @@ SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(minutes=60),
     'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
     'AUTH_TOKEN_CLASSES': (
-        'rest_framework_simplejwt.tokens.AccessToken'
+        'rest_framework_simplejwt.tokens.AccessToken',
     )
 }
 

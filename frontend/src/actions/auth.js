@@ -80,7 +80,6 @@ export const googleAuthenticate = (state, code) => async dispatch => {
     }
 };
 
-
 export const checkAuthenticated = () => async dispatch => {
     if (localStorage.getItem('access')) {
         const config = {

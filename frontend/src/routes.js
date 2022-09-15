@@ -14,6 +14,7 @@ export const Routes = {
     ResetPassword: { path: "/reset-password" },
     ResetPasswordConfirm: { path: "/password/reset/confirm/:uid/:token" },
     Activate: { path: "/activate/:uid/:token" },
+    Google: { path: "/google" },
     Lock: { path: "/lock" },
     NotFound: { path: "/404" },
     ServerError: { path: "/500" },
