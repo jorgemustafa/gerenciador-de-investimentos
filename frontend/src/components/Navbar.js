@@ -1,4 +1,4 @@
-import React, {Fragment, useState} from "react";
+import React, {Fragment, useEffect, useState} from "react";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faBell, faCog, faEnvelopeOpen, faSignOutAlt, faUserShield} from "@fortawesome/free-solid-svg-icons";
 import {faUserCircle} from "@fortawesome/free-regular-svg-icons";
@@ -11,6 +11,20 @@ import {connect} from "react-redux";
 
 
 const NavBar = ({logout}) => {
+    const [userLogged, setUserLogged] = useState([])
+
+    useEffect(() => {
+        const loadData = () => {
+            fetch('http://localhost:8000/api/user/', {
+                headers: {
+                    'Authorization': `JWT ${localStorage.getItem('access')}`
+                }})
+                .then(response => response.json())
+                .then(data => setUserLogged(data))
+        }
+        loadData()
+    }, [])
+
     const [notifications, setNotifications] = useState(NOTIFICATIONS_DATA);
     const areNotificationsRead = notifications.reduce((acc, notif) => acc && notif.read, true);
 
@@ -89,7 +103,7 @@ const NavBar = ({logout}) => {
                                     <div className="media d-flex align-items-center">
                                         <Image src={Profile3} className="user-avatar md-avatar rounded-circle"/>
                                         <div className="media-body ms-2 text-dark align-items-center d-none d-lg-block">
-                                            <span className="mb-0 font-small fw-bold">Bonnie Green</span>
+                                            <span className="mb-0 font-small fw-bold">{userLogged.first_name} {userLogged.last_name}</span>
                                         </div>
                                     </div>
                                 </Dropdown.Toggle>

@@ -117,7 +117,7 @@ const App = () => (
                 <RouteWithLoader exact path={Routes.ResetPassword.path} component={ResetPassword}/>
 
                 {/*other*/}
-                {/*<RouteWithLoader exact path={Routes.NotFound.path} component={NotFoundPage}/>*/}
+                <RouteWithLoader exact path={Routes.NotFound.path} component={NotFoundPage}/>
                 {/*<RouteWithLoader exact path={Routes.Navbars.path} component={Navbars}/>*/}
                 {/*<RouteWithLoader exact path={Routes.ServerError.path} component={ServerError}/>*/}
                 {/*<RouteWithSidebar exact path={Routes.BootstrapTables.path} component={BootstrapTables}/>*/}
