@@ -10,7 +10,6 @@ export const Routes = {
     Invoice: { path: "/invoice" },
     Signin: { path: "/login" },
     Signup: { path: "/signup" },
-    ForgotPassword: { path: "/forgot-password" }, // nao vou usar
     ResetPassword: { path: "/reset-password" },
     ResetPasswordConfirm: { path: "/password/reset/confirm/:uid/:token" },
     Activate: { path: "/activate/:uid/:token" },

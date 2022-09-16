@@ -55,6 +55,8 @@ const RouteWithLoader = ({component: Component, ...rest}) => {
     );
 };
 
+// const isAuthenticated = true
+
 const RouteWithSidebar = ({component: Component, ...rest}) => {
     const [loaded, setLoaded] = useState(false);
 
@@ -76,16 +78,20 @@ const RouteWithSidebar = ({component: Component, ...rest}) => {
 
     return (
         <Route {...rest} render={props => (
-            <>
-                <Preloader show={loaded ? false : true}/>
-                <Sidebar/>
+            localStorage.getItem('access') ? (
+                <>
+                    <Preloader show={loaded ? false : true}/>
+                    <Sidebar/>
 
-                <main className="content">
-                    <Navbar/>
-                    <Component {...props} />
-                    <Footer toggleSettings={toggleSettings} showSettings={showSettings}/>
-                </main>
-            </>
+                    <main className="content">
+                        <Navbar/>
+                        <Component {...props} />
+                        <Footer toggleSettings={toggleSettings} showSettings={showSettings}/>
+                    </main>
+                </>
+            ) : (
+                <Redirect to={{pathname: Routes.Signin.path, state: {from: props.location}}}/>
+            )
         )}
         />
     );
@@ -95,35 +101,41 @@ const App = () => (
     <Provider store={store}>
         <BrowserRouter>
             <Switch>
+
+                {/*is authenticated*/}
+                <RouteWithSidebar exact path={Routes.DashboardOverview.path} component={DashboardOverview}/>
+                <RouteWithSidebar exact path={Routes.Settings.path} component={Settings}/>
+                <RouteWithSidebar exact path={Routes.Transactions.path} component={Transactions}/>
+                <RouteWithLoader exact path={Routes.Lock.path} component={Lock}/>
+
+                {/*auth*/}
                 <RouteWithLoader exact path={Routes.Signin.path} component={Signin}/>
                 <RouteWithLoader exact path={Routes.Signup.path} component={Signup}/>
                 <RouteWithLoader exact path={Routes.Activate.path} component={Activate}/>
                 <RouteWithLoader exact path={Routes.Google.path} component={Google}/>
                 <RouteWithLoader exact path={Routes.ResetPasswordConfirm.path} component={ResetPasswordConfirm}/>
                 <RouteWithLoader exact path={Routes.ResetPassword.path} component={ResetPassword}/>
-                <RouteWithLoader exact path={Routes.Lock.path} component={Lock}/>
-                <RouteWithLoader exact path={Routes.NotFound.path} component={NotFoundPage}/>
-                <RouteWithLoader exact path={Routes.ServerError.path} component={ServerError}/>
-                <RouteWithSidebar exact path={Routes.DashboardOverview.path} component={DashboardOverview}/>
-                <RouteWithSidebar exact path={Routes.Transactions.path} component={Transactions}/>
-                <RouteWithSidebar exact path={Routes.Settings.path} component={Settings}/>
-                <RouteWithSidebar exact path={Routes.BootstrapTables.path} component={BootstrapTables}/>
-                <RouteWithSidebar exact path={Routes.Accordions.path} component={Accordion}/>
-                <RouteWithSidebar exact path={Routes.Alerts.path} component={Alerts}/>
-                <RouteWithSidebar exact path={Routes.Badges.path} component={Badges}/>
-                <RouteWithSidebar exact path={Routes.Breadcrumbs.path} component={Breadcrumbs}/>
-                <RouteWithSidebar exact path={Routes.Buttons.path} component={Buttons}/>
-                <RouteWithSidebar exact path={Routes.Forms.path} component={Forms}/>
-                <RouteWithSidebar exact path={Routes.Modals.path} component={Modals}/>
-                <RouteWithSidebar exact path={Routes.Navs.path} component={Navs}/>
-                <RouteWithSidebar exact path={Routes.Navbars.path} component={Navbars}/>
-                <RouteWithSidebar exact path={Routes.Pagination.path} component={Pagination}/>
-                <RouteWithSidebar exact path={Routes.Popovers.path} component={Popovers}/>
-                <RouteWithSidebar exact path={Routes.Progress.path} component={Progress}/>
-                <RouteWithSidebar exact path={Routes.Tables.path} component={Tables}/>
-                <RouteWithSidebar exact path={Routes.Tabs.path} component={Tabs}/>
-                <RouteWithSidebar exact path={Routes.Tooltips.path} component={Tooltips}/>
-                <RouteWithSidebar exact path={Routes.Toasts.path} component={Toasts}/>
+
+                {/*other*/}
+                {/*<RouteWithLoader exact path={Routes.NotFound.path} component={NotFoundPage}/>*/}
+                {/*<RouteWithLoader exact path={Routes.Navbars.path} component={Navbars}/>*/}
+                {/*<RouteWithLoader exact path={Routes.ServerError.path} component={ServerError}/>*/}
+                {/*<RouteWithSidebar exact path={Routes.BootstrapTables.path} component={BootstrapTables}/>*/}
+                {/*<RouteWithSidebar exact path={Routes.Accordions.path} component={Accordion}/>*/}
+                {/*<RouteWithSidebar exact path={Routes.Alerts.path} component={Alerts}/>*/}
+                {/*<RouteWithSidebar exact path={Routes.Badges.path} component={Badges}/>*/}
+                {/*<RouteWithSidebar exact path={Routes.Breadcrumbs.path} component={Breadcrumbs}/>*/}
+                {/*<RouteWithSidebar exact path={Routes.Buttons.path} component={Buttons}/>*/}
+                {/*<RouteWithSidebar exact path={Routes.Forms.path} component={Forms}/>*/}
+                {/*<RouteWithSidebar exact path={Routes.Modals.path} component={Modals}/>*/}
+                {/*<RouteWithSidebar exact path={Routes.Navs.path} component={Navs}/>*/}
+                {/*<RouteWithSidebar exact path={Routes.Pagination.path} component={Pagination}/>*/}
+                {/*<RouteWithSidebar exact path={Routes.Popovers.path} component={Popovers}/>*/}
+                {/*<RouteWithSidebar exact path={Routes.Progress.path} component={Progress}/>*/}
+                {/*<RouteWithSidebar exact path={Routes.Tables.path} component={Tables}/>*/}
+                {/*<RouteWithSidebar exact path={Routes.Tabs.path} component={Tabs}/>*/}
+                {/*<RouteWithSidebar exact path={Routes.Tooltips.path} component={Tooltips}/>*/}
+                {/*<RouteWithSidebar exact path={Routes.Toasts.path} component={Toasts}/>*/}
                 <Redirect to={Routes.NotFound.path}/>
             </Switch>
         </BrowserRouter>
