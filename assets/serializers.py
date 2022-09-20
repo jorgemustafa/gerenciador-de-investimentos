@@ -25,7 +25,7 @@ class TesouroDiretoSerializer(serializers.ModelSerializer):
     class Meta:
         model = TesouroDireto
         fields = '__all__'
-       
+
 
 class CriptomoedaSerializer(serializers.ModelSerializer):
     class Meta:
@@ -39,3 +39,7 @@ class PropriedadeSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
+class CarteiraSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Propriedade
+        fields = '__all__'

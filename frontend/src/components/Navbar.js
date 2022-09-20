@@ -21,6 +21,7 @@ const NavBar = ({logout}) => {
                 }})
                 .then(response => response.json())
                 .then(data => setUserLogged(data))
+                .catch(err=>{console.log(err)})
         }
         loadData()
     }, [])

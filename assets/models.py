@@ -1,5 +1,7 @@
 from django.db import models
 
+from auth_users.models import UserAccount
+
 TIPO_APLICACAO_CHOICES = [
     ('pre', 'PRÉ'),
     ('cdi', 'CDI'),
@@ -12,6 +14,15 @@ TIPO_APLICACAO_CHOICES = [
 ]
 
 
+class Carteira(models.Model):
+    nome = models.CharField(max_length=64)
+    user = models.ForeignKey(UserAccount, on_delete=models.CASCADE)
+    inclusao = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f'{self.nome} de {self.user.get_full_name()}'
+
+
 class AcaoFii(models.Model):
     """
     Ações, BDRs, ETFs ou FIIs
@@ -21,6 +32,7 @@ class AcaoFii(models.Model):
     data_operacao = models.DateField()
     unidades = models.DecimalField(max_digits=11, decimal_places=2)
     taxa = models.DecimalField(max_digits=11, decimal_places=2, null=True, blank=True)
+    carteira = models.ForeignKey(Carteira, on_delete=models.CASCADE)
     inclusao = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
@@ -28,6 +40,7 @@ class AcaoFii(models.Model):
 
     class Meta:
         verbose_name_plural = 'Ações, BDRs, ETFs ou FIIs'
+        verbose_name = 'Ação, BDR, ETF ou FII'
 
 
 class AcaoAmericana(models.Model):
@@ -36,6 +49,7 @@ class AcaoAmericana(models.Model):
     data_operacao = models.DateField()
     unidades = models.DecimalField(max_digits=11, decimal_places=2)
     taxa = models.DecimalField(max_digits=11, decimal_places=2, null=True, blank=True)
+    carteira = models.ForeignKey(Carteira, on_delete=models.CASCADE)
     inclusao = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
@@ -67,6 +81,7 @@ class RendaFixa(models.Model):
     vencimento = models.DateField()
     liquidez = models.CharField(max_length=64)
     taxa = models.DecimalField(max_digits=11, decimal_places=2, null=True, blank=True)
+    carteira = models.ForeignKey(Carteira, on_delete=models.CASCADE)
     inclusao = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
@@ -85,6 +100,7 @@ class TesouroDireto(models.Model):
     rentabilidade = models.DecimalField(max_digits=11, decimal_places=2)
     vencimento = models.DateField()
     taxa = models.DecimalField(max_digits=11, decimal_places=2, null=True, blank=True)
+    carteira = models.ForeignKey(Carteira, on_delete=models.CASCADE)
     inclusao = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
@@ -100,6 +116,7 @@ class Criptomoeda(models.Model):
     cotacao = models.DecimalField(max_digits=11, decimal_places=2)
     unidades = models.DecimalField(max_digits=11, decimal_places=2)
     taxa = models.DecimalField(max_digits=11, decimal_places=2, null=True, blank=True)
+    carteira = models.ForeignKey(Carteira, on_delete=models.CASCADE)
     inclusao = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
@@ -114,6 +131,7 @@ class Propriedade(models.Model):
     data_operacao = models.DateField()
     valor_investido = models.DecimalField(max_digits=11, decimal_places=2)
     taxa = models.DecimalField(max_digits=11, decimal_places=2, null=True, blank=True)
+    carteira = models.ForeignKey(Carteira, on_delete=models.CASCADE)
     inclusao = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
