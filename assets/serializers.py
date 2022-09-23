@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from assets.models import AcaoFii, Propriedade, Criptomoeda, TesouroDireto, RendaFixa, AcaoAmericana
+from assets.models.assets import AcaoFii, Propriedade, Criptomoeda, TesouroDireto, RendaFixa, AcaoAmericana, Carteira
 
 
 class AcaoFiiSerializer(serializers.ModelSerializer):
@@ -41,5 +41,5 @@ class PropriedadeSerializer(serializers.ModelSerializer):
 
 class CarteiraSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Propriedade
+        model = Carteira
         fields = '__all__'

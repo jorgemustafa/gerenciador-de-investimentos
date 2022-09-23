@@ -1,11 +1,11 @@
 from django.contrib import admin
 
-from assets.models import AcaoFii, AcaoAmericana, RendaFixa, TesouroDireto, Criptomoeda, Propriedade, Carteira
+from assets.models.assets import AcaoFii, AcaoAmericana, RendaFixa, TesouroDireto, Criptomoeda, Propriedade, Carteira
 
 
 @admin.register(Carteira)
 class CarteiraAdmin(admin.ModelAdmin,):
-    list_display = ('nome', 'user',)
+    list_display = ('user',)
     search_fields = ('nome',)
     readonly_fields = ('inclusao',)
 
@@ -26,7 +26,7 @@ class AcaoAmericanaAdmin(admin.ModelAdmin,):
 
 @admin.register(RendaFixa)
 class RendaFixaAdmin(admin.ModelAdmin,):
-    list_display = ('produto', 'emissor', 'valor_investido', 'tipo_aplicacao', 'rentabilidade', 'liquidez',
+    list_display = ('nome', 'emissor', 'valor_investido', 'tipo_aplicacao', 'rentabilidade', 'liquidez',
                     'vencimento', 'taxa', 'carteira',)
     search_fields = ('nome', 'carteira__nome',)
     readonly_fields = ('inclusao',)
@@ -49,6 +49,6 @@ class CriptomoedaAdmin(admin.ModelAdmin,):
 
 @admin.register(Propriedade)
 class PropriedadeAdmin(admin.ModelAdmin,):
-    list_display = ('descricao', 'data_operacao', 'valor_investido', 'taxa', 'carteira',)
+    list_display = ('nome', 'data_operacao', 'valor_investido', 'taxa', 'carteira',)
     search_fields = ('nome', 'carteira__nome',)
     readonly_fields = ('inclusao',)

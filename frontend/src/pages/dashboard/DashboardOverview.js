@@ -13,17 +13,17 @@ function Fragmento(props) {
 Fragmento.propTypes = {children: PropTypes.node};
 const DashboardOverview = () => {
 
-    const [acao, setAcao] = useState([])
+    const [asset, setAsset] = useState([])
 
     useEffect(() => {
         const loadData = () => {
-            fetch('http://localhost:8000/assets/abef/', {
+            fetch('http://localhost:8000/assets/list/', {
                 headers: {
                     'Authorization': `JWT ${localStorage.getItem('access')}`
                 }
             })
                 .then(response => response.json())
-                .then(data => setAcao(data))
+                .then(data => setAsset(data))
                 .catch(err => {
                     console.log('DashboardOverview.js', err)
                 })
@@ -47,9 +47,9 @@ const DashboardOverview = () => {
                         data={trafficShares}/>
                 </Col>
                 <Col>
-                    {acao.map(a =>
+                    {asset.map(asset =>
                         <>
-                            <p>{a.nome} | {a.cotacao} | {a.unidades} | {a.taxa}</p>
+                            <p>{asset.nome}</p>
                         </>
                     )}
                 </Col>
