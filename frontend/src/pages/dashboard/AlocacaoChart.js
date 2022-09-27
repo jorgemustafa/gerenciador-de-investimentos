@@ -2,8 +2,9 @@ import {Card, Col, Row} from "@themesberg/react-bootstrap";
 import {CircleChart} from "../../components/Charts";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import React, {useEffect, useState} from "react";
+import {trafficShares} from "../../data/charts";
 
-export const CircleChartWidget = () => {
+export const AlocacaoChart = () => {
     const [carteira, setCarteira] = useState([])
 
     useEffect(() => {
@@ -39,8 +40,6 @@ export const CircleChartWidget = () => {
                                 {c.assets.map(a =>
                                     <h6 key={`circle-element-${a.id}`}
                                         className={`fw-normal text-${a.color}`}>
-                                        <FontAwesomeIcon icon=''
-                                                         className={`icon icon-xs text-${a.color} w-20 me-1`}/>
                                         {a.value}% {a.label} <br/>
                                     </h6>
                                 )}

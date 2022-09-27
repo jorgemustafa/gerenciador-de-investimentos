@@ -1,8 +1,7 @@
 import React, {Fragment} from "react";
 import {Col, Row} from '@themesberg/react-bootstrap';
 
-import {trafficShares} from "../../data/charts";
-import {CircleChartWidget} from "./AlocacaoChart";
+import {AlocacaoChart} from "./AlocacaoChart";
 import {SalesValueWidget} from "./DesempenhoChart";
 import * as PropTypes from "prop-types";
 
@@ -24,7 +23,7 @@ const DashboardOverview = () => {
                     />
                 </Col>
                 <Col xs={6} sm={6} xl={6} className="mb-12">
-                    <CircleChartWidget/>
+                    <AlocacaoChart/>
                 </Col>
             </Row>
         </Fragment>

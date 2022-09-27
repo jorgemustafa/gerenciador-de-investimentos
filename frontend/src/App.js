@@ -89,9 +89,8 @@ const RouteWithSidebar = ({component: Component, ...rest}) => {
                         <Footer toggleSettings={toggleSettings} showSettings={showSettings}/>
                     </main>
                 </>
-            ) : (
-                <Redirect to={{pathname: Routes.Signin.path, state: {from: props.location}}}/>
-            )
+            ) : <Redirect to={{pathname: Routes.Signin.path, state: {from: props.location}}}/>
+
         )}
         />
     );
