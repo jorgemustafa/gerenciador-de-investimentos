@@ -1,4 +1,4 @@
-import React, {Fragment, useEffect, useState} from "react";
+import React, {Fragment} from "react";
 import {Col, Row} from '@themesberg/react-bootstrap';
 
 import {trafficShares} from "../../data/charts";
@@ -13,24 +13,6 @@ function Fragmento(props) {
 Fragmento.propTypes = {children: PropTypes.node};
 const DashboardOverview = () => {
 
-    const [asset, setAsset] = useState([])
-
-    useEffect(() => {
-        const loadData = () => {
-            fetch('http://localhost:8000/assets/list/', {
-                headers: {
-                    'Authorization': `JWT ${localStorage.getItem('access')}`
-                }
-            })
-                .then(response => response.json())
-                .then(data => setAsset(data))
-                .catch(err => {
-                    console.log('DashboardOverview.js', err)
-                })
-        }
-        loadData()
-    }, [])
-
     return (
         <Fragment>
             <Row className="justify-content-md-center">
@@ -42,16 +24,7 @@ const DashboardOverview = () => {
                     />
                 </Col>
                 <Col xs={6} sm={6} xl={6} className="mb-12">
-                    <CircleChartWidget
-                        title="Alocação"
-                        data={trafficShares}/>
-                </Col>
-                <Col>
-                    {asset.map(asset =>
-                        <>
-                            <p>{asset.nome}</p>
-                        </>
-                    )}
+                    <CircleChartWidget/>
                 </Col>
             </Row>
         </Fragment>
