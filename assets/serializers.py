@@ -40,6 +40,9 @@ class PropriedadeSerializer(serializers.ModelSerializer):
 
 
 class CarteiraSerializer(serializers.ModelSerializer):
+    assets = serializers.ReadOnlyField(source='get_percentual_categoria')
+    # criptomoeda = CriptomoedaSerializer(many=True) puxar cripto atraves da carteira
+
     class Meta:
         model = Carteira
         fields = '__all__'
