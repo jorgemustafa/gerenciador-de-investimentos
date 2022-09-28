@@ -1,12 +1,10 @@
 import {Card, Col, Row} from "@themesberg/react-bootstrap";
 import {CircleChart} from "../../components/Charts";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import React, {useEffect, useState} from "react";
-import {trafficShares} from "../../data/charts";
 
 export const AlocacaoChart = () => {
-    const [carteira, setCarteira] = useState([])
 
+    const [carteira, setCarteira] = useState([])
     useEffect(() => {
         const loadData = () => {
             fetch('http://localhost:8000/assets/carteira/', {
@@ -22,7 +20,6 @@ export const AlocacaoChart = () => {
         }
         loadData()
     }, [])
-
     const assets = carteira.map(c => c.assets)
 
     return (

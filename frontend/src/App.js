@@ -8,14 +8,11 @@ import store from './store'
 import DashboardOverview from "./pages/dashboard/DashboardOverview";
 import Transactions from "./pages/Transactions";
 import Settings from "./pages/Settings";
-import BootstrapTables from "./pages/tables/BootstrapTables";
 import Signin from "./pages/authentication/Signin";
 import Signup from "./pages/authentication/Signup";
 import ResetPasswordConfirm from "./pages/authentication/ResetPasswordConfirm";
 import ResetPassword from "./pages/authentication/ResetPassword";
-import Lock from "./pages/authentication/Lock";
 import NotFoundPage from "./pages/authentication/NotFound";
-import ServerError from "./pages/authentication/ServerError";
 import Activate from "./pages/authentication/Activate"
 import Google from "./pages/authentication/Google";
 
@@ -24,22 +21,7 @@ import Sidebar from "./components/Sidebar";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import Preloader from "./components/Preloader";
-import Accordion from "./pages/components/Accordion";
-import Alerts from "./pages/components/Alerts";
-import Badges from "./pages/components/Badges";
-import Breadcrumbs from "./pages/components/Breadcrumbs";
-import Buttons from "./pages/components/Buttons";
-import Forms from "./pages/components/Forms";
-import Modals from "./pages/components/Modals";
-import Navs from "./pages/components/Navs";
-import Navbars from "./pages/components/Navbars";
-import Pagination from "./pages/components/Pagination";
-import Popovers from "./pages/components/Popovers";
-import Progress from "./pages/components/Progress";
-import Tables from "./pages/components/Tables";
-import Tabs from "./pages/components/Tabs";
-import Tooltips from "./pages/components/Tooltips";
-import Toasts from "./pages/components/Toasts";
+import AddAsset from "./pages/AddTransaction";
 
 
 const RouteWithLoader = ({component: Component, ...rest}) => {
@@ -105,7 +87,7 @@ const App = () => (
                 <RouteWithSidebar exact path={Routes.DashboardOverview.path} component={DashboardOverview}/>
                 <RouteWithSidebar exact path={Routes.Settings.path} component={Settings}/>
                 <RouteWithSidebar exact path={Routes.Transactions.path} component={Transactions}/>
-                <RouteWithLoader exact path={Routes.Lock.path} component={Lock}/>
+                <RouteWithSidebar exact path={Routes.AddAsset.path} component={AddAsset}/>
 
                 {/*auth*/}
                 <RouteWithLoader exact path={Routes.Signin.path} component={Signin}/>
@@ -117,24 +99,6 @@ const App = () => (
 
                 {/*other*/}
                 <RouteWithLoader exact path={Routes.NotFound.path} component={NotFoundPage}/>
-                {/*<RouteWithLoader exact path={Routes.Navbars.path} component={Navbars}/>*/}
-                {/*<RouteWithLoader exact path={Routes.ServerError.path} component={ServerError}/>*/}
-                {/*<RouteWithSidebar exact path={Routes.BootstrapTables.path} component={BootstrapTables}/>*/}
-                {/*<RouteWithSidebar exact path={Routes.Accordions.path} component={Accordion}/>*/}
-                {/*<RouteWithSidebar exact path={Routes.Alerts.path} component={Alerts}/>*/}
-                {/*<RouteWithSidebar exact path={Routes.Badges.path} component={Badges}/>*/}
-                {/*<RouteWithSidebar exact path={Routes.Breadcrumbs.path} component={Breadcrumbs}/>*/}
-                {/*<RouteWithSidebar exact path={Routes.Buttons.path} component={Buttons}/>*/}
-                {/*<RouteWithSidebar exact path={Routes.Forms.path} component={Forms}/>*/}
-                {/*<RouteWithSidebar exact path={Routes.Modals.path} component={Modals}/>*/}
-                {/*<RouteWithSidebar exact path={Routes.Navs.path} component={Navs}/>*/}
-                {/*<RouteWithSidebar exact path={Routes.Pagination.path} component={Pagination}/>*/}
-                {/*<RouteWithSidebar exact path={Routes.Popovers.path} component={Popovers}/>*/}
-                {/*<RouteWithSidebar exact path={Routes.Progress.path} component={Progress}/>*/}
-                {/*<RouteWithSidebar exact path={Routes.Tables.path} component={Tables}/>*/}
-                {/*<RouteWithSidebar exact path={Routes.Tabs.path} component={Tabs}/>*/}
-                {/*<RouteWithSidebar exact path={Routes.Tooltips.path} component={Tooltips}/>*/}
-                {/*<RouteWithSidebar exact path={Routes.Toasts.path} component={Toasts}/>*/}
                 <Redirect to={Routes.NotFound.path}/>
             </Switch>
         </BrowserRouter>

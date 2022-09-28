@@ -3,9 +3,7 @@ import React from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleDown, faAngleUp, faArrowDown, faArrowUp, faEdit, faEllipsisH, faExternalLinkAlt, faEye, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import { Col, Row, Nav, Card, Image, Button, Table, Dropdown, ProgressBar, Pagination, ButtonGroup } from '@themesberg/react-bootstrap';
-import { Link } from 'react-router-dom';
 
-import { Routes } from "../routes";
 import { pageVisits, pageTraffic, pageRanking } from "../data/tables";
 import transactions from "../data/transactions";
 import commands from "../data/commands";
@@ -191,18 +189,13 @@ export const TransactionsTable = () => {
   const totalTransactions = transactions.length;
 
   const TableRow = (props) => {
-    const { invoiceNumber, subscription, price, issueDate, dueDate, status } = props;
+    const { subscription, price, issueDate, dueDate, status } = props;
     const statusVariant = status === "Paid" ? "success"
       : status === "Due" ? "warning"
         : status === "Canceled" ? "danger" : "primary";
 
     return (
       <tr>
-        <td>
-          <Card.Link as={Link} to={Routes.Invoice.path} className="fw-normal">
-            {invoiceNumber}
-          </Card.Link>
-        </td>
         <td>
           <span className="fw-normal">
             {subscription}
