@@ -21,7 +21,10 @@ import Sidebar from "./components/Sidebar";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import Preloader from "./components/Preloader";
-import AddAsset from "./pages/AddTransaction";
+import AddTransaction from "./pages/AddTransactions/AddTransaction";
+import NewInvestment from "./pages/AddTransactions/NewInvestment";
+import ReInvestment from "./pages/AddTransactions/ReInvestment";
+import Sale from "./pages/AddTransactions/Sale";
 
 
 const RouteWithLoader = ({component: Component, ...rest}) => {
@@ -83,11 +86,14 @@ const App = () => (
         <BrowserRouter>
             <Switch>
 
-                {/*is authenticated*/}
+                {/*if authenticated*/}
                 <RouteWithSidebar exact path={Routes.DashboardOverview.path} component={DashboardOverview}/>
                 <RouteWithSidebar exact path={Routes.Settings.path} component={Settings}/>
                 <RouteWithSidebar exact path={Routes.Transactions.path} component={Transactions}/>
-                <RouteWithSidebar exact path={Routes.AddAsset.path} component={AddAsset}/>
+                <RouteWithSidebar exact path={Routes.AddTransaction.path} component={AddTransaction}/>
+                <RouteWithSidebar exact path={Routes.NewInvestment.path} component={NewInvestment}/>
+                <RouteWithSidebar exact path={Routes.Sale.path} component={Sale}/>
+                <RouteWithSidebar exact path={Routes.ReInvestment.path} component={ReInvestment}/>
 
                 {/*auth*/}
                 <RouteWithLoader exact path={Routes.Signin.path} component={Signin}/>

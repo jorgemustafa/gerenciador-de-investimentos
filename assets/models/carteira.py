@@ -11,7 +11,6 @@ class Carteira(models.Model):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.get_valor_carteira()
-        self.get_percentual_categoria()
 
     def __str__(self):
         return self.user.get_full_name()
