@@ -1,9 +1,8 @@
-import React, {useEffect, useState} from "react"
+import React, {useEffect, useState} from 'react'
 import {Button, Col, Form, InputGroup, Row} from "@themesberg/react-bootstrap";
-import CurrencyInput from "react-currency-input-field";
-import DatePicker from "react-datepicker"
+import CurrencyInput from 'react-currency-input-field';
+import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import data from "bootstrap/js/src/dom/data";
 
 export default () => {
 
@@ -14,6 +13,7 @@ export default () => {
     const [taxa, setTaxa] = useState('');
     const [carteira, setCarteira] = useState('')
     const [message, setMessage] = useState('');
+
 
     // get carteira id
     useEffect(() => {
@@ -35,7 +35,7 @@ export default () => {
     let handleSubmit = async (e) => {
         e.preventDefault()
         try {
-            let res = await fetch('http://localhost:8000/assets/acaofii/',
+            let res = await fetch('http://localhost:8000/assets/acaoam/',
                 {
                     method: 'POST',
                     headers: {
@@ -87,7 +87,6 @@ export default () => {
                     <Form.Group id="data_operacao" className="mb-4">
                         <InputGroup>
                             <DatePicker
-                                placeholderText="Data da operação"
                                 className="form-control"
                                 dateFormat="dd/MM/yyyy"
                                 selected={dataOperacao}
@@ -102,10 +101,10 @@ export default () => {
                                 required
                                 name="cotacao"
                                 defaultValue={cotacao}
-                                placeholder="Cotação"
+                                placeholder="Cotação (em dolár)"
                                 decimalsLimit={2}
-                                prefix="R$"
-                                onChange={(e) => setCotacao(e.target.value.replace('R$', ''))}
+                                prefix="$"
+                                onChange={(e) => setCotacao(e.target.value.replace('$', ''))}
                             />
                         </InputGroup>
                     </Form.Group>
@@ -135,7 +134,7 @@ export default () => {
                         </InputGroup>
                     </Form.Group>
                     <div className="message pt-1 pb-2 text-center">Seu investimento está sendo de</div>
-                    <div className="text-center h3 pb-3">R$ {unidades * cotacao},00</div>
+                    <div className="text-center h3 pb-3">$ {unidades * cotacao},00</div>
                     <Button variant="primary" type="submit" className="w-100">
                         Concluir
                     </Button>
