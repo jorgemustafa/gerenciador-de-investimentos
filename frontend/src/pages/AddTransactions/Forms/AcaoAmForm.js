@@ -14,7 +14,6 @@ export default () => {
     const [carteira, setCarteira] = useState('')
     const [message, setMessage] = useState('');
 
-
     // get carteira id
     useEffect(() => {
         const loadData = () => {
@@ -32,6 +31,11 @@ export default () => {
         loadData()
     }, [])
 
+    let dataStrf = (date) => {
+        console.log(date.toLocaleDateString('pt-br'))
+        return date.toLocaleDateString('pt-br')
+    }
+
     let handleSubmit = async (e) => {
         e.preventDefault()
         try {
@@ -45,7 +49,7 @@ export default () => {
                     body: JSON.stringify({
                         nome: nome,
                         cotacao: cotacao,
-                        data_operacao: dataOperacao,
+                        data_operacao: dataStrf(dataOperacao),
                         unidades: unidades,
                         taxa: taxa,
                         carteira: carteira[0].id
@@ -134,7 +138,7 @@ export default () => {
                         </InputGroup>
                     </Form.Group>
                     <div className="message pt-1 pb-2 text-center">Seu investimento está sendo de</div>
-                    <div className="text-center h3 pb-3">$ {unidades * cotacao},00</div>
+                    <div className="text-center h3 pb-3">$ {(unidades * cotacao).toFixed(2)}</div>
                     <Button variant="primary" type="submit" className="w-100">
                         Concluir
                     </Button>

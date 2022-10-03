@@ -105,7 +105,11 @@ LANGUAGE_CODE = 'pt-br'
 
 TIME_ZONE = 'America/Sao_Paulo'
 
-USE_I18N = True
+DATE_FORMAT = '%m-%d-%Y'
+
+DATE_INPUT_FORMATS = ['%d/%m/%Y']
+
+USE_I18N = False
 
 USE_TZ = True
 
@@ -153,6 +157,8 @@ SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE = [
 SOCIAL_AUTH_GOOGLE_OAUTH2_EXTRA_DATA = ['first_name', 'last_name']
 
 REST_FRAMEWORK = {
+    'DATE_FORMAT': "%d/%m/%Y",
+    'DATE_INPUT_FORMATS': ("%d/%m/%Y",),
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
