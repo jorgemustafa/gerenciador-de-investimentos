@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react"
-import {Button, Col, Form, InputGroup, Row} from "@themesberg/react-bootstrap";
+import {Button, Col, Form, FormLabel, InputGroup, Row} from "@themesberg/react-bootstrap";
 import CurrencyInput from "react-currency-input-field";
 import DatePicker from "react-datepicker"
 import "react-datepicker/dist/react-datepicker.css";
@@ -32,7 +32,6 @@ export default () => {
     }, [])
 
     let dataStrf = (date) => {
-        console.log(date.toLocaleDateString('pt-br'))
         return date.toLocaleDateString('pt-br')
     }
 
@@ -89,15 +88,16 @@ export default () => {
                         </InputGroup>
                     </Form.Group>
                     <Form.Group id="data_operacao" className="mb-4">
-                        <InputGroup>
-                            <DatePicker
-                                placeholderText="Data da operação"
-                                className="form-control"
-                                dateFormat="dd/MM/yyyy"
-                                selected={dataOperacao}
-                                onChange={(data) => setDataOperacao(data)}
-                            />
-                        </InputGroup>
+                        <FormLabel className="data_operacao"> Data da Operação
+                            <InputGroup>
+                                <DatePicker
+                                    className="form-control"
+                                    dateFormat="dd/MM/yyyy"
+                                    selected={dataOperacao}
+                                    onChange={(data) => setDataOperacao(data)}
+                                />
+                            </InputGroup>
+                        </FormLabel>
                     </Form.Group>
                     <Form.Group id="cotacao" className="mb-4">
                         <InputGroup>

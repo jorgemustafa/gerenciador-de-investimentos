@@ -2,11 +2,18 @@ import React, {useEffect, useState} from "react";
 import {Col, Container, Row, FormSelect} from "@themesberg/react-bootstrap";
 import AcaoFiiForm from "./Forms/AcaoFiiForm";
 import AcaoAmForm from "./Forms/AcaoAmForm";
+import RendaFixaForm from "./Forms/RendaFixaForm";
 
 export default () => {
 
-    const categorias = [{name: 'Ações ou FIIs', value: 'AF'}, {name: 'Ações Americanas', value: 'AM'}, {name: 'Renda Fixa', value: 'RF'},
-        {name: 'Tesouro Direto', value: 'TD'}, {name: 'Criptomoedas', value: 'CM'}, {name: 'Propriedades', value: 'PP'}]
+    const categorias = [
+        {name: 'Ações ou FIIs', value: 'AF'},
+        {name: 'Ações Americanas', value: 'AM'},
+        {name: 'Renda Fixa', value: 'RF'},
+        {name: 'Tesouro Direto', value: 'TD'},
+        {name: 'Criptomoedas', value: 'CM'},
+        {name: 'Propriedades', value: 'PP'}
+    ]
 
     const [categoria, setCategoria] = useState('AF')
 
@@ -17,7 +24,7 @@ export default () => {
     const [criptoVisible, setCriptoVisible] = useState(false);
     const [propVisible, setPropVisible] = useState(false);
 
-    useEffect(()=> {
+    useEffect(() => {
         categoria === 'AF' ? setAcoesFiiVisible(true) : setAcoesFiiVisible(false)
         categoria === 'AM' ? setAcoesAmVisible(true) : setAcoesAmVisible(false)
         categoria === 'RF' ? setRendaFixaVisible(true) : setRendaFixaVisible(false)
@@ -27,8 +34,8 @@ export default () => {
     }, [categoria])
 
     const handleOnChange = (e) => {
-    setCategoria(e.target.value);
-  };
+        setCategoria(e.target.value);
+    };
 
     return (
         <main>
@@ -50,7 +57,7 @@ export default () => {
                                 </FormSelect>
                                 {acoesFiiVisible ? <AcaoFiiForm/> : <></>}
                                 {acoesAmVisible ? <AcaoAmForm/> : null}
-                                {rendaFixaVisible ? <>rendaFixaVisible</> : null}
+                                {rendaFixaVisible ? <RendaFixaForm/> : null}
                                 {tesouroVisible ? <>tesouroVisible</> : null}
                                 {criptoVisible ? <>criptoVisible</> : null}
                                 {propVisible ? <>propVisible</> : null}
