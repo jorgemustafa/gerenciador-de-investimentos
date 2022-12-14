@@ -1,15 +1,29 @@
-import React, {useEffect, useState} from "react"
-import {Button, Col, Form, FormLabel, InputGroup, Row} from "@themesberg/react-bootstrap";
-import CurrencyInput from "react-currency-input-field";
-import DatePicker from "react-datepicker"
+import React, {useEffect, useState} from 'react'
+import {Button, Col, Form, FormLabel, FormSelect, InputGroup, Row} from "@themesberg/react-bootstrap";
+import CurrencyInput from 'react-currency-input-field';
+import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
 export default () => {
 
+    const tipoAplicacoes = [
+        {name: 'Selecione a Aplicação', value: ''},
+        {name: 'PRÉ', value: 'pre'},
+        {name: 'CDI', value: 'cdi'},
+        {name: 'CDI+', value: 'cdi+'},
+        {name: 'IPCA+', value: 'ipca+'},
+        {name: 'SELIC', value: 'selic'},
+        {name: 'SELIC+', value: 'selic+'},
+        {name: 'IGPM+', value: 'igpm+'},
+        {name: 'IGPDI+', value: 'igpdi+'}
+    ]
+
     const [nome, setNome] = useState('');
-    const [cotacao, setCotacao] = useState('');
     const [dataOperacao, setDataOperacao] = useState(new Date());
-    const [unidades, setUnidades] = useState('');
+    const [valorInvestido, setValorInvestido] = useState('');
+    const [tipoAplicacao, setTipoAplicacao] = useState('');
+    const [rentabilidade, setRentabilidade] = useState('')
+    const [vencimento, setVencimento] = useState();
     const [taxa, setTaxa] = useState('');
     const [carteira, setCarteira] = useState('')
     const [message, setMessage] = useState('');
@@ -25,7 +39,7 @@ export default () => {
                 .then(response => response.json())
                 .then(data => setCarteira(data))
                 .catch(err => {
-                    console.log('AcaoFiiForm.js', err)
+                    console.log('TesouroDiretoForm.js', err)
                 })
         }
         loadData()
@@ -38,7 +52,7 @@ export default () => {
     let handleSubmit = async (e) => {
         e.preventDefault()
         try {
-            let res = await fetch('http://localhost:8000/assets/acaofii/',
+            let res = await fetch('http://localhost:8000/assets/tesouro/',
                 {
                     method: 'POST',
                     headers: {
@@ -47,9 +61,11 @@ export default () => {
                     },
                     body: JSON.stringify({
                         nome: nome,
-                        cotacao: cotacao,
                         data_operacao: dataStrf(dataOperacao),
-                        unidades: unidades,
+                        valor_investido: valorInvestido,
+                        tipo_aplicacao: tipoAplicacao,
+                        rentabilidade: rentabilidade,
+                        vencimento: dataStrf(vencimento),
                         taxa: taxa,
                         carteira: carteira[0].id
                     })
@@ -59,8 +75,10 @@ export default () => {
                 // clean fields
                 setNome('')
                 setDataOperacao(new Date())
-                setCotacao('')
-                setUnidades('')
+                setValorInvestido('')
+                setTipoAplicacao('')
+                setRentabilidade('')
+                setVencimento(new Date())
                 setTaxa('')
             } else {
                 setMessage(<p className="text-danger text-center">Um erro ocorreu: ${res.statusText}</p>)
@@ -80,52 +98,75 @@ export default () => {
                                 autoFocus
                                 required
                                 type="text"
-                                placeholder="Ticker do ativo"
+                                placeholder="Nome do Título"
                                 name="nome"
                                 value={nome}
                                 onChange={(e) => setNome(e.target.value)}
                             />
                         </InputGroup>
                     </Form.Group>
-                    <Form.Group id="data_operacao" className="mb-4">
-                        <FormLabel className="data_operacao"> Data da Operação
-                            <InputGroup>
-                                <DatePicker
-                                    className="form-control"
-                                    dateFormat="dd/MM/yyyy"
-                                    selected={dataOperacao}
-                                    onChange={(data) => setDataOperacao(data)}
-                                />
-                            </InputGroup>
-                        </FormLabel>
-                    </Form.Group>
-                    <Form.Group id="cotacao" className="mb-4">
+                    <Form.Group id="valor_investido" className="mb-4">
                         <InputGroup>
                             <CurrencyInput
                                 className="form-control"
                                 required
-                                name="cotacao"
-                                defaultValue={cotacao}
-                                placeholder="Cotação"
+                                name="valorInvestido"
+                                defaultValue={valorInvestido}
+                                placeholder="Valor Investido"
                                 decimalsLimit={2}
                                 prefix="R$"
-                                onChange={(e) => setCotacao(e.target.value.replace('R$', '').replaceAll(',', ''))}
+                                value={valorInvestido}
+                                onChange={(e) => setValorInvestido(e.target.value.replace('R$', '').replaceAll(',', ''))}
                             />
                         </InputGroup>
                     </Form.Group>
-                    <Form.Group id="unidades" className="mb-4">
+                    <Form.Group id="tipo_aplicacao" className="mb-4">
                         <InputGroup>
-                            <Form.Control
+                            <FormSelect
                                 autoFocus
                                 required
-                                type="number"
-                                placeholder="Unidades"
-                                name="unidades"
-                                value={unidades}
-                                onChange={(e) => setUnidades(e.target.value)}
+                                name="tipo_aplicacao"
+                                placeholder="Tipo de Aplicação"
+                                value={tipoAplicacao}
+                                onChange={(e) => setTipoAplicacao(e.target.value)}
+                            >
+                                {tipoAplicacoes.map(tipo =>
+                                    <option className="fw-bold" key={tipo.value} value={tipo.value}>
+                                        {tipo.name}
+                                    </option>
+                                )}
+                            </FormSelect>
+                        </InputGroup>
+                    </Form.Group>
+                    <Form.Group id="rentabilidade" className="mb-4">
+                        <InputGroup>
+                            <CurrencyInput
+                                className="form-control"
+                                required
+                                name="rentabilidade"
+                                defaultValue={rentabilidade}
+                                placeholder="Rentabilidade"
+                                decimalsLimit={3}
+                                suffix="%"
+                                maxLength={5}
+                                value={rentabilidade}
+                                onChange={(e) => setRentabilidade(e.target.value.replace('%', ''))}
                             />
                         </InputGroup>
                     </Form.Group>
+                    <FormLabel className="vencimento"> Vencimento
+                        <Form.Group id="vencimento" className="mb-4">
+                            <InputGroup>
+                                <DatePicker
+                                    className="form-control"
+                                    placeholder="Vencimento"
+                                    dateFormat="dd/MM/yyyy"
+                                    selected={vencimento}
+                                    onChange={(data) => setVencimento(data)}
+                                />
+                            </InputGroup>
+                        </Form.Group>
+                    </FormLabel>
                     <Form.Group id="taxa" className="mb-4">
                         <InputGroup>
                             <Form.Control
@@ -139,7 +180,7 @@ export default () => {
                         </InputGroup>
                     </Form.Group>
                     <div className="message pt-1 pb-2 text-center">Seu investimento está sendo de</div>
-                    <div className="text-center h3 pb-3">R$ {(unidades * cotacao).toFixed(2)}</div>
+                    <div className="text-center h3 pb-3">R$ {(1 * valorInvestido).toFixed(2)}</div>
                     <Button variant="primary" type="submit" className="w-100">
                         Concluir
                     </Button>

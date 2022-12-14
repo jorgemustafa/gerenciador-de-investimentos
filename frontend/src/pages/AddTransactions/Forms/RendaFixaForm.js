@@ -67,7 +67,7 @@ export default () => {
     let handleSubmit = async (e) => {
         e.preventDefault()
         try {
-            let res = await fetch('http://localhost:8000/assets/acaoam/',
+            let res = await fetch('http://localhost:8000/assets/fixa/',
                 {
                     method: 'POST',
                     headers: {
@@ -80,6 +80,7 @@ export default () => {
                         data_operacao: dataStrf(dataOperacao),
                         valor_investido: valorInvestido,
                         tipo_aplicacao: tipoAplicacao,
+                        vencimento: dataStrf(vencimento),
                         rentabilidade: rentabilidade,
                         liquidez: liquidez,
                         taxa: taxa,
@@ -95,7 +96,7 @@ export default () => {
                 setValorInvestido('')
                 setTipoAplicacao('')
                 setRentabilidade('')
-                setVencimento(new Date())
+                setVencimento()
                 setLiquidez('')
                 setTaxa('')
             } else {
@@ -116,6 +117,7 @@ export default () => {
                                 autoFocus
                                 required
                                 name="nome"
+                                value={nome}
                                 onChange={(e) => setNome(e.target.value)}
                             >
                                 {produtos.map(produto =>
@@ -161,7 +163,8 @@ export default () => {
                                 placeholder="Valor Investido"
                                 decimalsLimit={2}
                                 prefix="R$"
-                                onChange={(e) => setValorInvestido(e.target.value.replace('R$', ''))}
+                                value={valorInvestido}
+                                onChange={(e) => setValorInvestido(e.target.value.replace('R$', '').replaceAll(',', ''))}
                             />
                         </InputGroup>
                     </Form.Group>
@@ -172,6 +175,7 @@ export default () => {
                                     required
                                     name="tipo_aplicacao"
                                     placeholder="Tipo de Aplicação"
+                                    value={tipoAplicacao}
                                     onChange={(e) => setTipoAplicacao(e.target.value)}
                                 >
                                     {tipoAplicacoes.map(tipo =>
@@ -193,6 +197,7 @@ export default () => {
                                 decimalsLimit={3}
                                 suffix="%"
                                 maxLength={5}
+                                value={rentabilidade}
                                 onChange={(e) => setRentabilidade(e.target.value.replace('%', ''))}
                             />
                         </InputGroup>
@@ -222,6 +227,7 @@ export default () => {
                                 prefix="D+"
                                 maxLength={3}
                                 defaultValue={liquidez}
+                                value={liquidez}
                                 onChange={(e) => setLiquidez(e.target.value.replace('D+', ''))}
                             />
                         </InputGroup>

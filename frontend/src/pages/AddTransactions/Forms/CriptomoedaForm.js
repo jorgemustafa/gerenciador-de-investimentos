@@ -1,14 +1,14 @@
-import React, {useEffect, useState} from "react"
-import {Button, Col, Form, FormLabel, InputGroup, Row} from "@themesberg/react-bootstrap";
-import CurrencyInput from "react-currency-input-field";
-import DatePicker from "react-datepicker"
+import React, {useEffect, useState} from 'react'
+import {Button, Col, Form, FormLabel, FormSelect, InputGroup, Row} from "@themesberg/react-bootstrap";
+import CurrencyInput from 'react-currency-input-field';
+import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
 export default () => {
 
     const [nome, setNome] = useState('');
-    const [cotacao, setCotacao] = useState('');
     const [dataOperacao, setDataOperacao] = useState(new Date());
+    const [cotacao, setCotacao] = useState('');
     const [unidades, setUnidades] = useState('');
     const [taxa, setTaxa] = useState('');
     const [carteira, setCarteira] = useState('')
@@ -25,7 +25,7 @@ export default () => {
                 .then(response => response.json())
                 .then(data => setCarteira(data))
                 .catch(err => {
-                    console.log('AcaoFiiForm.js', err)
+                    console.log('CriptomoedaForm.js', err)
                 })
         }
         loadData()
@@ -38,7 +38,7 @@ export default () => {
     let handleSubmit = async (e) => {
         e.preventDefault()
         try {
-            let res = await fetch('http://localhost:8000/assets/acaofii/',
+            let res = await fetch('http://localhost:8000/assets/criptomoeda/',
                 {
                     method: 'POST',
                     headers: {
@@ -47,8 +47,8 @@ export default () => {
                     },
                     body: JSON.stringify({
                         nome: nome,
-                        cotacao: cotacao,
                         data_operacao: dataStrf(dataOperacao),
+                        cotacao: cotacao,
                         unidades: unidades,
                         taxa: taxa,
                         carteira: carteira[0].id
@@ -80,7 +80,7 @@ export default () => {
                                 autoFocus
                                 required
                                 type="text"
-                                placeholder="Ticker do ativo"
+                                placeholder="Nome da Criptomoeda"
                                 name="nome"
                                 value={nome}
                                 onChange={(e) => setNome(e.target.value)}

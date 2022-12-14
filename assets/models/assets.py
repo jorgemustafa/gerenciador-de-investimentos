@@ -95,7 +95,6 @@ class TesouroDireto(models.Model):
     nome = models.CharField(max_length=64, verbose_name='Nome do Título')
     data_operacao = models.DateField()
     valor_investido = models.DecimalField(max_digits=11, decimal_places=2)
-    unidades = models.DecimalField(max_digits=11, decimal_places=2)
     tipo_aplicacao = models.CharField(max_length=6, choices=TIPO_APLICACAO_CHOICES)
     rentabilidade = models.DecimalField(max_digits=11, decimal_places=2)
     vencimento = models.DateField()

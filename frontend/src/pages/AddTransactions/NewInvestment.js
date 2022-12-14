@@ -3,6 +3,8 @@ import {Col, Container, Row, FormSelect} from "@themesberg/react-bootstrap";
 import AcaoFiiForm from "./Forms/AcaoFiiForm";
 import AcaoAmForm from "./Forms/AcaoAmForm";
 import RendaFixaForm from "./Forms/RendaFixaForm";
+import TesouroDiretoForm from "./Forms/TesouroDiretoForm";
+import CriptomoedaForm from "./Forms/CriptomoedaForm";
 
 export default () => {
 
@@ -58,8 +60,8 @@ export default () => {
                                 {acoesFiiVisible ? <AcaoFiiForm/> : <></>}
                                 {acoesAmVisible ? <AcaoAmForm/> : null}
                                 {rendaFixaVisible ? <RendaFixaForm/> : null}
-                                {tesouroVisible ? <>tesouroVisible</> : null}
-                                {criptoVisible ? <>criptoVisible</> : null}
+                                {tesouroVisible ? <TesouroDiretoForm/> : null}
+                                {criptoVisible ? <CriptomoedaForm/> : null}
                                 {propVisible ? <>propVisible</> : null}
                             </div>
                         </Col>

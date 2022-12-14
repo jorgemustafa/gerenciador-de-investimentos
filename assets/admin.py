@@ -34,7 +34,7 @@ class RendaFixaAdmin(admin.ModelAdmin,):
 
 @admin.register(TesouroDireto)
 class TesouroDiretoAdmin(admin.ModelAdmin,):
-    list_display = ('nome', 'valor_investido', 'unidades', 'tipo_aplicacao', 'rentabilidade',
+    list_display = ('nome', 'valor_investido', 'tipo_aplicacao', 'rentabilidade',
                     'vencimento', 'taxa', 'carteira',)
     search_fields = ('nome', 'carteira__nome',)
     readonly_fields = ('inclusao',)

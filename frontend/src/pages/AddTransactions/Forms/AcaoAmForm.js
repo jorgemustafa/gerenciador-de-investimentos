@@ -109,7 +109,7 @@ export default () => {
                                 placeholder="Cotação (em dolár)"
                                 decimalsLimit={2}
                                 prefix="$"
-                                onChange={(e) => setCotacao(e.target.value.replace('$', ''))}
+                                onChange={(e) => setCotacao(e.target.value.replace('$', '').replaceAll(',', ''))}
                             />
                         </InputGroup>
                     </Form.Group>
