@@ -78,13 +78,12 @@ class Carteira(models.Model):
             class_name, color, id_ativo = self.get_class_and_id(ativo)
             ativo_dict = {'id': id_ativo, 'label': ativo.__class__._meta.verbose_name_plural,
                           'value': float(round(percentual, 2)), 'className': class_name, 'color': color}
-            # verifica se já tem na lista, se tiver adiciona, senão soma
+            # verifica se já tem na lista, se tiver soma, senão adiciona
             if valor_categoria:
-                for item in valor_categoria:
+                for index, item in enumerate(valor_categoria):
                     if item['id'] == ativo_dict['id']:
-                        index = valor_categoria.index(item)
                         valor_categoria[index]['value'] += float(round(percentual, 2))
-                    else:
+                    elif index == len(valor_categoria) - 1:
                         valor_categoria.append(ativo_dict)
                         break
             else:
