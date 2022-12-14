@@ -5,6 +5,7 @@ import AcaoAmForm from "./Forms/AcaoAmForm";
 import RendaFixaForm from "./Forms/RendaFixaForm";
 import TesouroDiretoForm from "./Forms/TesouroDiretoForm";
 import CriptomoedaForm from "./Forms/CriptomoedaForm";
+import PropriedadeForm from "./Forms/PropriedadeForm"
 
 export default () => {
 
@@ -62,7 +63,7 @@ export default () => {
                                 {rendaFixaVisible ? <RendaFixaForm/> : null}
                                 {tesouroVisible ? <TesouroDiretoForm/> : null}
                                 {criptoVisible ? <CriptomoedaForm/> : null}
-                                {propVisible ? <>propVisible</> : null}
+                                {propVisible ?  <PropriedadeForm/> : null}
                             </div>
                         </Col>
                     </Row>

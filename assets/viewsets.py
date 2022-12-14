@@ -2,10 +2,10 @@ from rest_framework import viewsets
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from assets.models.assets import AcaoFii, AcaoAmericana, RendaFixa, TesouroDireto, Criptomoeda
+from assets.models.assets import AcaoFii, AcaoAmericana, RendaFixa, TesouroDireto, Criptomoeda, Propriedade
 from assets.models.carteira import Carteira
 from assets.serializers import CarteiraSerializer, AcaoFiiSerializer, AcaoAmericanaSerializer, RendaFixaSerializer, \
-    TesouroDiretoSerializer, CriptomoedaSerializer
+    TesouroDiretoSerializer, CriptomoedaSerializer, PropriedadeSerializer
 
 
 class CarteiraViewSet(viewsets.ModelViewSet):
@@ -85,3 +85,17 @@ class CriptomoedaViewSet(APIView):
             cripto_serializer.save()
             return Response(200)
         return Response(cripto_serializer.errors)
+
+
+class PropriedadeViewSet(APIView):
+    def get(self, request):
+        prop = Propriedade.objects.all()
+        prop_serializer = PropriedadeSerializer(prop, many=True)
+        return Response(prop_serializer.data)
+
+    def post(self, request):
+        prop_serializer = PropriedadeSerializer(data=request.data)
+        if prop_serializer.is_valid():
+            prop_serializer.save()
+            return Response(200)
+        return Response(prop_serializer.errors)
