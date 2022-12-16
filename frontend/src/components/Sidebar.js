@@ -10,6 +10,7 @@ import {Link} from 'react-router-dom';
 import {Routes} from "../routes";
 import ReactHero from "../assets/img/technologies/react-hero-logo.svg";
 import ProfilePicture from "../assets/img/team/profile-picture-3.jpg";
+import {faUserCircle} from "@fortawesome/free-regular-svg-icons";
 
 export default (props = {}) => {
     const location = useLocation();
@@ -111,7 +112,7 @@ export default (props = {}) => {
                             <NavItem title="Resumo" link={Routes.DashboardOverview.path} icon={faChartPie}/>
                             <NavItem title="Extrato" icon={faHandHoldingUsd} link={Routes.Transactions.path}/>
                             <NavItem title="Adicionar" icon={faPlus} link={Routes.AddTransaction.path}/>
-                            <NavItem title="Configurações" icon={faCog} link={Routes.Settings.path}/>
+                            <NavItem title="Perfil" icon={faUserCircle} link={Routes.Settings.path}/>
                         </Nav>
                     </div>
                 </SimpleBar>
