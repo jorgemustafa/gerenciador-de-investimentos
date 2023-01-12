@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import {Col, Row, Card, Form, Button} from '@themesberg/react-bootstrap';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faPencilAlt} from "@fortawesome/free-solid-svg-icons";
-import ProfileModal from "./ProfileModal";
+import {EditEmail, EditLastName, EditName} from "./ProfileModal";
 
 
 export const GeneralInfoForm = () => {
@@ -30,7 +30,9 @@ export const GeneralInfoForm = () => {
     }, [])
 
     // modal
-    const [openModal, setOpenModal] = useState(false)
+    const [openModalName, setOpenModalName] = useState(false)
+    const [openModalLastName, setOpenModalLastName] = useState(false)
+    const [openModalEmail, setOpenModalEmail] = useState(false)
 
     return (
         <>
@@ -47,7 +49,7 @@ export const GeneralInfoForm = () => {
                             </Col>
                             <Col md={1} className="pt-5">
                                 <a onClick={() => {
-                                    setOpenModal(true)
+                                    setOpenModalName(true)
                                 }}
                                 >
                                     <FontAwesomeIcon icon={faPencilAlt} size="lg"/>
@@ -61,7 +63,7 @@ export const GeneralInfoForm = () => {
                             </Col>
                             <Col md={1} className="pt-5">
                                 <a onClick={() => {
-                                    setOpenModal(true)
+                                    setOpenModalLastName(true)
                                 }}
                                 >
                                     <FontAwesomeIcon icon={faPencilAlt} size="lg"/>
@@ -77,22 +79,27 @@ export const GeneralInfoForm = () => {
                             </Col>
                             <Col md={1} className="pt-5">
                                 <a onClick={() => {
-                                    setOpenModal(true)
+                                    setOpenModalEmail(true)
                                 }}
                                 >
                                     <FontAwesomeIcon icon={faPencilAlt} size="lg"/>
                                 </a>
                             </Col>
                         </Row>
-                        <div className="mt-3">
-                            <Button variant="primary" type="submit">Salvar</Button>
-                        </div>
                     </Form>
                 </Card.Body>
             </Card>
-            <ProfileModal
-                show={openModal}
-                close={() => {setOpenModal(false)}}
+            <EditName
+                show={openModalName}
+                close={() => {setOpenModalName(false)}}
+            />
+            <EditLastName
+                show={openModalLastName}
+                close={() => {setOpenModalLastName(false)}}
+            />
+            <EditEmail
+                show={openModalEmail}
+                close={() => {setOpenModalEmail(false)}}
             />
         </>
     )
