@@ -3,13 +3,12 @@ import SimpleBar from 'simplebar-react';
 import {useLocation} from "react-router-dom";
 import {CSSTransition} from 'react-transition-group';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {faChartPie, faCog, faHandHoldingUsd, faSignOutAlt, faTimes, faPlus} from "@fortawesome/free-solid-svg-icons";
+import {faChartPie, faHandHoldingUsd, faSignOutAlt, faTimes, faPlus} from "@fortawesome/free-solid-svg-icons";
 import {Nav, Badge, Image, Button, Accordion, Navbar} from '@themesberg/react-bootstrap';
 import {Link} from 'react-router-dom';
 
 import {Routes} from "../routes";
 import ReactHero from "../assets/img/technologies/react-hero-logo.svg";
-import ProfilePicture from "../assets/img/team/profile-picture-3.jpg";
 import {faUserCircle} from "@fortawesome/free-regular-svg-icons";
 
 export default (props = {}) => {
@@ -93,9 +92,6 @@ export default (props = {}) => {
                         <div
                             className="user-card d-flex d-md-none align-items-center justify-content-between justify-content-md-center pb-4">
                             <div className="d-flex align-items-center">
-                                <div className="user-avatar lg-avatar me-4">
-                                    <Image src={ProfilePicture} className="card-img-top rounded-circle border-white"/>
-                                </div>
                                 <div className="d-block">
                                     <h6>Hi, Jane</h6>
                                     <Button as={Link} variant="secondary" size="xs" to={Routes.Signin.path}

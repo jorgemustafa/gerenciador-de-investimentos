@@ -1,13 +1,10 @@
 import React, {Fragment, useEffect, useState} from "react";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faCog, faEnvelopeOpen, faSignOutAlt, faUserShield} from "@fortawesome/free-solid-svg-icons";
-import {faUserCircle} from "@fortawesome/free-regular-svg-icons";
-import {Nav, Image, Navbar, Dropdown, Container} from '@themesberg/react-bootstrap';
-import Profile3 from "../assets/img/team/profile-picture-3.jpg";
+import {faSignOutAlt} from "@fortawesome/free-solid-svg-icons";
+import {Nav, Navbar, Dropdown, Container} from '@themesberg/react-bootstrap';
 import {logout} from "../actions/auth";
-import {Link, Redirect} from "react-router-dom";
+import {Redirect} from "react-router-dom";
 import {connect} from "react-redux";
-import {Routes} from "../routes";
 
 
 const NavBar = ({logout}) => {
@@ -63,11 +60,8 @@ const NavBar = ({logout}) => {
                             <Dropdown as={Nav.Item}>
                                 <Dropdown.Toggle as={Nav.Link} className="pt-1 px-0">
                                     <div className="media d-flex align-items-center">
-                                        <Image src={Profile3} className="user-avatar md-avatar rounded-circle"/>
-                                        <div className="media-body ms-2 text-dark align-items-center d-none d-lg-block">
                                             <span
                                                 className="mb-0 font-small fw-bold">{userLogged.first_name} {userLogged.last_name}</span>
-                                        </div>
                                     </div>
                                 </Dropdown.Toggle>
                                 <Dropdown.Menu className="user-dropdown dropdown-menu-right mt-2">

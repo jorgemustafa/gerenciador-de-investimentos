@@ -24,6 +24,11 @@ export const EditName = (props) => {
                 })
             if (res.status === 200) {
                 setMessage(<p className="text-success text-center">Nome alterado com sucesso!</p>);
+                setTimeout(() => {
+                        window.location.reload()
+                    }, 1000
+                )
+
             } else {
                 setMessage(<p className="text-danger text-center">Um erro ocorreu: ${res.statusText}</p>)
             }
@@ -92,6 +97,10 @@ export const EditLastName = (props) => {
                 })
             if (res.status === 200) {
                 setMessage(<p className="text-success text-center">Sobrenome alterado com sucesso!</p>);
+                setTimeout(() => {
+                        window.location.reload()
+                    }, 1000
+                )
             } else {
                 setMessage(<p className="text-danger text-center">Um erro ocorreu: ${res.statusText}</p>)
             }
@@ -160,6 +169,10 @@ export const EditEmail = (props) => {
                 })
             if (res.status === 200) {
                 setMessage(<p className="text-success text-center">Email alterado com sucesso!</p>);
+                setTimeout(() => {
+                        window.location.reload()
+                    }, 1000
+                )
             } else {
                 setMessage(<p className="text-danger text-center">Um erro ocorreu: ${res.statusText}</p>)
             }
