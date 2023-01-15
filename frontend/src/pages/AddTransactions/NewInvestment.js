@@ -58,12 +58,15 @@ export default () => {
                                         </option>
                                     )}
                                 </FormSelect>
-                                {acoesFiiVisible ? <AcaoFiiForm/> : <></>}
-                                {acoesAmVisible ? <AcaoAmForm/> : null}
-                                {rendaFixaVisible ? <RendaFixaForm/> : null}
-                                {tesouroVisible ? <TesouroDiretoForm/> : null}
-                                {criptoVisible ? <CriptomoedaForm/> : null}
-                                {propVisible ?  <PropriedadeForm/> : null}
+                                {
+                                    acoesFiiVisible ? <AcaoFiiForm/> :
+                                        acoesAmVisible ? <AcaoAmForm/> :
+                                            rendaFixaVisible ? <RendaFixaForm/> :
+                                                tesouroVisible ? <TesouroDiretoForm/> :
+                                                    criptoVisible ? <CriptomoedaForm/> :
+                                                        propVisible ? <PropriedadeForm/> :
+                                                            null
+                                }
                             </div>
                         </Col>
                     </Row>

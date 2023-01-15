@@ -99,3 +99,8 @@ class PropriedadeViewSet(APIView):
             prop_serializer.save()
             return Response(200)
         return Response(prop_serializer.errors)
+
+class AssetsList(APIView):
+    def get(self, request):
+        assets = Carteira.objects.get(user=request.user).get_ativos_carteira(nome=True)
+        return Response(assets)
