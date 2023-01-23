@@ -15,7 +15,7 @@ class Carteira(models.Model):
     def __str__(self):
         return self.user.get_full_name()
 
-    def get_ativos_carteira(self, nome=False):
+    def get_ativos_carteira(self, json=False):
         categorias = [self.acaofii_set.all()]
         categorias += [self.acaoamericana_set.all()]
         categorias += [self.rendafixa_set.all()]
@@ -25,8 +25,11 @@ class Carteira(models.Model):
         ativos = []
         for categoria in categorias:
             for ativo in categoria:
-                if nome:
-                    ativos.append(ativo.nome)
+                if json:
+                    ativos.append({
+                        'name': ativo.nome,
+                        'type': ativo.__class__.__name__,
+                    })
                 else:
                     ativos.append(ativo)
         return ativos

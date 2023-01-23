@@ -1,4 +1,7 @@
+from django.core.exceptions import ValidationError
+from django.http import JsonResponse
 from rest_framework import viewsets
+from rest_framework.exceptions import NotFound
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
@@ -82,8 +85,11 @@ class CriptomoedaViewSet(APIView):
     def post(self, request):
         cripto_serializer = CriptomoedaSerializer(data=request.data)
         if cripto_serializer.is_valid():
-            cripto_serializer.save()
-            return Response(200)
+            try:
+                cripto_serializer.save()
+                return Response(200)
+            except ValidationError as msg:
+                return Response({'message': msg.message}, 400)
         return Response(cripto_serializer.errors)
 
 
@@ -102,5 +108,5 @@ class PropriedadeViewSet(APIView):
 
 class AssetsList(APIView):
     def get(self, request):
-        assets = Carteira.objects.get(user=request.user).get_ativos_carteira(nome=True)
+        assets = Carteira.objects.get(user=request.user).get_ativos_carteira(json=True)
         return Response(assets)

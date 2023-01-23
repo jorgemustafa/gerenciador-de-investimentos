@@ -62,11 +62,17 @@ export default () => {
                 setCotacao('')
                 setUnidades('')
                 setTaxa('')
+                console.log('200')
+                console.log(res)
             } else {
                 setMessage(<p className="text-danger text-center">Um erro ocorreu: ${res.statusText}</p>)
+                console.log('else')
+                console.log(res)
             }
         } catch (err) {
-            setMessage(<p className="text-danger text-center">Um erro ocorreu: ${err.message}</p>)
+            setMessage(<p className="text-danger text-center">Um erro ocorreu: ${err.detail}</p>)
+            console.log('catch')
+            console.log(err)
         }
     }
 
