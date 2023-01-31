@@ -4,9 +4,12 @@ import CurrencyInput from 'react-currency-input-field';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
-export default () => {
+export default (asset) => {
 
-    const [nome, setNome] = useState('');
+    // if asset has length bigger than 0, the request is Reinvestment, else NewInvestment
+    let nomeHide = asset.asset.length > 0;
+
+    const [nome, setNome] = useState(asset.asset);
     const [cotacao, setCotacao] = useState('');
     const [dataOperacao, setDataOperacao] = useState(new Date());
     const [unidades, setUnidades] = useState('');
@@ -25,7 +28,7 @@ export default () => {
                 .then(response => response.json())
                 .then(data => setCarteira(data))
                 .catch(err => {
-                    console.log('AcaoFiiForm.js', err)
+                    console.log('AcaoAmForm.js', err)
                 })
         }
         loadData()
@@ -84,6 +87,7 @@ export default () => {
                                 name="nome"
                                 value={nome}
                                 onChange={(e) => setNome(e.target.value)}
+                                hidden={nomeHide}
                             />
                         </InputGroup>
                     </Form.Group>
@@ -134,6 +138,7 @@ export default () => {
                                 placeholder="Taxas (opcional)"
                                 name="taxa"
                                 value={taxa}
+                                prefix="$"
                                 onChange={(e) => setTaxa(e.target.value)}
                             />
                         </InputGroup>

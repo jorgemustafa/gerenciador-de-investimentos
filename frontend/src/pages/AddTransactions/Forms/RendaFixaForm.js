@@ -4,7 +4,10 @@ import CurrencyInput from 'react-currency-input-field';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
-export default () => {
+export default (asset) => {
+
+    // if asset has length bigger than 0, the request is Reinvestment, else NewInvestment
+    let nomeHide = asset.asset.length > 0
 
     const produtos = [
         {name: 'Selecione um Produto', value: ''},
@@ -31,7 +34,7 @@ export default () => {
         {name: 'IGPDI+', value: 'igpdi+'}
     ]
 
-    const [nome, setNome] = useState('');
+    const [nome, setNome] = useState(asset.asset);
     const [emissor, setEmissor] = useState('');
     const [dataOperacao, setDataOperacao] = useState(new Date());
     const [valorInvestido, setValorInvestido] = useState('');
@@ -111,23 +114,39 @@ export default () => {
         <Row>
             <Col xs={12} className="ps-5 pe-5 align-items-center">
                 <Form className="mt-4" onSubmit={handleSubmit}>
-                    <Form.Group id="nome" className="mb-4">
-                        <InputGroup>
-                            <FormSelect
-                                autoFocus
-                                required
-                                name="nome"
-                                value={nome}
-                                onChange={(e) => setNome(e.target.value)}
-                            >
-                                {produtos.map(produto =>
-                                    <option className="fw-bold" key={produto.value} value={produto.value}>
-                                        {produto.name}
-                                    </option>
-                                )}
-                            </FormSelect>
-                        </InputGroup>
-                    </Form.Group>
+                    {nomeHide ?
+                        <Form.Group id="nome">
+                            <InputGroup>
+                                <Form.Control
+                                    autoFocus
+                                    required
+                                    type="text"
+                                    name="nome"
+                                    value={nome}
+                                    onChange={(e) => setNome(e.target.value)}
+                                    hidden={true}
+                                />
+                            </InputGroup>
+                        </Form.Group>
+                        :
+                        <Form.Group id="nome" className="mb-4">
+                            <InputGroup>
+                                <FormSelect
+                                    autoFocus
+                                    required
+                                    name="nome"
+                                    value={nome}
+                                    onChange={(e) => setNome(e.target.value)}
+                                >
+                                    {produtos.map(produto =>
+                                        <option className="fw-bold" key={produto.value} value={produto.value}>
+                                            {produto.name}
+                                        </option>
+                                    )}
+                                </FormSelect>
+                            </InputGroup>
+                        </Form.Group>
+                    }
                     <Form.Group id="emissor" className="mb-4">
                         <InputGroup>
                             <Form.Control
@@ -169,22 +188,22 @@ export default () => {
                         </InputGroup>
                     </Form.Group>
                     <Form.Group id="tipo_aplicacao" className="mb-4">
-                            <InputGroup>
-                                <FormSelect
-                                    autoFocus
-                                    required
-                                    name="tipo_aplicacao"
-                                    placeholder="Tipo de Aplicação"
-                                    value={tipoAplicacao}
-                                    onChange={(e) => setTipoAplicacao(e.target.value)}
-                                >
-                                    {tipoAplicacoes.map(tipo =>
-                                        <option className="fw-bold" key={tipo.value} value={tipo.value}>
-                                            {tipo.name}
-                                        </option>
-                                    )}
-                                </FormSelect>
-                            </InputGroup>
+                        <InputGroup>
+                            <FormSelect
+                                autoFocus
+                                required
+                                name="tipo_aplicacao"
+                                placeholder="Tipo de Aplicação"
+                                value={tipoAplicacao}
+                                onChange={(e) => setTipoAplicacao(e.target.value)}
+                            >
+                                {tipoAplicacoes.map(tipo =>
+                                    <option className="fw-bold" key={tipo.value} value={tipo.value}>
+                                        {tipo.name}
+                                    </option>
+                                )}
+                            </FormSelect>
+                        </InputGroup>
                     </Form.Group>
                     <Form.Group id="rentabilidade" className="mb-4">
                         <InputGroup>

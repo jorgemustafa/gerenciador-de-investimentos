@@ -4,14 +4,17 @@ import CurrencyInput from "react-currency-input-field";
 import DatePicker from "react-datepicker"
 import "react-datepicker/dist/react-datepicker.css";
 
-export default () => {
+export default (asset) => {
 
-    const [nome, setNome] = useState('');
+    // if asset has length bigger than 0, the request is Reinvestment, else NewInvestment
+    let nomeHide = asset.asset.length > 0;
+
+    const [nome, setNome] = useState(asset.asset);
     const [cotacao, setCotacao] = useState('');
     const [dataOperacao, setDataOperacao] = useState(new Date());
     const [unidades, setUnidades] = useState('');
     const [taxa, setTaxa] = useState('');
-    const [carteira, setCarteira] = useState('')
+    const [carteira, setCarteira] = useState('');
     const [message, setMessage] = useState('');
 
     // get carteira id
@@ -29,7 +32,7 @@ export default () => {
                 })
         }
         loadData()
-    }, [])
+    }, []);
 
     let dataStrf = (date) => {
         return date.toLocaleDateString('pt-br')
@@ -57,11 +60,11 @@ export default () => {
             if (res.status === 200) {
                 setMessage(<p className="text-success text-center">Ativo <b>{nome}</b> cadastrado com sucesso!</p>);
                 // clean fields
-                setNome('')
-                setDataOperacao(new Date())
-                setCotacao('')
-                setUnidades('')
-                setTaxa('')
+                setNome('');
+                setDataOperacao(new Date());
+                setCotacao('');
+                setUnidades('');
+                setTaxa('');
             } else {
                 setMessage(<p className="text-danger text-center">Um erro ocorreu: ${res.statusText}</p>)
             }
@@ -84,6 +87,7 @@ export default () => {
                                 name="nome"
                                 value={nome}
                                 onChange={(e) => setNome(e.target.value)}
+                                hidden={nomeHide}
                             />
                         </InputGroup>
                     </Form.Group>
@@ -122,6 +126,7 @@ export default () => {
                                 placeholder="Unidades"
                                 name="unidades"
                                 value={unidades}
+                                prefix="R$"
                                 onChange={(e) => setUnidades(e.target.value)}
                             />
                         </InputGroup>

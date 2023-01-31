@@ -4,9 +4,12 @@ import CurrencyInput from 'react-currency-input-field';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
-export default () => {
+export default (asset) => {
 
-    const [nome, setNome] = useState('');
+    // if asset has length bigger than 0, the request is Reinvestment, else NewInvestment
+    let nomeHide = asset.asset.length > 0;
+
+    const [nome, setNome] = useState(asset.asset);
     const [dataOperacao, setDataOperacao] = useState(new Date());
     const [cotacao, setCotacao] = useState('');
     const [unidades, setUnidades] = useState('');
@@ -62,17 +65,11 @@ export default () => {
                 setCotacao('')
                 setUnidades('')
                 setTaxa('')
-                console.log('200')
-                console.log(res)
             } else {
                 setMessage(<p className="text-danger text-center">Um erro ocorreu: ${res.statusText}</p>)
-                console.log('else')
-                console.log(res)
             }
         } catch (err) {
             setMessage(<p className="text-danger text-center">Um erro ocorreu: ${err.detail}</p>)
-            console.log('catch')
-            console.log(err)
         }
     }
 
@@ -90,6 +87,7 @@ export default () => {
                                 name="nome"
                                 value={nome}
                                 onChange={(e) => setNome(e.target.value)}
+                                hidden={nomeHide}
                             />
                         </InputGroup>
                     </Form.Group>

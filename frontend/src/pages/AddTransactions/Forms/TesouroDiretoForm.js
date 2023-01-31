@@ -4,7 +4,10 @@ import CurrencyInput from 'react-currency-input-field';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
-export default () => {
+export default (asset) => {
+
+    // if asset has length bigger than 0, the request is Reinvestment, else NewInvestment
+    let nomeHide = asset.asset.length > 0
 
     const tipoAplicacoes = [
         {name: 'Selecione a Aplicação', value: ''},
@@ -18,7 +21,7 @@ export default () => {
         {name: 'IGPDI+', value: 'igpdi+'}
     ]
 
-    const [nome, setNome] = useState('');
+    const [nome, setNome] = useState(asset.asset);
     const [dataOperacao, setDataOperacao] = useState(new Date());
     const [valorInvestido, setValorInvestido] = useState('');
     const [tipoAplicacao, setTipoAplicacao] = useState('');
@@ -102,6 +105,7 @@ export default () => {
                                 name="nome"
                                 value={nome}
                                 onChange={(e) => setNome(e.target.value)}
+                                 hidden={nomeHide}
                             />
                         </InputGroup>
                     </Form.Group>

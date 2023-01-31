@@ -59,12 +59,12 @@ export default () => {
                                     )}
                                 </FormSelect>
                                 {
-                                    acoesFiiVisible ? <AcaoFiiForm/> :
-                                        acoesAmVisible ? <AcaoAmForm/> :
-                                            rendaFixaVisible ? <RendaFixaForm/> :
-                                                tesouroVisible ? <TesouroDiretoForm/> :
-                                                    criptoVisible ? <CriptomoedaForm/> :
-                                                        propVisible ? <PropriedadeForm/> :
+                                    acoesFiiVisible ? <AcaoFiiForm asset=''/> :
+                                        acoesAmVisible ? <AcaoAmForm asset=''/> :
+                                            rendaFixaVisible ? <RendaFixaForm asset=''/> :
+                                                tesouroVisible ? <TesouroDiretoForm asset=''/> :
+                                                    criptoVisible ? <CriptomoedaForm asset=''/> :
+                                                        propVisible ? <PropriedadeForm asset=''/> :
                                                             null
                                 }
                             </div>
