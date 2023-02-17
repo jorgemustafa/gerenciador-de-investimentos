@@ -1,6 +1,7 @@
 from django.contrib import admin
 
-from assets.models.assets import AcaoFii, AcaoAmericana, RendaFixa, TesouroDireto, Criptomoeda, Propriedade, Carteira
+from assets.models.assets import AcaoFii, AcaoAmericana, RendaFixa, TesouroDireto, Criptomoeda, Propriedade, Carteira, \
+    B3AcaoFii
 
 
 @admin.register(Carteira)
@@ -51,4 +52,10 @@ class CriptomoedaAdmin(admin.ModelAdmin,):
 class PropriedadeAdmin(admin.ModelAdmin,):
     list_display = ('nome', 'data_operacao', 'valor_investido', 'taxa', 'carteira',)
     search_fields = ('nome', 'carteira__nome',)
+    readonly_fields = ('inclusao',)
+
+@admin.register(B3AcaoFii)
+class B3AcaoFiiAdmin(admin.ModelAdmin,):
+    list_display = ('ticker', 'nome', 'inclusao',)
+    search_fields = ('ticker', 'nome',)
     readonly_fields = ('inclusao',)

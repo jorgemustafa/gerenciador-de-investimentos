@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react"
-import {Button, Col, Form, FormLabel, InputGroup, Row} from "@themesberg/react-bootstrap";
+import {Button, Col, Form, FormLabel, FormSelect, InputGroup, Row} from "@themesberg/react-bootstrap";
 import CurrencyInput from "react-currency-input-field";
 import DatePicker from "react-datepicker"
 import "react-datepicker/dist/react-datepicker.css";
@@ -16,6 +16,7 @@ export default (asset) => {
     const [taxa, setTaxa] = useState('');
     const [carteira, setCarteira] = useState('');
     const [message, setMessage] = useState('');
+    const [listaAtivos, setListaAtivos] = useState([])
 
     // get carteira id
     useEffect(() => {
@@ -33,6 +34,24 @@ export default (asset) => {
         }
         loadData()
     }, []);
+
+
+    // get assets b3
+    useEffect(() => {
+        const loadData = () => {
+        }
+        fetch('http://localhost:8000/assets/list/b3/', {
+            headers: {
+                'Authorization': `JWT ${localStorage.getItem('access')}`
+            }
+        })
+            .then(response => response.json())
+            .then(data => setListaAtivos(data))
+            .catch(err => {
+                console.log('Reinvestment.js', err)
+            })
+        loadData()
+    }, [])
 
     let dataStrf = (date) => {
         return date.toLocaleDateString('pt-br')
@@ -58,7 +77,7 @@ export default (asset) => {
                     })
                 })
             if (res.status === 200) {
-                setMessage(<p className="text-success text-center">Ativo <b>{nome}</b> cadastrado com sucesso!</p>);
+                setMessage(<p className="text-success text-center">Ativo cadastrado com sucesso!</p>);
                 // clean fields
                 setNome('');
                 setDataOperacao(new Date());
@@ -79,16 +98,24 @@ export default (asset) => {
                 <Form className="mt-4" onSubmit={handleSubmit}>
                     <Form.Group id="nome" className="mb-4">
                         <InputGroup>
-                            <Form.Control
+                            <Form.Select
                                 autoFocus
                                 required
                                 type="text"
-                                placeholder="Ticker do ativo"
                                 name="nome"
                                 value={nome}
                                 onChange={(e) => setNome(e.target.value)}
                                 hidden={nomeHide}
-                            />
+                            >
+                                <option className="fw-bold" key="" value="">
+                                    "Ticker do ativo"
+                                </option>
+                                {listaAtivos.map(ativo =>
+                                    <option className="fw-bold" value={ativo.id}>
+                                        {ativo.ticker}
+                                    </option>
+                                )}
+                            </Form.Select>
                         </InputGroup>
                     </Form.Group>
                     <Form.Group id="data_operacao" className="mb-4">

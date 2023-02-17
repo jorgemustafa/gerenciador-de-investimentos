@@ -1,6 +1,10 @@
-# import yfinance as yf
-# import pandas as pd
-# import investpy as inv
+import investpy as inv
 
-# https://www.youtube.com/watch?v=ZxLJjUcP2LI&ab_channel=AnalistasQuant
-# cadastrar ativos por select
+from assets.models.assets import B3AcaoFii
+
+df = inv.stocks.get_stocks('brazil')
+df = df.reset_index()
+
+for index, row in df.iterrows():
+    B3AcaoFii.objects.create(ticker=row['symbol'], nome=row['name'])
+print('ativos cadastrados')

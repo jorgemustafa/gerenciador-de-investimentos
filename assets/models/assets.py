@@ -15,17 +15,26 @@ TIPO_APLICACAO_CHOICES = [
 ]
 
 
-# class ListaAcoesFiis(models.Model):
-#     ticker = models.CharField(max_length=10, verbose_name='Ticker')
-#     nome = models.CharField(max_length=50, verbose_name='Nome da Empresa')
-#     inclusao = models.DateTimeField(auto_now_add=True)
+class B3AcaoFii(models.Model):
+    """
+    Lista de ativos importados da via API da B3
+    """
+    ticker = models.CharField(max_length=10, verbose_name='Ticker')
+    nome = models.CharField(max_length=50, verbose_name='Nome da Empresa')
+    inclusao = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.ticker
+
+    # class Meta:
+
 
 
 class AcaoFii(models.Model):
     """
     Ações ou FIIs
     """
-    nome = models.CharField(max_length=64, verbose_name='Código')
+    nome = models.ForeignKey(B3AcaoFii, on_delete=models.CASCADE, verbose_name='Ticker')
     cotacao = models.DecimalField(max_digits=11, decimal_places=2)
     data_operacao = models.DateField()
     unidades = models.IntegerField()

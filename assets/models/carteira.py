@@ -85,7 +85,7 @@ class Carteira(models.Model):
             if valor_categoria:
                 for index, item in enumerate(valor_categoria):
                     if item['id'] == ativo_dict['id']:
-                        valor_categoria[index]['value'] += round(percentual, 2)
+                        valor_categoria[index]['value'] += float(round(percentual, 2))
                     elif index == len(valor_categoria) - 1:
                         valor_categoria.append(ativo_dict)
                         break

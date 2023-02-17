@@ -1,14 +1,12 @@
 from django.core.exceptions import ValidationError
-from django.http import JsonResponse
 from rest_framework import viewsets
-from rest_framework.exceptions import NotFound
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from assets.models.assets import AcaoFii, AcaoAmericana, RendaFixa, TesouroDireto, Criptomoeda, Propriedade
+from assets.models.assets import AcaoFii, AcaoAmericana, RendaFixa, TesouroDireto, Criptomoeda, Propriedade, B3AcaoFii
 from assets.models.carteira import Carteira
 from assets.serializers import CarteiraSerializer, AcaoFiiSerializer, AcaoAmericanaSerializer, RendaFixaSerializer, \
-    TesouroDiretoSerializer, CriptomoedaSerializer, PropriedadeSerializer
+    TesouroDiretoSerializer, CriptomoedaSerializer, PropriedadeSerializer, B3AcaoFiiSerializer
 
 
 class CarteiraViewSet(viewsets.ModelViewSet):
@@ -106,7 +104,15 @@ class PropriedadeViewSet(APIView):
             return Response(200)
         return Response(prop_serializer.errors)
 
+
 class AssetsList(APIView):
     def get(self, request):
         assets = Carteira.objects.get(user=request.user).get_ativos_carteira(json=True)
         return Response(assets)
+
+
+class B3AcaoFiiList(APIView):
+    def get(self, request):
+        b3af = B3AcaoFii.objects.all()
+        b3af_serializer = B3AcaoFiiSerializer(b3af, many=True)
+        return Response(b3af_serializer.data)
