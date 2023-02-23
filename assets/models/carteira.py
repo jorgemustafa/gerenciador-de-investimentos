@@ -4,16 +4,17 @@ from auth_users.models import UserAccount
 
 
 class Carteira(models.Model):
-    user = models.OneToOneField(UserAccount, on_delete=models.CASCADE)
+    user = models.ForeignKey(UserAccount, on_delete=models.CASCADE)
     valor_total = models.DecimalField(max_digits=20, decimal_places=2, default=0)
     inclusao = models.DateTimeField(auto_now_add=True)
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.get_valor_carteira()
+        if self.pk:
+            self.get_valor_carteira()
 
     def __str__(self):
-        return self.user.get_full_name()
+        return self.user.email
 
     def get_ativos_carteira(self, json=False):
         categorias = [self.acaofii_set.all()]
@@ -26,6 +27,8 @@ class Carteira(models.Model):
         for categoria in categorias:
             for ativo in categoria:
                 if json:
+                    if ativo.__class__.__name__ == 'AcaoFii':
+                        ativo = ativo.nome
                     ativos.append({
                         'name': ativo.nome,
                         'type': ativo.__class__.__name__,

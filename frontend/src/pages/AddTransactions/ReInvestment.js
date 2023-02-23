@@ -13,6 +13,7 @@ export default () => {
     const [selectedAsset, setSelectedAsset] = useState('');
     const assetType = selectedAsset.split(';')[0];
     const assetName = selectedAsset.split(';')[1];
+    const assetId = selectedAsset.split(';')[2];
 
     // variables of statement for turn on or off forms
     const [acoesFiiVisible, setAcoesFiiVisible] = useState(false);
@@ -76,7 +77,7 @@ export default () => {
                                                     --------------
                                                 </option>
                                                 {responseAtivos.map(ativo =>
-                                                    <option className="fw-bold" value={ativo.type + ';' + ativo.name}>
+                                                    <option className="fw-bold" value={ativo.type + ';' + ativo.name + ';' + ativo.id}>
                                                         {ativo.name}
                                                     </option>
                                                 )}
@@ -85,7 +86,7 @@ export default () => {
                                     </Form.Group>
                                 </Form>
                                 {
-                                    acoesFiiVisible ? <AcaoFiiForm asset={assetName}/> :
+                                    acoesFiiVisible ? <AcaoFiiForm asset={assetId}/> :
                                         acoesAmVisible ? <AcaoAmForm asset={assetName}/> :
                                             rendaFixaVisible ? <RendaFixaForm asset={assetName}/> :
                                                 tesouroVisible ? <TesouroDiretoForm asset={assetName}/> :

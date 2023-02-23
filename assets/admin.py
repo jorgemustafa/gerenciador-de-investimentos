@@ -56,6 +56,6 @@ class PropriedadeAdmin(admin.ModelAdmin,):
 
 @admin.register(B3AcaoFii)
 class B3AcaoFiiAdmin(admin.ModelAdmin,):
-    list_display = ('ticker', 'nome', 'inclusao',)
-    search_fields = ('ticker', 'nome',)
+    list_display = ('nome', 'empresa', 'inclusao',)
+    search_fields = ('nome', 'empresa',)
     readonly_fields = ('inclusao',)

@@ -14,8 +14,9 @@ class CarteiraViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         user = self.request.user
-        carteira = Carteira.objects.filter(user=user)
-        return carteira
+        if not user.carteira_set.all():
+            Carteira.objects.update_or_create(user=user)
+        return Carteira.objects.filter(user=user)
 
 
 class AcaoFiiViewSet(APIView):

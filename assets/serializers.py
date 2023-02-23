@@ -1,7 +1,7 @@
 from rest_framework import serializers
 
-from assets.models.assets import AcaoFii, Propriedade, Criptomoeda, TesouroDireto, RendaFixa, AcaoAmericana, Carteira, \
-    B3AcaoFii
+from assets.models.assets import AcaoFii, Propriedade, Criptomoeda, \
+    TesouroDireto, RendaFixa, AcaoAmericana, Carteira, B3AcaoFii
 
 
 class AcaoFiiSerializer(serializers.ModelSerializer):
@@ -42,7 +42,6 @@ class PropriedadeSerializer(serializers.ModelSerializer):
 
 class CarteiraSerializer(serializers.ModelSerializer):
     assets = serializers.ReadOnlyField(source='get_percentual_categoria')
-    # criptomoeda = CriptomoedaSerializer(many=True) puxar cripto atraves da carteira
 
     class Meta:
         model = Carteira
@@ -53,3 +52,6 @@ class B3AcaoFiiSerializer(serializers.ModelSerializer):
     class Meta:
         model = B3AcaoFii
         fields = '__all__'
+
+        def __init__(self, request):
+            self.fields['id'] = request

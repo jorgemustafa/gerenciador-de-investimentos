@@ -19,12 +19,12 @@ class B3AcaoFii(models.Model):
     """
     Lista de ativos importados da via API da B3
     """
-    ticker = models.CharField(max_length=10, verbose_name='Ticker')
-    nome = models.CharField(max_length=50, verbose_name='Nome da Empresa')
+    nome = models.CharField(max_length=10, verbose_name='Ticker')
+    empresa = models.CharField(max_length=50, verbose_name='Nome da Empresa')
     inclusao = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return self.ticker
+        return self.nome
 
     # class Meta:
 
@@ -43,7 +43,7 @@ class AcaoFii(models.Model):
     inclusao = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return self.nome
+        return self.nome.nome
 
     def get_valor_investido(self):
         return float(self.unidades * self.cotacao)

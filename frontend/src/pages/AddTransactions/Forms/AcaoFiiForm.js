@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react"
-import {Button, Col, Form, FormLabel, FormSelect, InputGroup, Row} from "@themesberg/react-bootstrap";
+import {Button, Col, Form, FormLabel, InputGroup, Row} from "@themesberg/react-bootstrap";
 import CurrencyInput from "react-currency-input-field";
 import DatePicker from "react-datepicker"
 import "react-datepicker/dist/react-datepicker.css";
@@ -16,7 +16,7 @@ export default (asset) => {
     const [taxa, setTaxa] = useState('');
     const [carteira, setCarteira] = useState('');
     const [message, setMessage] = useState('');
-    const [listaAtivos, setListaAtivos] = useState([])
+    const [listaAtivos, setListaAtivos] = useState([]);
 
     // get carteira id
     useEffect(() => {
@@ -48,7 +48,7 @@ export default (asset) => {
             .then(response => response.json())
             .then(data => setListaAtivos(data))
             .catch(err => {
-                console.log('Reinvestment.js', err)
+                console.log('AcaoFiiForm.js', err)
             })
         loadData()
     }, [])
@@ -79,7 +79,7 @@ export default (asset) => {
             if (res.status === 200) {
                 setMessage(<p className="text-success text-center">Ativo cadastrado com sucesso!</p>);
                 // clean fields
-                setNome('');
+                setNome('Ticker do ativo');
                 setDataOperacao(new Date());
                 setCotacao('');
                 setUnidades('');
@@ -108,11 +108,11 @@ export default (asset) => {
                                 hidden={nomeHide}
                             >
                                 <option className="fw-bold" key="" value="">
-                                    "Ticker do ativo"
+                                    Ticker do ativo
                                 </option>
                                 {listaAtivos.map(ativo =>
                                     <option className="fw-bold" value={ativo.id}>
-                                        {ativo.ticker}
+                                        {ativo.nome}
                                     </option>
                                 )}
                             </Form.Select>

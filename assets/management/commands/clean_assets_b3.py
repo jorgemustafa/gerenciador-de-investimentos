@@ -9,7 +9,7 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         for obj in B3AcaoFii.objects.all():
-            if len(obj.ticker) >= 7:
+            if len(obj.nome) >= 7:
                 obj.delete()
 
 

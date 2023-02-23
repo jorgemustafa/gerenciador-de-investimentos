@@ -12,5 +12,5 @@ class Command(BaseCommand):
         df = df.reset_index()
 
         for index, row in df.iterrows():
-            B3AcaoFii.objects.create(ticker=row['symbol'], nome=row['name'])
+            B3AcaoFii.objects.create(nome=row['symbol'], empresa=row['name'])
         print('ativos cadastrados')
