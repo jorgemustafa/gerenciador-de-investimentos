@@ -73,7 +73,7 @@ export default () => {
                                                 value={selectedAsset}
                                                 onChange={(e) => setSelectedAsset(e.target.value)}
                                             >
-                                                <option className="fw-bold" key="" value="">
+                                                <option className="fw-bold" key="" value="0">
                                                     --------------
                                                 </option>
                                                 {responseAtivos.map(ativo =>

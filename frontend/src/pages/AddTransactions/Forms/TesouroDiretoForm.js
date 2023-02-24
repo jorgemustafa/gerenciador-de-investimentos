@@ -6,8 +6,8 @@ import "react-datepicker/dist/react-datepicker.css";
 
 export default (asset) => {
 
-    // if asset has length bigger than 0, the request is Reinvestment, else NewInvestment
-    let nomeHide = asset.asset.length > 0
+    // if asset the request is Reinvestment, else NewInvestment
+    let nomeHide = !!asset.asset;
 
     const tipoAplicacoes = [
         {name: 'Selecione a Aplicação', value: ''},

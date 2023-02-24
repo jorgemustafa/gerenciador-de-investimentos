@@ -27,11 +27,10 @@ class Carteira(models.Model):
         for categoria in categorias:
             for ativo in categoria:
                 if json:
-                    if ativo.__class__.__name__ == 'AcaoFii':
-                        ativo = ativo.nome
                     ativos.append({
-                        'name': ativo.nome,
-                        'type': ativo.__class__.__name__,
+                        'id': int(ativo.id),
+                        'name': str(ativo.nome),
+                        'type': str(ativo.__class__.__name__),
                     })
                 else:
                     ativos.append(ativo)
