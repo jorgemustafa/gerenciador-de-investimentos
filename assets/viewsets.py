@@ -108,7 +108,7 @@ class PropriedadeViewSet(APIView):
 
 class AssetsList(APIView):
     def get(self, request):
-        assets = Carteira.objects.get(user=request.user).get_ativos_carteira(json=True)
+        assets = Carteira.objects.get(user=request.user).get_ativos_carteira(json=True, unique=True)
         return Response(assets)
 
 

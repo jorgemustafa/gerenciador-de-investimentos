@@ -16,7 +16,7 @@ class Carteira(models.Model):
     def __str__(self):
         return self.user.email
 
-    def get_ativos_carteira(self, json=False):
+    def get_ativos_carteira(self, json=False, unique=False):
         categorias = [self.acaofii_set.all()]
         categorias += [self.acaoamericana_set.all()]
         categorias += [self.rendafixa_set.all()]
@@ -25,7 +25,8 @@ class Carteira(models.Model):
         categorias += [self.propriedade_set.all()]
         ativos = []
         for categoria in categorias:
-            for ativo in categoria:
+            qs = categoria.filter().distinct('nome') if unique else categoria
+            for ativo in qs:
                 if json:
                     ativos.append({
                         'id': int(ativo.id),
