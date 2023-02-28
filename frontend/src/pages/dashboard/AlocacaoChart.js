@@ -5,6 +5,7 @@ import React, {useEffect, useState} from "react";
 export const AlocacaoChart = () => {
 
     const [carteira, setCarteira] = useState([])
+
     useEffect(() => {
         const loadData = () => {
             fetch('http://localhost:8000/assets/carteira/', {

@@ -117,3 +117,10 @@ class B3AcaoFiiList(APIView):
         b3af = B3AcaoFii.objects.all()
         b3af_serializer = B3AcaoFiiSerializer(b3af, many=True)
         return Response(b3af_serializer.data)
+
+
+class DesempenhoViewSet(APIView):
+    def get(self, request):
+        carteira = request.user.carteira_set.get()
+        desempenho = carteira.get_desempenho()
+        return Response(desempenho)

@@ -1,6 +1,5 @@
 from django.db import models
 
-from assets.models.utils import get_desempenho_geral
 from auth_users.models import UserAccount
 
 
@@ -14,7 +13,6 @@ class Carteira(models.Model):
         super().__init__(*args, **kwargs)
         if self.pk:
             self.get_valor_carteira()
-            self.get_desempenho()
 
     def __str__(self):
         return self.user.email
@@ -49,7 +47,20 @@ class Carteira(models.Model):
         return self.valor_total
 
     def get_desempenho(self):
-        return get_desempenho_geral(ativos=self.get_ativos_carteira())
+        carteira_acoes = []
+        for ativo in self.get_ativos_carteira():
+            if ativo.__class__.__name__ == 'AcaoFii':
+                carteira_acoes.append(ativo)
+        desempenho_acoes = self.get_desempenho_acoes(carteira_acoes)
+        return desempenho_acoes
+
+    def get_desempenho_acoes(self, carteira_acoes):
+        valor = 0
+        for acao in carteira_acoes:
+            valor += (acao.nome.preco_fechamento - acao.cotacao) * acao.unidades
+        percentual = float(valor) / self.get_valor_carteira() * 100
+        desempenho = {'value': round(valor, 2), 'percent': round(percentual, 2)}
+        return desempenho
 
     @staticmethod
     def get_class_and_id(ativo):

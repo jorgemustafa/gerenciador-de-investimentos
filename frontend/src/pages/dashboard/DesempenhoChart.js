@@ -16,19 +16,19 @@ export const SalesValueWidget = (props) => {
           <h5 className="fw-normal mb-2">
             {title}
           </h5>
-          <h3>${value}</h3>
+          <h3>R$ {value}</h3>
           <small className="fw-bold mt-2">
-            <span className="me-2">Yesterday</span>
+            <span className="me-2">Desde o Início</span>
             <FontAwesomeIcon icon={percentageIcon} className={`${percentageColor} me-1`} />
             <span className={percentageColor}>
               {percentage}%
             </span>
           </small>
         </div>
-        <div className="d-flex ms-auto">
-          <Button variant="secondary" size="sm" className="me-2">Month</Button>
-          <Button variant="primary" size="sm" className="me-3">Week</Button>
-        </div>
+        {/*<div className="d-flex ms-auto">*/}
+        {/*  <Button variant="secondary" size="sm" className="me-2">Month</Button>*/}
+        {/*  <Button variant="primary" size="sm" className="me-3">Week</Button>*/}
+        {/*</div>*/}
       </Card.Header>
       <Card.Body className="p-2">
         <SalesValueChart />
