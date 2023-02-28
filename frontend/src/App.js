@@ -1,5 +1,5 @@
-import React, {useState, useEffect} from 'react';
-import {Route, Switch, Redirect, BrowserRouter} from "react-router-dom";
+import React, {useEffect, useState} from 'react';
+import {BrowserRouter, Redirect, Route, Switch} from "react-router-dom";
 import {Routes} from "./routes";
 import {Provider} from "react-redux";
 import store from './store'
@@ -40,7 +40,6 @@ const RouteWithLoader = ({component: Component, ...rest}) => {
     );
 };
 
-// const isAuthenticated = true
 
 const RouteWithSidebar = ({component: Component, ...rest}) => {
     const [loaded, setLoaded] = useState(false);
@@ -65,7 +64,7 @@ const RouteWithSidebar = ({component: Component, ...rest}) => {
         <Route {...rest} render={props => (
             localStorage.getItem('access') ? (
                 <>
-                    <Preloader show={loaded ? false : true}/>
+                    <Preloader show={!loaded}/>
                     <Sidebar/>
 
                     <main className="content">

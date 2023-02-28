@@ -1,4 +1,3 @@
-from django.core.exceptions import ValidationError
 from django.db import models
 
 from assets.models.carteira import Carteira
@@ -21,13 +20,11 @@ class B3AcaoFii(models.Model):
     """
     nome = models.CharField(max_length=10, verbose_name='Ticker')
     empresa = models.CharField(max_length=50, verbose_name='Nome da Empresa')
+    preco_fechamento = models.DecimalField(max_digits=11, decimal_places=2, default=0)
     inclusao = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.nome
-
-    # class Meta:
-
 
 
 class AcaoFii(models.Model):

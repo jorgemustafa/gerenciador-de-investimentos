@@ -1,17 +1,20 @@
 from django.db import models
 
+from assets.models.utils import get_desempenho_geral
 from auth_users.models import UserAccount
 
 
 class Carteira(models.Model):
     user = models.ForeignKey(UserAccount, on_delete=models.CASCADE)
     valor_total = models.DecimalField(max_digits=20, decimal_places=2, default=0)
+    desempenho = models.DecimalField(max_digits=4, decimal_places=2, default=0)
     inclusao = models.DateTimeField(auto_now_add=True)
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         if self.pk:
             self.get_valor_carteira()
+            self.get_desempenho()
 
     def __str__(self):
         return self.user.email
@@ -44,6 +47,9 @@ class Carteira(models.Model):
         self.valor_total = float(self.valor_total)
         self.save()
         return self.valor_total
+
+    def get_desempenho(self):
+        return get_desempenho_geral(ativos=self.get_ativos_carteira())
 
     @staticmethod
     def get_class_and_id(ativo):
