@@ -14,7 +14,8 @@ TIPO_APLICACAO_CHOICES = [
 ]
 
 
-class B3AcaoFii(models.Model):
+# list models
+class ListAcaoFii(models.Model):
     """
     Lista de ativos importados da via API da B3
     """
@@ -26,12 +27,49 @@ class B3AcaoFii(models.Model):
     def __str__(self):
         return self.nome
 
+    class Meta:
+        verbose_name_plural = 'IP Ações e Fiis'
+        verbose_name = 'IP Ação ou Fii'
 
+
+class ListAcaoAmericana(models.Model):
+    """
+    Lista de ativos americanos importados da via API do InvestPy
+    """
+    nome = models.CharField(max_length=10, verbose_name='Ticker')
+    empresa = models.CharField(max_length=50, verbose_name='Nome da Empresa')
+    preco_fechamento = models.DecimalField(max_digits=11, decimal_places=2, default=0)
+    inclusao = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.nome
+
+    class Meta:
+        verbose_name_plural = 'IP Ações Americanas'
+        verbose_name = 'IP Ação Americana '
+
+
+class ListCriptomoeda(models.Model):
+    """
+    Lista de criptomoedas importados da via API do InvestPy
+    """
+    nome = models.CharField(max_length=10, verbose_name='Ticker')
+    preco_fechamento = models.DecimalField(max_digits=11, decimal_places=2, default=0)
+    inclusao = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.nome
+
+    class Meta:
+        verbose_name_plural = 'IP Criptomoedas'
+        verbose_name = 'IP Criptomoedas'
+
+# usable models
 class AcaoFii(models.Model):
     """
     Ações ou FIIs
     """
-    nome = models.ForeignKey(B3AcaoFii, on_delete=models.CASCADE, verbose_name='Ticker')
+    nome = models.ForeignKey(ListAcaoFii, on_delete=models.CASCADE, verbose_name='Ticker')
     cotacao = models.DecimalField(max_digits=11, decimal_places=2)
     data_operacao = models.DateField()
     unidades = models.IntegerField()
@@ -51,7 +89,7 @@ class AcaoFii(models.Model):
 
 
 class AcaoAmericana(models.Model):
-    nome = models.CharField(max_length=64, verbose_name='Código')
+    nome = models.ForeignKey(ListAcaoAmericana, on_delete=models.CASCADE, verbose_name='Ticker')
     cotacao = models.DecimalField(max_digits=11, decimal_places=2)  # em dólar
     data_operacao = models.DateField()
     unidades = models.DecimalField(max_digits=11, decimal_places=2)
@@ -60,7 +98,7 @@ class AcaoAmericana(models.Model):
     inclusao = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return self.nome
+        return self.nome.nome
 
     def get_valor_investido(self):
         return float(self.unidades * self.cotacao)
@@ -126,7 +164,7 @@ class TesouroDireto(models.Model):
 
 
 class Criptomoeda(models.Model):
-    nome = models.CharField(max_length=64)
+    nome = models.ForeignKey(ListCriptomoeda, on_delete=models.CASCADE, verbose_name='Ticker')
     data_operacao = models.DateField()
     cotacao = models.DecimalField(max_digits=11, decimal_places=2)
     unidades = models.DecimalField(max_digits=13, decimal_places=10)

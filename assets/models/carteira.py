@@ -1,3 +1,5 @@
+from collections import Counter
+
 from django.db import models
 
 from auth_users.models import UserAccount
@@ -47,18 +49,32 @@ class Carteira(models.Model):
         return self.valor_total
 
     def get_desempenho(self):
-        carteira_acoes = []
-        for ativo in self.get_ativos_carteira():
-            if ativo.__class__.__name__ == 'AcaoFii':
-                carteira_acoes.append(ativo)
-        desempenho_acoes = self.get_desempenho_acoes(carteira_acoes)
-        return desempenho_acoes
+        todos_ativos = self.get_ativos_carteira()
+        carteira_stocks = []
+        carteira_acoes_fiis = []
+        carteira_criptos = []
 
-    def get_desempenho_acoes(self, carteira_acoes):
+
+        for ativo in todos_ativos:
+            classe = ativo.__class__.__name__
+            if classe == 'AcaoFii':
+                carteira_acoes_fiis.append(ativo)
+            if classe == 'AcaoAmericana':
+                carteira_stocks.append(ativo)
+            if classe == 'Criptomoeda':
+                carteira_criptos.append(ativo)
+
+        desempenho = self.get_desempenho_percent_valor(carteira_acoes_fiis)
+        desempenho2 = self.get_desempenho_percent_valor(carteira_stocks)
+        # desempenho += self.get_desempenho_cripto(carteira_acoes_fiis)
+        desempenho_geral = {k: desempenho.get(k, 0) + desempenho2.get(k, 0) for k in set(desempenho) & set(desempenho2)}
+        return desempenho_geral
+
+    def get_desempenho_percent_valor(self, carteira):
         valor = 0
-        for acao in carteira_acoes:
-            valor += (acao.nome.preco_fechamento - acao.cotacao) * acao.unidades
-        percentual = float(valor) / self.get_valor_carteira() * 100
+        for ativo in carteira:
+            valor += (ativo.nome.preco_fechamento - ativo.cotacao) * ativo.unidades
+        percentual = float(valor) / self.get_valor_carteira() * 100 if self.get_valor_carteira() else 0
         desempenho = {'value': round(valor, 2), 'percent': round(percentual, 2)}
         return desempenho
 

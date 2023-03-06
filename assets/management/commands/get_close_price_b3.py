@@ -4,16 +4,16 @@ import yfinance as yf
 from django.core.exceptions import ValidationError
 from django.core.management.base import BaseCommand
 
-from assets.models.assets import B3AcaoFii
+from assets.models.assets import ListAcaoFii
 
 
 class Command(BaseCommand):
-    help = 'Clean objs in B3AcaoFiis, will keep only Stocks and Fiis'
+    help = 'Get close price for assets in B3'
 
     def handle(self, *args, **options):
-        carteira_sa = [f'{acao.nome}.SA' for acao in B3AcaoFii.objects.all()]
-        df = yf.download(tickers=carteira_sa, period='1d')
-        for acao in B3AcaoFii.objects.all():
+        carteira_sa = [f'{acao.nome}.SA' for acao in ListAcaoFii.objects.all()]
+        df = yf.download(tickers=carteira_sa, period='2d')
+        for acao in ListAcaoFii.objects.all():
             try:
                 acao.preco_fechamento = round(df['Adj Close'].iloc[0][f'{acao.nome}.SA'], 2)
                 acao.save()

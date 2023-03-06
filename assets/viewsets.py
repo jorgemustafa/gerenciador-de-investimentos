@@ -3,7 +3,7 @@ from rest_framework import viewsets
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from assets.models.assets import AcaoFii, AcaoAmericana, RendaFixa, TesouroDireto, Criptomoeda, Propriedade, B3AcaoFii
+from assets.models.assets import AcaoFii, AcaoAmericana, RendaFixa, TesouroDireto, Criptomoeda, Propriedade, ListAcaoFii
 from assets.models.carteira import Carteira
 from assets.serializers import CarteiraSerializer, AcaoFiiSerializer, AcaoAmericanaSerializer, RendaFixaSerializer, \
     TesouroDiretoSerializer, CriptomoedaSerializer, PropriedadeSerializer, B3AcaoFiiSerializer
@@ -114,7 +114,7 @@ class AssetsList(APIView):
 
 class B3AcaoFiiList(APIView):
     def get(self, request):
-        b3af = B3AcaoFii.objects.all()
+        b3af = ListAcaoFii.objects.all()
         b3af_serializer = B3AcaoFiiSerializer(b3af, many=True)
         return Response(b3af_serializer.data)
 
