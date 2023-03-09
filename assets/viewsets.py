@@ -3,10 +3,12 @@ from rest_framework import viewsets
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from assets.models.assets import AcaoFii, AcaoAmericana, RendaFixa, TesouroDireto, Criptomoeda, Propriedade, ListAcaoFii
+from assets.models.assets import AcaoFii, AcaoAmericana, RendaFixa, TesouroDireto, Criptomoeda, Propriedade, \
+    ListAcaoFii, ListAcaoAmericana
 from assets.models.carteira import Carteira
 from assets.serializers import CarteiraSerializer, AcaoFiiSerializer, AcaoAmericanaSerializer, RendaFixaSerializer, \
-    TesouroDiretoSerializer, CriptomoedaSerializer, PropriedadeSerializer, B3AcaoFiiSerializer
+    TesouroDiretoSerializer, CriptomoedaSerializer, PropriedadeSerializer, B3AcaoFiiSerializer, \
+    ListAcaoAmericanaSerializer
 
 
 class CarteiraViewSet(viewsets.ModelViewSet):
@@ -117,6 +119,13 @@ class B3AcaoFiiList(APIView):
         b3af = ListAcaoFii.objects.all()
         b3af_serializer = B3AcaoFiiSerializer(b3af, many=True)
         return Response(b3af_serializer.data)
+
+
+class AcaoAmericanaList(APIView):
+    def get(self, request):
+        am = ListAcaoAmericana.objects.all()
+        am_serializer = ListAcaoAmericanaSerializer(am, many=True)
+        return Response(am_serializer.data)
 
 
 class DesempenhoViewSet(APIView):

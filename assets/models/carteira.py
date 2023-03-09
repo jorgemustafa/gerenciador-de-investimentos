@@ -1,5 +1,3 @@
-from collections import Counter
-
 from django.db import models
 
 from auth_users.models import UserAccount
@@ -31,11 +29,18 @@ class Carteira(models.Model):
             qs = categoria.filter().distinct('nome') if unique else categoria
             for ativo in qs:
                 if json:
-                    ativos.append({
-                        'id': int(ativo.id),
-                        'name': str(ativo.nome),
-                        'type': str(ativo.__class__.__name__),
-                    })
+                    try:
+                        ativos.append({
+                            'id': ativo.nome.id,
+                            'name': str(ativo.nome),
+                            'type': str(ativo.__class__.__name__),
+                        })
+                    except AttributeError:
+                        ativos.append({
+                            'id': int(ativo.id),
+                            'name': str(ativo.nome),
+                            'type': str(ativo.__class__.__name__),
+                        })
                 else:
                     ativos.append(ativo)
         return ativos
@@ -46,14 +51,13 @@ class Carteira(models.Model):
             self.valor_total += ativo.get_valor_investido()
         self.valor_total = float(self.valor_total)
         self.save()
-        return self.valor_total
+        return round(self.valor_total, 2)
 
     def get_desempenho(self):
         todos_ativos = self.get_ativos_carteira()
         carteira_stocks = []
         carteira_acoes_fiis = []
         carteira_criptos = []
-
 
         for ativo in todos_ativos:
             classe = ativo.__class__.__name__
@@ -68,6 +72,7 @@ class Carteira(models.Model):
         desempenho2 = self.get_desempenho_percent_valor(carteira_stocks)
         # desempenho += self.get_desempenho_cripto(carteira_acoes_fiis)
         desempenho_geral = {k: desempenho.get(k, 0) + desempenho2.get(k, 0) for k in set(desempenho) & set(desempenho2)}
+        desempenho_geral['percent'] = round(desempenho_geral['percent'], 2)
         return desempenho_geral
 
     def get_desempenho_percent_valor(self, carteira):
@@ -116,15 +121,18 @@ class Carteira(models.Model):
             percentual = (ativo.get_valor_investido() / self.valor_total) * 100
             class_name, color, id_ativo = self.get_class_and_id(ativo)
             ativo_dict = {'id': id_ativo, 'label': ativo.__class__._meta.verbose_name_plural,
-                          'value': float(round(percentual, 2)), 'className': class_name, 'color': color}
+                          'value': percentual, 'className': class_name, 'color': color}
             # verifica se já tem na lista, se tiver soma, senão adiciona
             if valor_categoria:
                 for index, item in enumerate(valor_categoria):
                     if item['id'] == ativo_dict['id']:
-                        valor_categoria[index]['value'] += float(round(percentual, 2))
+                        valor_categoria[index]['value'] += percentual
                     elif index == len(valor_categoria) - 1:
                         valor_categoria.append(ativo_dict)
                         break
             else:
                 valor_categoria.append(ativo_dict)
+        # round percents
+        for classe in valor_categoria:
+            classe['value'] = round(classe['value'], 2)
         return valor_categoria
