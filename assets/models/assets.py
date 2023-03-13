@@ -1,6 +1,7 @@
-from django.db import models
+from django.db import models, transaction
 
 from assets.models.carteira import Carteira
+from assets.models.extrato import Extrato
 
 TIPO_APLICACAO_CHOICES = [
     ('pre', 'PRÉ'),
@@ -64,6 +65,7 @@ class ListCriptomoeda(models.Model):
         verbose_name_plural = 'IP Criptomoedas'
         verbose_name = 'IP Criptomoedas'
 
+
 # usable models
 class AcaoFii(models.Model):
     """
@@ -86,6 +88,19 @@ class AcaoFii(models.Model):
     class Meta:
         verbose_name_plural = 'Ações e FIIs'
         verbose_name = 'Ação e FII'
+
+    @transaction.atomic
+    def save(self, *args, **kwargs):
+        created = not self.pk
+        super().save(*args, **kwargs)
+        if created:
+            Extrato.objects.create(
+                objeto=self,
+                tipo_transacao='compra',
+                unidades=self.unidades,
+                cotacao=self.cotacao,
+                saldo=self.unidades * self.cotacao,
+            )
 
 
 class AcaoAmericana(models.Model):
@@ -173,7 +188,7 @@ class Criptomoeda(models.Model):
     inclusao = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return self.nome
+        return self.nome.nome
 
     def get_valor_investido(self):
         return float(self.unidades * self.cotacao)

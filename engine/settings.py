@@ -1,10 +1,10 @@
 import os
 from datetime import timedelta
 from pathlib import Path
-from django.utils.encoding import force_str
-import django
 
+import django
 from decouple import config
+from django.utils.encoding import force_str
 
 django.utils.encoding.force_text = force_str
 
@@ -175,3 +175,7 @@ SIMPLE_JWT = {
 }
 
 AUTH_USER_MODEL = 'auth_users.UserAccount'
+
+BINANCE_KEY = config('BINANCE_KEY')
+
+BINANCE_SECRET = config('BINANCE_SECRET')

@@ -1,7 +1,8 @@
 from rest_framework import serializers
 
 from assets.models.assets import AcaoFii, Propriedade, Criptomoeda, \
-    TesouroDireto, RendaFixa, AcaoAmericana, Carteira, ListAcaoFii, ListAcaoAmericana
+    TesouroDireto, RendaFixa, AcaoAmericana, Carteira, ListAcaoFii, ListAcaoAmericana, ListCriptomoeda
+from assets.models.extrato import Extrato
 
 
 class AcaoFiiSerializer(serializers.ModelSerializer):
@@ -56,6 +57,7 @@ class B3AcaoFiiSerializer(serializers.ModelSerializer):
         def __init__(self, request):
             self.fields['id'] = request
 
+
 class ListAcaoAmericanaSerializer(serializers.ModelSerializer):
     class Meta:
         model = ListAcaoAmericana
@@ -63,3 +65,18 @@ class ListAcaoAmericanaSerializer(serializers.ModelSerializer):
 
         def __init__(self, request):
             self.fields['id'] = request
+
+
+class ListCriptoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ListCriptomoeda
+        fields = '__all__'
+
+        def __init__(self, request):
+            self.fields['id'] = request
+
+
+class ExtratoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Extrato
+        fields = '__all__'

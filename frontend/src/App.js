@@ -6,7 +6,7 @@ import store from './store'
 
 // pages
 import DashboardOverview from "./pages/dashboard/DashboardOverview";
-import Transactions from "./pages/Transactions";
+import Transactions from "./pages/Transactions/Transactions";
 import Settings from "./pages/Settings";
 import Signin from "./pages/authentication/Signin";
 import Signup from "./pages/authentication/Signup";

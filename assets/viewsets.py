@@ -4,11 +4,12 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from assets.models.assets import AcaoFii, AcaoAmericana, RendaFixa, TesouroDireto, Criptomoeda, Propriedade, \
-    ListAcaoFii, ListAcaoAmericana
+    ListAcaoFii, ListAcaoAmericana, ListCriptomoeda
 from assets.models.carteira import Carteira
+from assets.models.extrato import Extrato
 from assets.serializers import CarteiraSerializer, AcaoFiiSerializer, AcaoAmericanaSerializer, RendaFixaSerializer, \
     TesouroDiretoSerializer, CriptomoedaSerializer, PropriedadeSerializer, B3AcaoFiiSerializer, \
-    ListAcaoAmericanaSerializer
+    ListAcaoAmericanaSerializer, ExtratoSerializer, ListCriptoSerializer
 
 
 class CarteiraViewSet(viewsets.ModelViewSet):
@@ -128,8 +129,22 @@ class AcaoAmericanaList(APIView):
         return Response(am_serializer.data)
 
 
+class CriptoList(APIView):
+    def get(self, request):
+        cripto = ListCriptomoeda.objects.all()
+        cripto_serializer = ListCriptoSerializer(cripto, many=True)
+        return Response(cripto_serializer.data)
+
+
 class DesempenhoViewSet(APIView):
     def get(self, request):
         carteira = request.user.carteira_set.get()
         desempenho = carteira.get_desempenho()
         return Response(desempenho)
+
+
+class ExtratoViewSet(APIView):
+    def get(self, request):
+        extrato = Extrato.objects.all()
+        extrato_serializer = ExtratoSerializer(extrato, many=True)
+        return Response(extrato_serializer.data)

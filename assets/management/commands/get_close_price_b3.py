@@ -12,7 +12,7 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         carteira_sa = [f'{acao.nome}.SA' for acao in ListAcaoFii.objects.all()]
-        df = yf.download(tickers=carteira_sa, period='2d')
+        df = yf.download(tickers=carteira_sa, period='5d')
         for acao in ListAcaoFii.objects.all():
             try:
                 acao.preco_fechamento = round(df['Adj Close'].iloc[0][f'{acao.nome}.SA'], 2)

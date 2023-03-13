@@ -90,7 +90,7 @@ export default () => {
                                         acoesAmVisible ? <AcaoAmForm asset={assetId}/> :
                                             rendaFixaVisible ? <RendaFixaForm asset={assetName}/> :
                                                 tesouroVisible ? <TesouroDiretoForm asset={assetName}/> :
-                                                    criptoVisible ? <CriptomoedaForm asset={assetName}/> :
+                                                    criptoVisible ? <CriptomoedaForm asset={assetId}/> :
                                                         propVisible ? <PropriedadeForm asset={assetName}/> :
                                                             null
                                 }

@@ -2,8 +2,8 @@ import React from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheck, faCog, faSearch } from '@fortawesome/free-solid-svg-icons';
 import { Col, Row, Form, Button, ButtonGroup, InputGroup, Dropdown } from '@themesberg/react-bootstrap';
+import {TransactionsTable} from "./Table";
 
-import { TransactionsTable } from "../components/Tables";
 
 export default () => {
   return (

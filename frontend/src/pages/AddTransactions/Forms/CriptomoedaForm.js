@@ -16,6 +16,7 @@ export default (asset) => {
     const [taxa, setTaxa] = useState('');
     const [carteira, setCarteira] = useState('')
     const [message, setMessage] = useState('');
+    const [listaAtivos, setListaAtivos] = useState([]);
 
     // get carteira id
     useEffect(() => {
@@ -31,6 +32,23 @@ export default (asset) => {
                     console.log('CriptomoedaForm.js', err)
                 })
         }
+        loadData()
+    }, [])
+
+    // get cripto from binance
+    useEffect(() => {
+        const loadData = () => {
+        }
+        fetch('http://localhost:8000/assets/list/cripto/', {
+            headers: {
+                'Authorization': `JWT ${localStorage.getItem('access')}`
+            }
+        })
+            .then(response => response.json())
+            .then(data => setListaAtivos(data))
+            .catch(err => {
+                console.log('CriptomoedaForm.js', err)
+            })
         loadData()
     }, [])
 
@@ -58,7 +76,7 @@ export default (asset) => {
                     })
                 })
             if (res.status === 200) {
-                setMessage(<p className="text-success text-center">Ativo <b>{nome}</b> cadastrado com sucesso!</p>);
+                setMessage(<p className="text-success text-center">Ativo cadastrado com sucesso!</p>);
                 // clean fields
                 setNome('')
                 setDataOperacao(new Date())
@@ -78,17 +96,25 @@ export default (asset) => {
             <Col xs={12} className="ps-5 pe-5 align-items-center">
                 <Form className="mt-4" onSubmit={handleSubmit}>
                     <Form.Group id="nome" className="mb-4">
-                        <InputGroup>
-                            <Form.Control
+                         <InputGroup>
+                            <Form.Select
                                 autoFocus
                                 required
                                 type="text"
-                                placeholder="Nome da Criptomoeda"
                                 name="nome"
                                 value={nome}
                                 onChange={(e) => setNome(e.target.value)}
                                 hidden={nomeHide}
-                            />
+                            >
+                                <option className="fw-bold" key="" value="">
+                                    Ticker do ativo
+                                </option>
+                                {listaAtivos.map(ativo =>
+                                    <option className="fw-bold" value={ativo.id}>
+                                        {ativo.nome}
+                                    </option>
+                                )}
+                            </Form.Select>
                         </InputGroup>
                     </Form.Group>
                     <Form.Group id="data_operacao" className="mb-4">

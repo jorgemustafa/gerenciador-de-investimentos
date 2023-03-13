@@ -19,7 +19,6 @@ export default () => {
     ]
 
     const [categoria, setCategoria] = useState('AF')
-
     const [acoesFiiVisible, setAcoesFiiVisible] = useState(false);
     const [acoesAmVisible, setAcoesAmVisible] = useState(false);
     const [rendaFixaVisible, setRendaFixaVisible] = useState(false);
