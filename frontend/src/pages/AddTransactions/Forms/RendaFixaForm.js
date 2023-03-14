@@ -91,7 +91,7 @@ export default (asset) => {
                     })
                 })
             if (res.status === 200) {
-                setMessage(<p className="text-success text-center">Ativo <b>{nome}</b> cadastrado com sucesso!</p>);
+                setMessage(<p className="text-success text-center">Ativo cadastrado com sucesso!</p>);
                 // clean fields
                 setNome('')
                 setEmissor('')

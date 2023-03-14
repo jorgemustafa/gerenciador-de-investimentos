@@ -8,10 +8,11 @@ class Extrato(models.Model):
     obj_tipo = models.ForeignKey(ContentType, on_delete=models.CASCADE)
     objeto = GenericForeignKey('obj_tipo', 'obj_id')
     tipo_transacao = models.CharField(max_length=10, choices=[('compra', 'Compra'), ('venda', 'Venda')])
+    rentabilidade = models.DecimalField(max_digits=11, decimal_places=2, default=0)
     cotacao = models.DecimalField(max_digits=10, decimal_places=2)
     unidades = models.IntegerField()
     saldo = models.DecimalField(max_digits=15, decimal_places=2)
     inclusao = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return self.objeto.nome.nome
+        return str(self.objeto.nome)

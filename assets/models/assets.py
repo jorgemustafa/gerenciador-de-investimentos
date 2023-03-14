@@ -121,6 +121,19 @@ class AcaoAmericana(models.Model):
     class Meta:
         verbose_name_plural = 'Ações Americanas'
 
+    @transaction.atomic
+    def save(self, *args, **kwargs):
+        created = not self.pk
+        super().save(*args, **kwargs)
+        if created:
+            Extrato.objects.create(
+                objeto=self,
+                tipo_transacao='compra',
+                unidades=self.unidades,
+                cotacao=self.cotacao,
+                saldo=self.unidades * self.cotacao,
+            )
+
 
 class RendaFixa(models.Model):
     PRODUTO_CHOICES = [
@@ -156,6 +169,20 @@ class RendaFixa(models.Model):
     class Meta:
         verbose_name_plural = 'Rendas Fixas'
 
+    @transaction.atomic
+    def save(self, *args, **kwargs):
+        created = not self.pk
+        super().save(*args, **kwargs)
+        if created:
+            Extrato.objects.create(
+                objeto=self,
+                tipo_transacao='compra',
+                unidades=1,
+                cotacao=self.valor_investido,
+                rentabilidade=self.rentabilidade,
+                saldo=self.valor_investido,
+            )
+
 
 class TesouroDireto(models.Model):
     nome = models.CharField(max_length=64, verbose_name='Nome do Título')
@@ -177,6 +204,20 @@ class TesouroDireto(models.Model):
     class Meta:
         verbose_name_plural = 'Tesouros Diretos'
 
+    @transaction.atomic
+    def save(self, *args, **kwargs):
+        created = not self.pk
+        super().save(*args, **kwargs)
+        if created:
+            Extrato.objects.create(
+                objeto=self,
+                tipo_transacao='compra',
+                unidades=1,
+                cotacao=self.valor_investido,
+                rentabilidade=self.rentabilidade,
+                saldo=self.valor_investido,
+            )
+
 
 class Criptomoeda(models.Model):
     nome = models.ForeignKey(ListCriptomoeda, on_delete=models.CASCADE, verbose_name='Ticker')
@@ -196,6 +237,19 @@ class Criptomoeda(models.Model):
     class Meta:
         verbose_name_plural = 'Criptomoedas'
 
+    @transaction.atomic
+    def save(self, *args, **kwargs):
+        created = not self.pk
+        super().save(*args, **kwargs)
+        if created:
+            Extrato.objects.create(
+                objeto=self,
+                tipo_transacao='compra',
+                unidades=self.unidades,
+                cotacao=self.cotacao,
+                saldo=self.unidades * self.cotacao,
+            )
+
 
 class Propriedade(models.Model):
     nome = models.TextField(max_length=200, verbose_name='Descrição')
@@ -213,3 +267,15 @@ class Propriedade(models.Model):
 
     class Meta:
         verbose_name_plural = 'Propriedades'
+
+    def save(self, *args, **kwargs):
+        created = not self.pk
+        super().save(*args, **kwargs)
+        if created:
+            Extrato.objects.create(
+                objeto=self,
+                tipo_transacao='compra',
+                unidades=1,
+                cotacao=self.valor_investido,
+                saldo=self.valor_investido,
+            )

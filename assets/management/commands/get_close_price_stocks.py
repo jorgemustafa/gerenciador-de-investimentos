@@ -17,5 +17,5 @@ class Command(BaseCommand):
             try:
                 acao.preco_fechamento = round(df['Adj Close'].iloc[0][acao.nome], 2)
                 acao.save()
-            except ValidationError:
+            except:
                 pass
