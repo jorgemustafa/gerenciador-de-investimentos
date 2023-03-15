@@ -10,6 +10,7 @@ from assets.models.extrato import Extrato
 from assets.serializers import CarteiraSerializer, AcaoFiiSerializer, AcaoAmericanaSerializer, RendaFixaSerializer, \
     TesouroDiretoSerializer, CriptomoedaSerializer, PropriedadeSerializer, B3AcaoFiiSerializer, \
     ListAcaoAmericanaSerializer, ExtratoSerializer, ListCriptoSerializer
+from assets.utils import vender_acoes_fiis
 
 
 class CarteiraViewSet(viewsets.ModelViewSet):
@@ -29,6 +30,10 @@ class AcaoFiiViewSet(APIView):
         return Response(acoes_serializer.data)
 
     def post(self, request):
+        if request.data.get('venda'):
+            vender_acoes_fiis(request)
+            return Response({'status': 'ok'})
+
         acoes_serializer = AcaoFiiSerializer(data=request.data)
         if acoes_serializer.is_valid():
             acoes_serializer.save()
