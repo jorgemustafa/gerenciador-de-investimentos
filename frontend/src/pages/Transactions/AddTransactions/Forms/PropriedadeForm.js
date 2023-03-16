@@ -1,22 +1,20 @@
 import React, {useEffect, useState} from 'react'
-import {Button, Col, Form, FormLabel, FormSelect, InputGroup, Row} from "@themesberg/react-bootstrap";
+import {Button, Col, Form, InputGroup, Row} from "@themesberg/react-bootstrap";
 import CurrencyInput from 'react-currency-input-field';
-import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
-export default (asset) => {
+export default ({asset}) => {
 
     // if asset the request is Reinvestment, else NewInvestment
-    let nomeHide = !!asset.asset;
+    let nomeHide = !!asset;
 
-    const [nome, setNome] = useState(asset.asset);
+    const [nome, setNome] = useState(asset);
     const [dataOperacao, setDataOperacao] = useState(new Date());
-    const [cotacao, setCotacao] = useState('');
-    const [unidades, setUnidades] = useState('');
+    const [valorInvestido, setValorInvestido] = useState('');
+    const [tipoAplicacao, setTipoAplicacao] = useState('');
     const [taxa, setTaxa] = useState('');
     const [carteira, setCarteira] = useState('')
     const [message, setMessage] = useState('');
-    const [listaAtivos, setListaAtivos] = useState([]);
 
     // get carteira id
     useEffect(() => {
@@ -29,26 +27,9 @@ export default (asset) => {
                 .then(response => response.json())
                 .then(data => setCarteira(data))
                 .catch(err => {
-                    console.log('CriptomoedaForm.js', err)
+                    console.log('PropriedadeForm.js', err)
                 })
         }
-        loadData()
-    }, [])
-
-    // get cripto from binance
-    useEffect(() => {
-        const loadData = () => {
-        }
-        fetch('http://localhost:8000/assets/list/cripto/', {
-            headers: {
-                'Authorization': `JWT ${localStorage.getItem('access')}`
-            }
-        })
-            .then(response => response.json())
-            .then(data => setListaAtivos(data))
-            .catch(err => {
-                console.log('CriptomoedaForm.js', err)
-            })
         loadData()
     }, [])
 
@@ -59,7 +40,7 @@ export default (asset) => {
     let handleSubmit = async (e) => {
         e.preventDefault()
         try {
-            let res = await fetch('http://localhost:8000/assets/criptomoeda/',
+            let res = await fetch('http://localhost:8000/assets/propriedade/',
                 {
                     method: 'POST',
                     headers: {
@@ -69,8 +50,8 @@ export default (asset) => {
                     body: JSON.stringify({
                         nome: nome,
                         data_operacao: dataStrf(dataOperacao),
-                        cotacao: cotacao,
-                        unidades: unidades,
+                        valor_investido: valorInvestido,
+                        tipo_aplicacao: tipoAplicacao,
                         taxa: taxa,
                         carteira: carteira[0].id
                     })
@@ -80,14 +61,14 @@ export default (asset) => {
                 // clean fields
                 setNome('')
                 setDataOperacao(new Date())
-                setCotacao('')
-                setUnidades('')
+                setValorInvestido('')
+                setTipoAplicacao('')
                 setTaxa('')
             } else {
                 setMessage(<p className="text-danger text-center">Um erro ocorreu: ${res.statusText}</p>)
             }
         } catch (err) {
-            setMessage(<p className="text-danger text-center">Um erro ocorreu: ${err.detail}</p>)
+            setMessage(<p className="text-danger text-center">Um erro ocorreu: ${err.message}</p>)
         }
     }
 
@@ -96,63 +77,31 @@ export default (asset) => {
             <Col xs={12} className="ps-5 pe-5 align-items-center">
                 <Form className="mt-4" onSubmit={handleSubmit}>
                     <Form.Group id="nome" className="mb-4">
-                         <InputGroup>
-                            <Form.Select
-                                autoFocus
-                                required
-                                type="text"
-                                name="nome"
-                                value={nome}
-                                onChange={(e) => setNome(e.target.value)}
-                                hidden={nomeHide}
-                            >
-                                <option className="fw-bold" key="" value="">
-                                    Ticker do ativo
-                                </option>
-                                {listaAtivos.map(ativo =>
-                                    <option className="fw-bold" value={ativo.id}>
-                                        {ativo.nome}
-                                    </option>
-                                )}
-                            </Form.Select>
-                        </InputGroup>
-                    </Form.Group>
-                    <Form.Group id="data_operacao" className="mb-4">
-                        <FormLabel className="data_operacao"> Data da Operação
-                            <InputGroup>
-                                <DatePicker
-                                    className="form-control"
-                                    dateFormat="dd/MM/yyyy"
-                                    selected={dataOperacao}
-                                    onChange={(data) => setDataOperacao(data)}
-                                />
-                            </InputGroup>
-                        </FormLabel>
-                    </Form.Group>
-                    <Form.Group id="cotacao" className="mb-4">
-                        <InputGroup>
-                            <CurrencyInput
-                                className="form-control"
-                                required
-                                name="cotacao"
-                                defaultValue={cotacao}
-                                placeholder="Cotação"
-                                decimalsLimit={2}
-                                prefix="R$"
-                                onChange={(e) => setCotacao(e.target.value.replace('R$', '').replaceAll(',', ''))}
-                            />
-                        </InputGroup>
-                    </Form.Group>
-                    <Form.Group id="unidades" className="mb-4">
                         <InputGroup>
                             <Form.Control
                                 autoFocus
                                 required
-                                type="number"
-                                placeholder="Unidades"
-                                name="unidades"
-                                value={unidades}
-                                onChange={(e) => setUnidades(e.target.value)}
+                                type="text"
+                                placeholder="Nome do Título"
+                                name="nome"
+                                value={nome}
+                                onChange={(e) => setNome(e.target.value)}
+                                hidden={nomeHide}
+                            />
+                        </InputGroup>
+                    </Form.Group>
+                    <Form.Group id="valor_investido" className="mb-4">
+                        <InputGroup>
+                            <CurrencyInput
+                                className="form-control"
+                                required
+                                name="valorInvestido"
+                                defaultValue={valorInvestido}
+                                placeholder="Valor Investido"
+                                decimalsLimit={2}
+                                prefix="R$"
+                                value={valorInvestido}
+                                onChange={(e) => setValorInvestido(e.target.value.replace('R$', '').replaceAll(',', ''))}
                             />
                         </InputGroup>
                     </Form.Group>
@@ -169,7 +118,7 @@ export default (asset) => {
                         </InputGroup>
                     </Form.Group>
                     <div className="message pt-1 pb-2 text-center">Seu investimento está sendo de</div>
-                    <div className="text-center h3 pb-3">R$ {(unidades * cotacao).toFixed(2)}</div>
+                    <div className="text-center h3 pb-3">R$ {(1 * valorInvestido).toFixed(2)}</div>
                     <Button variant="primary" type="submit" className="w-100">
                         Concluir
                     </Button>

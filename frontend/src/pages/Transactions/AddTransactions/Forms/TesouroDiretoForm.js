@@ -4,10 +4,10 @@ import CurrencyInput from 'react-currency-input-field';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
-export default (asset) => {
+export default ({asset}) => {
 
     // if asset the request is Reinvestment, else NewInvestment
-    let nomeHide = !!asset.asset;
+    let nomeHide = !!asset;
 
     const tipoAplicacoes = [
         {name: 'Selecione a Aplicação', value: ''},
@@ -21,7 +21,7 @@ export default (asset) => {
         {name: 'IGPDI+', value: 'igpdi+'}
     ]
 
-    const [nome, setNome] = useState(asset.asset);
+    const [nome, setNome] = useState(asset);
     const [dataOperacao, setDataOperacao] = useState(new Date());
     const [valorInvestido, setValorInvestido] = useState('');
     const [tipoAplicacao, setTipoAplicacao] = useState('');

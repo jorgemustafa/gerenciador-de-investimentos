@@ -10,7 +10,7 @@ from assets.models.extrato import Extrato
 from assets.serializers import CarteiraSerializer, AcaoFiiSerializer, AcaoAmericanaSerializer, RendaFixaSerializer, \
     TesouroDiretoSerializer, CriptomoedaSerializer, PropriedadeSerializer, B3AcaoFiiSerializer, \
     ListAcaoAmericanaSerializer, ExtratoSerializer, ListCriptoSerializer
-from assets.utils import vender_acoes_fiis
+from assets.utils import sell_assets
 
 
 class CarteiraViewSet(viewsets.ModelViewSet):
@@ -30,9 +30,11 @@ class AcaoFiiViewSet(APIView):
         return Response(acoes_serializer.data)
 
     def post(self, request):
-        if request.data.get('venda'):
-            vender_acoes_fiis(request)
-            return Response({'status': 'ok'})
+        if request.data['venda']:
+            criado = sell_assets(request, AcaoFii)
+            if criado:
+                return Response(200)
+            return Response(400)
 
         acoes_serializer = AcaoFiiSerializer(data=request.data)
         if acoes_serializer.is_valid():
@@ -48,6 +50,12 @@ class AcaoAmViewSet(APIView):
         return Response(acoes_am_serializer.data)
 
     def post(self, request):
+        if request.data['venda']:
+            criado = sell_assets(request, AcaoAmericana)
+            if criado:
+                return Response(200)
+            return Response(400)
+
         acoes_am_serializer = AcaoAmericanaSerializer(data=request.data)
         if acoes_am_serializer.is_valid():
             acoes_am_serializer.save()
@@ -90,6 +98,12 @@ class CriptomoedaViewSet(APIView):
         return Response(cripto_serializer.data)
 
     def post(self, request):
+        if request.data['venda']:
+            criado = sell_assets(request, Criptomoeda)
+            if criado:
+                return Response(200)
+            return Response(400)
+
         cripto_serializer = CriptomoedaSerializer(data=request.data)
         if cripto_serializer.is_valid():
             try:

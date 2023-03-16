@@ -21,10 +21,10 @@ import Sidebar from "./components/Sidebar";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import Preloader from "./components/Preloader";
-import AddTransaction from "./pages/AddTransactions/AddTransaction";
-import NewInvestment from "./pages/AddTransactions/NewInvestment";
-import ReInvestment from "./pages/AddTransactions/ReInvestment";
-import Sale from "./pages/AddTransactions/Sale";
+import AddTransaction from "./pages/Transactions/AddTransactions/AddTransaction";
+import NewInvestment from "./pages/Transactions/AddTransactions/NewInvestment";
+import ReInvestment from "./pages/Transactions/AddTransactions/ReInvestment";
+import Sale from "./pages/Transactions/AddTransactions/Sale";
 
 
 const RouteWithLoader = ({component: Component, ...rest}) => {

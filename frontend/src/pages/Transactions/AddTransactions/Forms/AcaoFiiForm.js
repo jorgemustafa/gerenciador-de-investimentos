@@ -77,13 +77,21 @@ export default ({asset, venda = false}) => {
                     })
                 })
             if (res.status === 200) {
-                setMessage(<p className="text-success text-center">Ativo cadastrado com sucesso!</p>);
+                setMessage(<p className="text-success text-center">
+                    {venda ? 'Venda realizada com sucesso' : 'Ativo cadastrado com sucesso!'}
+                </p>);
                 // clean fields
                 setNome('Ticker do ativo');
                 setDataOperacao(new Date());
                 setCotacao('');
                 setUnidades('');
                 setTaxa('');
+            }
+            // not working --> test
+            else if (res.status === 400) {
+                setMessage(<p className="text-success text-center">
+                    Venda é maior que total de ações
+                </p>);
             } else {
                 setMessage(<p className="text-danger text-center">Um erro ocorreu: ${res.statusText}</p>)
             }

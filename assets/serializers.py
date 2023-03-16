@@ -10,11 +10,55 @@ class AcaoFiiSerializer(serializers.ModelSerializer):
         model = AcaoFii
         fields = '__all__'
 
+    def save(self, **kwargs):
+        validated_data = {**self.validated_data, **kwargs}
+        if self.instance is not None:
+            self.instance = self.update(self.instance, validated_data)
+        else:
+            self.instance = AcaoFii.objects.filter(nome=validated_data['nome'],
+                                                   carteira=validated_data['carteira']).last()
+            if self.instance:
+                # override unidades making sum
+                validated_data['unidades'] += self.instance.unidades
+                self.update(self.instance, validated_data)
+            else:
+                self.instance = self.create(validated_data)
+                Extrato.objects.create(
+                    objeto=self.instance,
+                    tipo_transacao='compra',
+                    unidades=validated_data['unidades'],
+                    cotacao=validated_data['cotacao'],
+                    saldo=validated_data['unidades'] * validated_data['cotacao'],
+                )
+        return self.instance
+
 
 class AcaoAmericanaSerializer(serializers.ModelSerializer):
     class Meta:
         model = AcaoAmericana
         fields = '__all__'
+
+    def save(self, **kwargs):
+        validated_data = {**self.validated_data, **kwargs}
+        if self.instance is not None:
+            self.instance = self.update(self.instance, validated_data)
+        else:
+            self.instance = AcaoAmericana.objects.filter(nome=validated_data['nome'],
+                                                   carteira=validated_data['carteira']).last()
+            if self.instance:
+                # override unidades making sum
+                validated_data['unidades'] += self.instance.unidades
+                self.update(self.instance, validated_data)
+            else:
+                self.instance = self.create(validated_data)
+                Extrato.objects.create(
+                    objeto=self.instance,
+                    tipo_transacao='compra',
+                    unidades=validated_data['unidades'],
+                    cotacao=validated_data['cotacao'],
+                    saldo=validated_data['unidades'] * validated_data['cotacao'],
+                )
+        return self.instance
 
 
 class RendaFixaSerializer(serializers.ModelSerializer):
@@ -34,6 +78,27 @@ class CriptomoedaSerializer(serializers.ModelSerializer):
         model = Criptomoeda
         fields = '__all__'
 
+    def save(self, **kwargs):
+        validated_data = {**self.validated_data, **kwargs}
+        if self.instance is not None:
+            self.instance = self.update(self.instance, validated_data)
+        else:
+            self.instance = Criptomoeda.objects.filter(nome=validated_data['nome'],
+                                                   carteira=validated_data['carteira']).last()
+            if self.instance:
+                # override unidades making sum
+                validated_data['unidades'] += self.instance.unidades
+                self.update(self.instance, validated_data)
+            else:
+                self.instance = self.create(validated_data)
+                Extrato.objects.create(
+                    objeto=self.instance,
+                    tipo_transacao='compra',
+                    unidades=validated_data['unidades'],
+                    cotacao=validated_data['cotacao'],
+                    saldo=validated_data['unidades'] * validated_data['cotacao'],
+                )
+        return self.instance
 
 class PropriedadeSerializer(serializers.ModelSerializer):
     class Meta:

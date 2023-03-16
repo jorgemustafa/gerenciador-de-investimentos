@@ -26,7 +26,7 @@ export default () => {
 
     const TableRow = (props) => {
         const {nome, cotacao, unidades, saldo, inclusao, tipo_transacao} = props;
-        const tipoVariant = tipo_transacao === "compra" ? "success" : "warning"
+        const tipoVariant = tipo_transacao === "compra" ? "success" : "danger"
 
         return (
             <tr>

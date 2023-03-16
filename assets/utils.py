@@ -1,24 +1,21 @@
-from django.db.models import Sum
-
-from assets.models.assets import AcaoFii
+from assets.models.extrato import Extrato
 
 
-def vender_acoes_fiis(request):
-    id_obj = int(request.data['nome'])
-    carteira = int(request.data['carteira'])
+def sell_assets(request, classe):
     unidades = int(request.data['unidades'])
-    objs = AcaoFii.objects.filter(nome__id=id_obj, carteira__id=carteira).order_by('-unidades')
-    objs_sum = objs.aggregate(Sum('unidades'))['unidades__sum']
-    objs_habilitados_venda = []
-    if objs_sum > unidades:
-        for obj in objs:
-            if obj.unidades > unidades and not objs_habilitados_venda:
-                objs_habilitados_venda.append(obj)
-                obj.unidades = obj.unidades - unidades
-                obj.save()
-                # criar extrato
-                print('Venda registrada com sucesso')
-        if not objs_habilitados_venda:
-            print('Venda não é maior que o total, mas é maior que ativo')
-    else:
-        print('Venda é maior que total de ações')
+    cotacao = int(request.data['cotacao'])
+    obj = classe.objects.filter(nome__id=int(request.data['nome']),
+                                carteira__id=int(request.data['carteira'])).last()
+    if unidades <= obj.unidades:
+        obj.unidades -= unidades
+        obj.save()
+        # criar extrato
+        Extrato.objects.create(
+            objeto=obj,
+            tipo_transacao='venda',
+            unidades=unidades,
+            cotacao=cotacao,
+            saldo=unidades * cotacao,
+        )
+        return True
+    return print('Venda é maior que total de ações')

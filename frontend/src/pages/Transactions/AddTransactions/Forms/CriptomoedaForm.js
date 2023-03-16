@@ -1,17 +1,17 @@
 import React, {useEffect, useState} from 'react'
-import {Button, Col, Form, FormLabel, InputGroup, Row} from "@themesberg/react-bootstrap";
+import {Button, Col, Form, FormLabel, FormSelect, InputGroup, Row} from "@themesberg/react-bootstrap";
 import CurrencyInput from 'react-currency-input-field';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
-export default (asset) => {
+export default ({asset, venda=false}) => {
 
-    //     // if asset the request is Reinvestment, else NewInvestment
-    let nomeHide = !!asset.asset;
+    // if asset the request is Reinvestment, else NewInvestment
+    let nomeHide = !!asset;
 
-    const [nome, setNome] = useState(asset.asset);
-    const [cotacao, setCotacao] = useState('');
+    const [nome, setNome] = useState(asset);
     const [dataOperacao, setDataOperacao] = useState(new Date());
+    const [cotacao, setCotacao] = useState('');
     const [unidades, setUnidades] = useState('');
     const [taxa, setTaxa] = useState('');
     const [carteira, setCarteira] = useState('')
@@ -29,17 +29,17 @@ export default (asset) => {
                 .then(response => response.json())
                 .then(data => setCarteira(data))
                 .catch(err => {
-                    console.log('AcaoAmForm.js', err)
+                    console.log('CriptomoedaForm.js', err)
                 })
         }
         loadData()
     }, [])
 
-    // get assets b3
+    // get cripto from binance
     useEffect(() => {
         const loadData = () => {
         }
-        fetch('http://localhost:8000/assets/list/am/', {
+        fetch('http://localhost:8000/assets/list/cripto/', {
             headers: {
                 'Authorization': `JWT ${localStorage.getItem('access')}`
             }
@@ -47,7 +47,7 @@ export default (asset) => {
             .then(response => response.json())
             .then(data => setListaAtivos(data))
             .catch(err => {
-                console.log('AcaoAmForm.js', err)
+                console.log('CriptomoedaForm.js', err)
             })
         loadData()
     }, [])
@@ -59,7 +59,7 @@ export default (asset) => {
     let handleSubmit = async (e) => {
         e.preventDefault()
         try {
-            let res = await fetch('http://localhost:8000/assets/acaoam/',
+            let res = await fetch('http://localhost:8000/assets/criptomoeda/',
                 {
                     method: 'POST',
                     headers: {
@@ -68,17 +68,20 @@ export default (asset) => {
                     },
                     body: JSON.stringify({
                         nome: nome,
-                        cotacao: cotacao,
                         data_operacao: dataStrf(dataOperacao),
+                        cotacao: cotacao,
                         unidades: unidades,
                         taxa: taxa,
-                        carteira: carteira[0].id
+                        carteira: carteira[0].id,
+                        venda: venda
                     })
                 })
             if (res.status === 200) {
-                setMessage(<p className="text-success text-center">Ativo cadastrado com sucesso!</p>);
+                setMessage(<p className="text-success text-center">
+                    {venda ? 'Venda realizada com sucesso' : 'Ativo cadastrado com sucesso!'}
+                </p>);
                 // clean fields
-                setNome('Ticker do ativo')
+                setNome('')
                 setDataOperacao(new Date())
                 setCotacao('')
                 setUnidades('')
@@ -87,7 +90,7 @@ export default (asset) => {
                 setMessage(<p className="text-danger text-center">Um erro ocorreu: ${res.statusText}</p>)
             }
         } catch (err) {
-            setMessage(<p className="text-danger text-center">Um erro ocorreu: ${err.message}</p>)
+            setMessage(<p className="text-danger text-center">Um erro ocorreu: ${err.detail}</p>)
         }
     }
 
@@ -96,7 +99,7 @@ export default (asset) => {
             <Col xs={12} className="ps-5 pe-5 align-items-center">
                 <Form className="mt-4" onSubmit={handleSubmit}>
                     <Form.Group id="nome" className="mb-4">
-                        <InputGroup>
+                         <InputGroup>
                             <Form.Select
                                 autoFocus
                                 required
@@ -136,10 +139,10 @@ export default (asset) => {
                                 required
                                 name="cotacao"
                                 defaultValue={cotacao}
-                                placeholder="Cotação (em dolár)"
+                                placeholder="Cotação"
                                 decimalsLimit={2}
-                                prefix="$"
-                                onChange={(e) => setCotacao(e.target.value.replace('$', '').replaceAll(',', ''))}
+                                prefix="R$"
+                                onChange={(e) => setCotacao(e.target.value.replace('R$', '').replaceAll(',', ''))}
                             />
                         </InputGroup>
                     </Form.Group>
@@ -164,13 +167,12 @@ export default (asset) => {
                                 placeholder="Taxas (opcional)"
                                 name="taxa"
                                 value={taxa}
-                                prefix="$"
                                 onChange={(e) => setTaxa(e.target.value)}
                             />
                         </InputGroup>
                     </Form.Group>
                     <div className="message pt-1 pb-2 text-center">Seu investimento está sendo de</div>
-                    <div className="text-center h3 pb-3">$ {(unidades * cotacao).toFixed(2)}</div>
+                    <div className="text-center h3 pb-3">R$ {(unidades * cotacao).toFixed(2)}</div>
                     <Button variant="primary" type="submit" className="w-100">
                         Concluir
                     </Button>

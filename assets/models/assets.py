@@ -89,19 +89,6 @@ class AcaoFii(models.Model):
         verbose_name_plural = 'Ações e FIIs'
         verbose_name = 'Ação e FII'
 
-    @transaction.atomic
-    def save(self, *args, **kwargs):
-        created = not self.pk
-        super().save(*args, **kwargs)
-        if created:
-            Extrato.objects.create(
-                objeto=self,
-                tipo_transacao='compra',
-                unidades=self.unidades,
-                cotacao=self.cotacao,
-                saldo=self.unidades * self.cotacao,
-            )
-
 
 class AcaoAmericana(models.Model):
     nome = models.ForeignKey(ListAcaoAmericana, on_delete=models.CASCADE, verbose_name='Ticker')
@@ -120,19 +107,6 @@ class AcaoAmericana(models.Model):
 
     class Meta:
         verbose_name_plural = 'Ações Americanas'
-
-    @transaction.atomic
-    def save(self, *args, **kwargs):
-        created = not self.pk
-        super().save(*args, **kwargs)
-        if created:
-            Extrato.objects.create(
-                objeto=self,
-                tipo_transacao='compra',
-                unidades=self.unidades,
-                cotacao=self.cotacao,
-                saldo=self.unidades * self.cotacao,
-            )
 
 
 class RendaFixa(models.Model):
@@ -236,19 +210,6 @@ class Criptomoeda(models.Model):
 
     class Meta:
         verbose_name_plural = 'Criptomoedas'
-
-    @transaction.atomic
-    def save(self, *args, **kwargs):
-        created = not self.pk
-        super().save(*args, **kwargs)
-        if created:
-            Extrato.objects.create(
-                objeto=self,
-                tipo_transacao='compra',
-                unidades=self.unidades,
-                cotacao=self.cotacao,
-                saldo=self.unidades * self.cotacao,
-            )
 
 
 class Propriedade(models.Model):

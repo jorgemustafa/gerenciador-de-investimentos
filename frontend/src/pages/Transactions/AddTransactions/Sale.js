@@ -77,7 +77,8 @@ export default () => {
                                                     --------------
                                                 </option>
                                                 {responseAtivos.map(ativo =>
-                                                    <option className="fw-bold" value={ativo.type + ';' + ativo.name + ';' + ativo.id}>
+                                                    <option className="fw-bold"
+                                                            value={ativo.type + ';' + ativo.name + ';' + ativo.id}>
                                                         {ativo.name}
                                                     </option>
                                                 )}
@@ -87,10 +88,10 @@ export default () => {
                                 </Form>
                                 {
                                     acoesFiiVisible ? <AcaoFiiForm asset={assetId} venda={true}/> :
-                                        acoesAmVisible ? <AcaoAmForm asset={assetId}/> :
+                                        acoesAmVisible ? <AcaoAmForm asset={assetId} venda={true}/> :
                                             rendaFixaVisible ? <RendaFixaForm asset={assetName}/> :
                                                 tesouroVisible ? <TesouroDiretoForm asset={assetName}/> :
-                                                    criptoVisible ? <CriptomoedaForm asset={assetId}/> :
+                                                    criptoVisible ? <CriptomoedaForm asset={assetId} venda={true}/> :
                                                         propVisible ? <PropriedadeForm asset={assetName}/> :
                                                             null
                                 }
