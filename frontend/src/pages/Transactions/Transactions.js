@@ -18,15 +18,15 @@ export default () => {
 
       <div className="table-settings mb-4">
         <Row className="justify-content-between align-items-center">
-          <Col xs={8} md={8} lg={8} xl={4}>
-            <InputGroup>
-              <InputGroup.Text>
-                <FontAwesomeIcon icon={faSearch} />
-              </InputGroup.Text>
-              <Form.Control type="text" placeholder="Search" />
-            </InputGroup>
-          </Col>
-          <Col xs={2} md={2} lg={2} xl={2}>
+          {/*<Col xs={8} md={8} lg={8} xl={4}>*/}
+          {/*  <InputGroup>*/}
+          {/*    <InputGroup.Text>*/}
+          {/*      <FontAwesomeIcon icon={faSearch} />*/}
+          {/*    </InputGroup.Text>*/}
+          {/*    <Form.Control type="text" placeholder="Search" />*/}
+          {/*  </InputGroup>*/}
+          {/*</Col>*/}
+          <Col className="text-end">
             <ButtonGroup>
             <Button variant="outline-primary" size="sm">Exportar</Button>
           </ButtonGroup>

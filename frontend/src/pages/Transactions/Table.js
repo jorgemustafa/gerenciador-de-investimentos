@@ -60,26 +60,6 @@ export default () => {
             {tipo_transacao.toUpperCase()}
           </span>
                 </td>
-                <td>
-                    <Dropdown as={ButtonGroup}>
-                        <Dropdown.Toggle as={Button} split variant="link" className="text-dark m-0 p-0">
-              <span className="icon icon-sm">
-                <FontAwesomeIcon icon={faEllipsisH} className="icon-dark"/>
-              </span>
-                        </Dropdown.Toggle>
-                        <Dropdown.Menu>
-                            <Dropdown.Item>
-                                <FontAwesomeIcon icon={faEye} className="me-2"/> View Details
-                            </Dropdown.Item>
-                            <Dropdown.Item>
-                                <FontAwesomeIcon icon={faEdit} className="me-2"/> Edit
-                            </Dropdown.Item>
-                            <Dropdown.Item className="text-danger">
-                                <FontAwesomeIcon icon={faTrashAlt} className="me-2"/> Remove
-                            </Dropdown.Item>
-                        </Dropdown.Menu>
-                    </Dropdown>
-                </td>
             </tr>
         );
     };
@@ -96,7 +76,6 @@ export default () => {
                         <th className="border-bottom">Saldo</th>
                         <th className="border-bottom">Inclusão</th>
                         <th className="border-bottom">Tipo</th>
-                        <th className="border-bottom">Editar</th>
                     </tr>
                     </thead>
                     <tbody>
