@@ -177,7 +177,7 @@ export default ({asset, venda = false}) => {
                     <Button variant="primary" type="submit" className="w-100">
                         Concluir
                     </Button>
-                    <div className="message pt-2">{message ? <>{message}</> : null}</div>
+                    <div className="message pt-2">{message ? message : null}</div>
                 </Form>
             </Col>
         </Row>

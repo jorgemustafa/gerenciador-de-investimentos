@@ -29,6 +29,7 @@ class AcaoFiiSerializer(serializers.ModelSerializer):
                     unidades=validated_data['unidades'],
                     cotacao=validated_data['cotacao'],
                     saldo=validated_data['unidades'] * validated_data['cotacao'],
+                    carteira_id=validated_data['carteira']
                 )
         return self.instance
 
@@ -57,6 +58,7 @@ class AcaoAmericanaSerializer(serializers.ModelSerializer):
                     unidades=validated_data['unidades'],
                     cotacao=validated_data['cotacao'],
                     saldo=validated_data['unidades'] * validated_data['cotacao'],
+                    carteira_id=validated_data['carteira']
                 )
         return self.instance
 
@@ -97,6 +99,7 @@ class CriptomoedaSerializer(serializers.ModelSerializer):
                     unidades=validated_data['unidades'],
                     cotacao=validated_data['cotacao'],
                     saldo=validated_data['unidades'] * validated_data['cotacao'],
+                    carteira_id=validated_data['carteira']
                 )
         return self.instance
 

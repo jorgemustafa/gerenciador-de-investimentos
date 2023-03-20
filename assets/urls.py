@@ -2,7 +2,7 @@ from django.urls import path
 
 from .viewsets import CarteiraViewSet, AcaoFiiViewSet, AcaoAmViewSet, RendaFixaViewSet, TesouroDiretoViewSet, \
     CriptomoedaViewSet, PropriedadeViewSet, AssetsList, B3AcaoFiiList, DesempenhoViewSet, AcaoAmericanaList, \
-    ExtratoViewSet, CriptoList
+    ExtratoViewSet, CriptoList, GenerateReportView, DownloadReportView
 
 urlpatterns = [
     # crud ativos da carteira
@@ -21,5 +21,7 @@ urlpatterns = [
     path('list/am/', AcaoAmericanaList.as_view(), name='am_list'),
     path('list/cripto/', CriptoList.as_view(), name='cripto_list'),
     path('list/extrato/', ExtratoViewSet.as_view()),
+    # relatorio
+    path('exportar/', GenerateReportView.as_view()),
+    path('baixar/', DownloadReportView.as_view())
 ]
-

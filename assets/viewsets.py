@@ -1,4 +1,7 @@
+import mimetypes
+
 from django.core.exceptions import ValidationError
+from django.http import HttpResponse
 from rest_framework import viewsets
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -10,7 +13,8 @@ from assets.models.extrato import Extrato
 from assets.serializers import CarteiraSerializer, AcaoFiiSerializer, AcaoAmericanaSerializer, RendaFixaSerializer, \
     TesouroDiretoSerializer, CriptomoedaSerializer, PropriedadeSerializer, B3AcaoFiiSerializer, \
     ListAcaoAmericanaSerializer, ExtratoSerializer, ListCriptoSerializer
-from assets.utils import sell_assets
+from assets.utils import sell_assets, gen_report, get_today_file, delete_files
+from engine.settings import DOWNLOAD_REPORT_FOLDER
 
 
 class CarteiraViewSet(viewsets.ModelViewSet):
@@ -167,3 +171,22 @@ class ExtratoViewSet(APIView):
         extrato = Extrato.objects.all().order_by('-inclusao')
         extrato_serializer = ExtratoSerializer(extrato, many=True)
         return Response(extrato_serializer.data)
+
+
+class GenerateReportView(APIView):
+    def get(self, request):
+        delete_files(DOWNLOAD_REPORT_FOLDER)
+        report = gen_report(request.user)
+        return HttpResponse(report)
+
+
+class DownloadReportView(APIView):
+    def get(self, request):
+        filename = get_today_file(DOWNLOAD_REPORT_FOLDER)
+        full_path = DOWNLOAD_REPORT_FOLDER + filename
+        # download xlsx in client side
+        path = open(full_path, 'rb')
+        mime_type, _ = mimetypes.guess_type(full_path)
+        response = HttpResponse(path, content_type='application/vnd.ms-excel')
+        response['Content-Disposition'] = f'attachment; filename={filename}'
+        return response

@@ -155,6 +155,7 @@ class RendaFixa(models.Model):
                 cotacao=self.valor_investido,
                 rentabilidade=self.rentabilidade,
                 saldo=self.valor_investido,
+                carteira=self.carteira
             )
 
 
@@ -190,6 +191,7 @@ class TesouroDireto(models.Model):
                 cotacao=self.valor_investido,
                 rentabilidade=self.rentabilidade,
                 saldo=self.valor_investido,
+                carteira=self.carteira
             )
 
 
@@ -239,4 +241,5 @@ class Propriedade(models.Model):
                 unidades=1,
                 cotacao=self.valor_investido,
                 saldo=self.valor_investido,
+                carteira=self.carteira
             )
