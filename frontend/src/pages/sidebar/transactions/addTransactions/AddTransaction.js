@@ -1,9 +1,9 @@
 import React from "react";
 import {Col, Row, Button, Container} from '@themesberg/react-bootstrap';
 
-import BgImage from "../../../assets/img/illustrations/signin.svg"
+import BgImage from "../../../../assets/img/illustrations/signin.svg"
 import {Link} from "react-router-dom";
-import {Routes} from "../../../routes";
+import {Routes} from "../../../../routes";
 
 export default () => {
     return (

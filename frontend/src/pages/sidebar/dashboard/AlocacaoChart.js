@@ -1,5 +1,5 @@
 import {Card, Col, Row} from "@themesberg/react-bootstrap";
-import {CircleChart} from "../../components/Charts";
+import {CircleChart} from "../../../components/Charts";
 import React, {useEffect, useState} from "react";
 
 export const AlocacaoChart = () => {

@@ -1,11 +1,11 @@
 import React, {useEffect, useState} from "react";
 import {Col, Container, Row, FormSelect} from "@themesberg/react-bootstrap";
-import AcaoFiiForm from "./Forms/AcaoFiiForm";
-import AcaoAmForm from "./Forms/AcaoAmForm";
-import RendaFixaForm from "./Forms/RendaFixaForm";
-import TesouroDiretoForm from "./Forms/TesouroDiretoForm";
-import CriptomoedaForm from "./Forms/CriptomoedaForm";
-import PropriedadeForm from "./Forms/PropriedadeForm"
+import AcaoFiiForm from "./forms/AcaoFiiForm";
+import AcaoAmForm from "./forms/AcaoAmForm";
+import RendaFixaForm from "./forms/RendaFixaForm";
+import TesouroDiretoForm from "./forms/TesouroDiretoForm";
+import CriptomoedaForm from "./forms/CriptomoedaForm";
+import PropriedadeForm from "./forms/PropriedadeForm"
 
 export default () => {
 

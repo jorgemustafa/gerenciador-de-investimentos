@@ -3,7 +3,7 @@ import SimpleBar from 'simplebar-react';
 import {useLocation} from "react-router-dom";
 import {CSSTransition} from 'react-transition-group';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {faChartPie, faHandHoldingUsd, faSignOutAlt, faTimes, faPlus} from "@fortawesome/free-solid-svg-icons";
+import {faChartPie, faHandHoldingUsd, faSignOutAlt, faTimes, faPlus, faList} from "@fortawesome/free-solid-svg-icons";
 import {Nav, Badge, Image, Button, Accordion, Navbar} from '@themesberg/react-bootstrap';
 import {Link} from 'react-router-dom';
 
@@ -106,7 +106,8 @@ export default (props = {}) => {
                         </div>
                         <Nav className="flex-column pt-3 pt-md-0">
                             <NavItem title="Resumo" link={Routes.DashboardOverview.path} icon={faChartPie}/>
-                            <NavItem title="Extrato" icon={faHandHoldingUsd} link={Routes.Transactions.path}/>
+                            <NavItem title="Ativos" icon={faHandHoldingUsd} link={Routes.Transactions.path}/>
+                            <NavItem title="Extrato" icon={faList} link={Routes.Transactions.path}/>
                             <NavItem title="Adicionar" icon={faPlus} link={Routes.AddTransaction.path}/>
                             <NavItem title="Perfil" icon={faUserCircle} link={Routes.Settings.path}/>
                         </Nav>

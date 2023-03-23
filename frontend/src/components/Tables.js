@@ -5,7 +5,7 @@ import { faAngleDown, faAngleUp, faArrowDown, faArrowUp, faEdit, faEllipsisH, fa
 import { Col, Row, Nav, Card, Image, Button, Table, Dropdown, ProgressBar, Pagination, ButtonGroup } from '@themesberg/react-bootstrap';
 
 import { pageVisits, pageTraffic, pageRanking } from "../data/tables";
-import transactions from "../pages/Transactions/data";
+import transactions from "../pages/sidebar/transactions/data";
 import commands from "../data/commands";
 
 const ValueChange = ({ value, suffix }) => {

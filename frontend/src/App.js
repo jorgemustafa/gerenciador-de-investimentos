@@ -5,8 +5,8 @@ import {Provider} from "react-redux";
 import store from './store'
 
 // pages
-import DashboardOverview from "./pages/dashboard/DashboardOverview";
-import Transactions from "./pages/Transactions/Transactions";
+import DashboardOverview from "./pages/sidebar/dashboard/DashboardOverview";
+import Transactions from "./pages/sidebar/Extrato/Transactions";
 import Settings from "./pages/Settings";
 import Signin from "./pages/authentication/Signin";
 import Signup from "./pages/authentication/Signup";
@@ -21,10 +21,10 @@ import Sidebar from "./components/Sidebar";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import Preloader from "./components/Preloader";
-import AddTransaction from "./pages/Transactions/AddTransactions/AddTransaction";
-import NewInvestment from "./pages/Transactions/AddTransactions/NewInvestment";
-import ReInvestment from "./pages/Transactions/AddTransactions/ReInvestment";
-import Sale from "./pages/Transactions/AddTransactions/Sale";
+import AddTransaction from "./pages/sidebar/transactions/addTransactions/AddTransaction";
+import NewInvestment from "./pages/sidebar/transactions/addTransactions/NewInvestment";
+import ReInvestment from "./pages/sidebar/transactions/addTransactions/ReInvestment";
+import Sale from "./pages/sidebar/transactions/addTransactions/Sale";
 
 
 const RouteWithLoader = ({component: Component, ...rest}) => {

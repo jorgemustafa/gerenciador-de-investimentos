@@ -2,6 +2,8 @@
 export const Routes = {
     // dash
     DashboardOverview: { path: "/" },
+    // assets list
+    AssetsList: {path: "/assets"},
     // extract
     Transactions: { path: "/extrato" },
     // add transactions

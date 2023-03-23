@@ -1,11 +1,11 @@
 import React, {useEffect, useState} from "react";
 import {Col, Container, Form, FormSelect, InputGroup, Row} from "@themesberg/react-bootstrap";
-import AcaoFiiForm from "./Forms/AcaoFiiForm";
-import AcaoAmForm from "./Forms/AcaoAmForm";
-import RendaFixaForm from "./Forms/RendaFixaForm";
-import TesouroDiretoForm from "./Forms/TesouroDiretoForm";
-import CriptomoedaForm from "./Forms/CriptomoedaForm";
-import PropriedadeForm from "./Forms/PropriedadeForm";
+import AcaoFiiForm from "./forms/AcaoFiiForm";
+import AcaoAmForm from "./forms/AcaoAmForm";
+import RendaFixaForm from "./forms/RendaFixaForm";
+import TesouroDiretoForm from "./forms/TesouroDiretoForm";
+import CriptomoedaForm from "./forms/CriptomoedaForm";
+import PropriedadeForm from "./forms/PropriedadeForm";
 
 export default () => {
     // parsing response assets
@@ -45,7 +45,7 @@ export default () => {
             .then(response => response.json())
             .then(data => setResponseAtivos(data))
             .catch(err => {
-                console.log('Reinvestment.js', err)
+                console.log('Sale.js', err)
             })
         loadData()
     }, [])
@@ -60,7 +60,7 @@ export default () => {
                                 rounded p-4 p-lg-5 w-100 fmxw-500 text-md-center">
                                 <Form className="mt-4">
                                     <div className="text-center text-md-center mb-4 mt-md-0">
-                                        <h3 className="mb-3">Reinvestimento</h3>
+                                        <h3 className="mb-3">Nova Venda</h3>
                                     </div>
                                     <span className="tooltiptext">Escolha o ativo:</span>
                                     <Form.Group id="tipo_aplicacao" className="mb-4">
@@ -77,7 +77,8 @@ export default () => {
                                                     --------------
                                                 </option>
                                                 {responseAtivos.map(ativo =>
-                                                    <option className="fw-bold" value={ativo.type + ';' + ativo.name + ';' + ativo.id}>
+                                                    <option className="fw-bold"
+                                                            value={ativo.type + ';' + ativo.name + ';' + ativo.id}>
                                                         {ativo.name}
                                                     </option>
                                                 )}
@@ -86,11 +87,11 @@ export default () => {
                                     </Form.Group>
                                 </Form>
                                 {
-                                    acoesFiiVisible ? <AcaoFiiForm asset={assetId}/> :
-                                        acoesAmVisible ? <AcaoAmForm asset={assetId}/> :
+                                    acoesFiiVisible ? <AcaoFiiForm asset={assetId} venda={true}/> :
+                                        acoesAmVisible ? <AcaoAmForm asset={assetId} venda={true}/> :
                                             rendaFixaVisible ? <RendaFixaForm asset={assetName}/> :
                                                 tesouroVisible ? <TesouroDiretoForm asset={assetName}/> :
-                                                    criptoVisible ? <CriptomoedaForm asset={assetId}/> :
+                                                    criptoVisible ? <CriptomoedaForm asset={assetId} venda={true}/> :
                                                         propVisible ? <PropriedadeForm asset={assetName}/> :
                                                             null
                                 }
