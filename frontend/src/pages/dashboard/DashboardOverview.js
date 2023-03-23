@@ -2,15 +2,15 @@ import React, {Fragment, useEffect, useState} from "react";
 import {Col, Row} from '@themesberg/react-bootstrap';
 
 import {AlocacaoChart} from "./AlocacaoChart";
-import {SalesValueWidget} from "./DesempenhoChart";
 import * as PropTypes from "prop-types";
+import PerformanceNumbers from "./PerformanceNumbers";
 
 function Fragmento(props) {
     return null;
 }
 
 Fragmento.propTypes = {children: PropTypes.node};
-const DashboardOverview = () => {
+export default () => {
 
     const [desempenho, setDesempenho] = useState([])
 
@@ -37,7 +37,7 @@ const DashboardOverview = () => {
         <Fragment>
             <Row className="justify-content-md-center">
                 <Col xs={6} sm={6} xl={6} className="mb-4 d-none d-sm-block">
-                    <SalesValueWidget
+                    <PerformanceNumbers
                         title="Desempenho"
                         value={value}
                         percentage={percent}
@@ -51,4 +51,3 @@ const DashboardOverview = () => {
     );
 };
 
-export default DashboardOverview

@@ -1,10 +1,10 @@
 import {faAngleDown, faAngleUp} from "@fortawesome/free-solid-svg-icons";
-import {Button, Card} from "@themesberg/react-bootstrap";
+import {Card} from "@themesberg/react-bootstrap";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {SalesValueChart} from "../../components/Charts";
 import React from "react";
+import PerformanceChart from "./PerformanceChart";
 
-export const SalesValueWidget = (props) => {
+export default (props) => {
   const { title, value, percentage } = props;
   const percentageIcon = percentage < 0 ? faAngleDown : faAngleUp;
   const percentageColor = percentage < 0 ? "text-danger" : "text-success";
@@ -31,7 +31,7 @@ export const SalesValueWidget = (props) => {
         {/*</div>*/}
       </Card.Header>
       <Card.Body className="p-2">
-        <SalesValueChart />
+      <PerformanceChart/>
       </Card.Body>
     </Card>
   );
