@@ -85,6 +85,23 @@ class AcaoFii(models.Model):
     def get_valor_investido(self):
         return float(self.unidades * self.cotacao)
 
+    def get_percentual_carteira(self):
+        return round(self.get_valor_investido() / self.carteira.valor_total, 5)
+
+    def get_desempenho(self, percentual=False, total=False):
+        lucro = (self.nome.preco_fechamento - self.cotacao) * self.unidades
+        if percentual:
+            lucro = float(lucro) / self.get_valor_investido() * 100
+        if total:
+            lucro = self.cotacao * self.unidades + lucro
+        return round(float(lucro), 2)
+
+    def get_preco_medio(self):
+        return self.cotacao
+
+    def get_unidades(self):
+        return self.unidades
+
     class Meta:
         verbose_name_plural = 'Ações e FIIs'
         verbose_name = 'Ação e FII'
@@ -104,6 +121,21 @@ class AcaoAmericana(models.Model):
 
     def get_valor_investido(self):
         return float(self.unidades * self.cotacao)
+
+    def get_percentual_carteira(self):
+        return round(self.get_valor_investido() / self.carteira.valor_total, 5)
+
+    def get_desempenho(self, percentual=False, total=False):
+        lucro = (self.nome.preco_fechamento - self.cotacao) * self.unidades
+        if percentual:
+            lucro = float(lucro) / self.get_valor_investido() * 100
+        return round(float(lucro), 2)
+
+    def get_preco_medio(self):
+        return self.cotacao
+
+    def get_unidades(self):
+       return self.unidades
 
     class Meta:
         verbose_name_plural = 'Ações Americanas'
@@ -139,6 +171,20 @@ class RendaFixa(models.Model):
 
     def get_valor_investido(self):
         return float(self.valor_investido)
+
+    def get_percentual_carteira(self):
+        return round(self.get_valor_investido() / self.carteira.valor_total, 5)
+
+    @staticmethod
+    def get_desempenho(percentual=False, total=False):
+        return 0
+
+    def get_preco_medio(self):
+        return self.valor_investido
+
+    @staticmethod
+    def get_unidades():
+       return 1
 
     class Meta:
         verbose_name_plural = 'Rendas Fixas'
@@ -176,6 +222,20 @@ class TesouroDireto(models.Model):
     def get_valor_investido(self):
         return float(self.valor_investido)
 
+    def get_percentual_carteira(self):
+        return round(self.get_valor_investido() / self.carteira.valor_total, 5)
+
+    @staticmethod
+    def get_desempenho(percentual=False, total=False):
+        return 0
+
+    def get_preco_medio(self):
+        return self.valor_investido
+
+    @staticmethod
+    def get_unidades():
+       return 1
+
     class Meta:
         verbose_name_plural = 'Tesouros Diretos'
 
@@ -210,6 +270,19 @@ class Criptomoeda(models.Model):
     def get_valor_investido(self):
         return float(self.unidades * self.cotacao)
 
+    def get_percentual_carteira(self):
+        return round(self.get_valor_investido() / self.carteira.valor_total, 5)
+
+    @staticmethod
+    def get_desempenho(percentual=False, total=False):
+        return 0
+
+    def get_preco_medio(self):
+        return self.cotacao
+
+    def get_unidades(self):
+       return self.unidades
+
     class Meta:
         verbose_name_plural = 'Criptomoedas'
 
@@ -227,6 +300,20 @@ class Propriedade(models.Model):
 
     def get_valor_investido(self):
         return float(self.valor_investido)
+
+    def get_percentual_carteira(self):
+        return round(self.get_valor_investido() / self.carteira.valor_total, 5)
+
+    @staticmethod
+    def get_desempenho(percentual=False, total=False):
+        return 0
+
+    def get_preco_medio(self):
+        return self.valor_investido
+
+    @staticmethod
+    def get_unidades():
+       return 1
 
     class Meta:
         verbose_name_plural = 'Propriedades'

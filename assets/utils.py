@@ -10,8 +10,9 @@ from engine.settings import DOWNLOAD_REPORT_FOLDER
 def sell_assets(request, classe):
     unidades = int(request.data['unidades'])
     cotacao = int(request.data['cotacao'])
+    carteira = int(request.data['carteira'])
     obj = classe.objects.filter(nome__id=int(request.data['nome']),
-                                carteira__id=int(request.data['carteira'])).last()
+                                carteira__id=carteira).last()
     if unidades <= obj.unidades:
         obj.unidades -= unidades
         obj.save()
@@ -22,7 +23,11 @@ def sell_assets(request, classe):
             unidades=unidades,
             cotacao=cotacao,
             saldo=unidades * cotacao,
+            carteira_id=carteira
         )
+        # excluir ativo se tiver 0
+        if obj.unidades == 0:
+            obj.delete()
         return True
     return print('Venda é maior que total de ações')
 

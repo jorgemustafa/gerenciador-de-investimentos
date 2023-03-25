@@ -1,17 +1,15 @@
-import {Button, ButtonGroup, Card, Dropdown, Table} from "@themesberg/react-bootstrap";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faEdit, faEllipsisH, faEye, faTrashAlt} from "@fortawesome/free-solid-svg-icons";
+import {Card, Table} from "@themesberg/react-bootstrap";
 import React, {useEffect, useState} from "react";
 
 export default () => {
 
     const [dataResponse, setDataResponse] = useState([])
-
-    // get extrato list
+    console.log(dataResponse)
+    // get transactions list
     useEffect(() => {
         const loadData = () => {
         }
-        fetch('http://localhost:8000/assets/list/extrato/', {
+        fetch('http://localhost:8000/assets/list/', {
             headers: {
                 'Authorization': `JWT ${localStorage.getItem('access')}`
             }
@@ -25,39 +23,49 @@ export default () => {
     }, [])
 
     const TableRow = (props) => {
-        const {nome, cotacao, unidades, saldo, inclusao, tipo_transacao} = props;
-        const tipoVariant = tipo_transacao === "compra" ? "success" : "danger"
+        const {name, pm, units, total_current, invested, performance, perc_wallet, type} = props;
+        const perfVariant = performance > 0 ? "success" : "danger"
 
         return (
             <tr>
                 <td>
           <span className="fw-normal">
-            {nome}
+            {name}
           </span>
                 </td>
                 <td>
           <span className="fw-normal">
-            {cotacao !== '0.00' ? <>R${parseFloat(cotacao).toFixed(2)}</> : <>N/A</>}
+            {pm !== '0.00' ? <>R${parseFloat(pm).toFixed(2)}</> : <>N/A</>}
           </span>
                 </td>
                 <td>
           <span className="fw-normal">
-            {unidades}
+            {units}
           </span>
                 </td>
                 <td>
           <span className="fw-normal">
-            R${saldo}
+            R${invested}
           </span>
                 </td>
                 <td>
           <span className="fw-normal">
-            {inclusao}
+            R${total_current}
           </span>
                 </td>
                 <td>
-          <span className={`fw-normal text-${tipoVariant}`}>
-            {tipo_transacao.toUpperCase()}
+          <span className={`fw-normal text-${perfVariant}`}>
+            {performance}%
+          </span>
+                </td>
+                <td>
+          <span className="fw-normal">
+            {perc_wallet}%
+          </span>
+                </td>
+                <td>
+          <span className="fw-normal">
+            {type}
           </span>
                 </td>
             </tr>
@@ -71,10 +79,12 @@ export default () => {
                     <thead>
                     <tr>
                         <th className="border-bottom">Ativo</th>
-                        <th className="border-bottom">Cotação</th>
+                        <th className="border-bottom">Preço Médio</th>
                         <th className="border-bottom">Unidades</th>
-                        <th className="border-bottom">Saldo</th>
-                        <th className="border-bottom">Inclusão</th>
+                        <th className="border-bottom">Total Investido</th>
+                        <th className="border-bottom">Total Atual</th>
+                        <th className="border-bottom">Valorização</th>
+                        <th className="border-bottom">% na Carteira</th>
                         <th className="border-bottom">Tipo</th>
                     </tr>
                     </thead>
@@ -83,21 +93,6 @@ export default () => {
                     </tbody>
                 </Table>
                 <Card.Footer className="px-3 border-0 d-lg-flex align-items-center justify-content-end">
-                    {/*<Nav>*/}
-                    {/*    <Pagination className="mb-2 mb-lg-0">*/}
-                    {/*        <Pagination.Prev>*/}
-                    {/*            Previous*/}
-                    {/*        </Pagination.Prev>*/}
-                    {/*        <Pagination.Item active>1</Pagination.Item>*/}
-                    {/*        <Pagination.Item>2</Pagination.Item>*/}
-                    {/*        <Pagination.Item>3</Pagination.Item>*/}
-                    {/*        <Pagination.Item>4</Pagination.Item>*/}
-                    {/*        <Pagination.Item>5</Pagination.Item>*/}
-                    {/*        <Pagination.Next>*/}
-                    {/*            Next*/}
-                    {/*        </Pagination.Next>*/}
-                    {/*    </Pagination>*/}
-                    {/*</Nav>*/}
                     <small className="fw-bold">
                         Mostrando <b>{dataResponse.length}</b> resultados
                     </small>

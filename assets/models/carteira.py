@@ -33,12 +33,24 @@ class Carteira(models.Model):
                         ativos.append({
                             'id': ativo.nome.id,
                             'name': str(ativo.nome),
+                            'pm': ativo.get_preco_medio(),
+                            'units': ativo.get_unidades(),
+                            'total_current': ativo.get_desempenho(total=True),
+                            'invested': ativo.get_valor_investido(),
+                            'performance': ativo.get_desempenho(percentual=True),
+                            'perc_wallet': ativo.get_percentual_carteira(),
                             'type': str(ativo.__class__.__name__),
                         })
                     except AttributeError:
                         ativos.append({
                             'id': int(ativo.id),
                             'name': str(ativo.nome),
+                            'pm': ativo.get_preco_medio(),
+                            'units': ativo.get_unidades(),
+                            'total_current': ativo.get_desempenho(total=True),
+                            'invested': ativo.get_valor_investido(),
+                            'performance': ativo.get_desempenho(percentual=True),
+                            'perc_wallet': ativo.get_percentual_carteira(),
                             'type': str(ativo.__class__.__name__),
                         })
                 else:

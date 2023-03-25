@@ -5,8 +5,8 @@ export const Routes = {
     // assets list
     AssetsList: {path: "/assets"},
     // extract
-    Transactions: { path: "/extrato" },
-    // add transactions
+    Transactions: { path: "/transactions" },
+    // add addAssets
     AddTransaction: { path: "/adicionar" },
     NewInvestment: { path: "/adicionar/novo-investimento" },
     ReInvestment: { path: "/adicionar/reinvestimento" },

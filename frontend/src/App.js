@@ -6,7 +6,7 @@ import store from './store'
 
 // pages
 import DashboardOverview from "./pages/sidebar/dashboard/DashboardOverview";
-import Transactions from "./pages/sidebar/Extrato/Transactions";
+import Transactions from "./pages/sidebar/transactions/Transactions";
 import Settings from "./pages/Settings";
 import Signin from "./pages/authentication/Signin";
 import Signup from "./pages/authentication/Signup";
@@ -17,14 +17,15 @@ import Activate from "./pages/authentication/Activate"
 import Google from "./pages/authentication/Google";
 
 // components
-import Sidebar from "./components/Sidebar";
+import Sidebar from "./pages/sidebar/Sidebar";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import Preloader from "./components/Preloader";
-import AddTransaction from "./pages/sidebar/transactions/addTransactions/AddTransaction";
-import NewInvestment from "./pages/sidebar/transactions/addTransactions/NewInvestment";
-import ReInvestment from "./pages/sidebar/transactions/addTransactions/ReInvestment";
-import Sale from "./pages/sidebar/transactions/addTransactions/Sale";
+import AddTransaction from "./pages/sidebar/addAssets/AddTransaction";
+import NewInvestment from "./pages/sidebar/addAssets/NewInvestment";
+import ReInvestment from "./pages/sidebar/addAssets/ReInvestment";
+import Sale from "./pages/sidebar/addAssets/Sale";
+import AssetsList from "./pages/sidebar/listAssets/AssetsList";
 
 
 const RouteWithLoader = ({component: Component, ...rest}) => {
@@ -87,6 +88,7 @@ const App = () => (
 
                 {/*if authenticated*/}
                 <RouteWithSidebar exact path={Routes.DashboardOverview.path} component={DashboardOverview}/>
+                <RouteWithSidebar exact path={Routes.AssetsList.path} component={AssetsList}/>
                 <RouteWithSidebar exact path={Routes.Settings.path} component={Settings}/>
                 <RouteWithSidebar exact path={Routes.Transactions.path} component={Transactions}/>
                 <RouteWithSidebar exact path={Routes.AddTransaction.path} component={AddTransaction}/>

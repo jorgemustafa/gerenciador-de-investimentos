@@ -20,17 +20,19 @@ class AcaoFiiSerializer(serializers.ModelSerializer):
             if self.instance:
                 # override unidades making sum
                 validated_data['unidades'] += self.instance.unidades
+                preco_medio = (validated_data['cotacao'] + self.instance.cotacao) / self.instance.unidades
+                validated_data['cotacao'] = preco_medio
                 self.update(self.instance, validated_data)
             else:
                 self.instance = self.create(validated_data)
-                Extrato.objects.create(
-                    objeto=self.instance,
-                    tipo_transacao='compra',
-                    unidades=validated_data['unidades'],
-                    cotacao=validated_data['cotacao'],
-                    saldo=validated_data['unidades'] * validated_data['cotacao'],
-                    carteira_id=validated_data['carteira']
-                )
+            Extrato.objects.create(
+                objeto=self.instance,
+                tipo_transacao='compra',
+                unidades=validated_data['unidades'],
+                cotacao=validated_data['cotacao'],
+                saldo=validated_data['unidades'] * validated_data['cotacao'],
+                carteira=validated_data['carteira']
+            )
         return self.instance
 
 
@@ -49,17 +51,19 @@ class AcaoAmericanaSerializer(serializers.ModelSerializer):
             if self.instance:
                 # override unidades making sum
                 validated_data['unidades'] += self.instance.unidades
+                preco_medio = (validated_data['cotacao'] + self.instance.cotacao) / self.instance.unidades
+                validated_data['cotacao'] = preco_medio
                 self.update(self.instance, validated_data)
             else:
                 self.instance = self.create(validated_data)
-                Extrato.objects.create(
-                    objeto=self.instance,
-                    tipo_transacao='compra',
-                    unidades=validated_data['unidades'],
-                    cotacao=validated_data['cotacao'],
-                    saldo=validated_data['unidades'] * validated_data['cotacao'],
-                    carteira_id=validated_data['carteira']
-                )
+            Extrato.objects.create(
+                objeto=self.instance,
+                tipo_transacao='compra',
+                unidades=validated_data['unidades'],
+                cotacao=validated_data['cotacao'],
+                saldo=validated_data['unidades'] * validated_data['cotacao'],
+                carteira=validated_data['carteira']
+            )
         return self.instance
 
 
@@ -90,17 +94,19 @@ class CriptomoedaSerializer(serializers.ModelSerializer):
             if self.instance:
                 # override unidades making sum
                 validated_data['unidades'] += self.instance.unidades
+                preco_medio = (validated_data['cotacao'] + self.instance.cotacao) / self.instance.unidades
+                validated_data['cotacao'] = preco_medio
                 self.update(self.instance, validated_data)
             else:
                 self.instance = self.create(validated_data)
-                Extrato.objects.create(
-                    objeto=self.instance,
-                    tipo_transacao='compra',
-                    unidades=validated_data['unidades'],
-                    cotacao=validated_data['cotacao'],
-                    saldo=validated_data['unidades'] * validated_data['cotacao'],
-                    carteira_id=validated_data['carteira']
-                )
+            Extrato.objects.create(
+                objeto=self.instance,
+                tipo_transacao='compra',
+                unidades=validated_data['unidades'],
+                cotacao=validated_data['cotacao'],
+                saldo=validated_data['unidades'] * validated_data['cotacao'],
+                carteira=validated_data['carteira']
+            )
         return self.instance
 
 class PropriedadeSerializer(serializers.ModelSerializer):

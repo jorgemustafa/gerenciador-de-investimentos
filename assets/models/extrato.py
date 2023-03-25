@@ -18,4 +18,4 @@ class Extrato(models.Model):
     inclusao = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return str(self.objeto.nome)
+        return str(self.objeto.nome if self.objeto else 'Ativo excluído')

@@ -1,14 +1,13 @@
 import React, {useState} from "react";
 import SimpleBar from 'simplebar-react';
-import {useLocation} from "react-router-dom";
+import {Link, useLocation} from "react-router-dom";
 import {CSSTransition} from 'react-transition-group';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {faChartPie, faHandHoldingUsd, faSignOutAlt, faTimes, faPlus, faList} from "@fortawesome/free-solid-svg-icons";
-import {Nav, Badge, Image, Button, Accordion, Navbar} from '@themesberg/react-bootstrap';
-import {Link} from 'react-router-dom';
+import {faChartPie, faHandHoldingUsd, faList, faPlus, faSignOutAlt, faTimes} from "@fortawesome/free-solid-svg-icons";
+import {Accordion, Badge, Button, Image, Nav, Navbar} from '@themesberg/react-bootstrap';
 
-import {Routes} from "../routes";
-import ReactHero from "../assets/img/technologies/react-hero-logo.svg";
+import {Routes} from "../../routes";
+import ReactHero from "../../assets/img/technologies/react-hero-logo.svg";
 import {faUserCircle} from "@fortawesome/free-regular-svg-icons";
 
 export default (props = {}) => {
@@ -105,8 +104,8 @@ export default (props = {}) => {
                             </Nav.Link>
                         </div>
                         <Nav className="flex-column pt-3 pt-md-0">
-                            <NavItem title="Resumo" link={Routes.DashboardOverview.path} icon={faChartPie}/>
-                            <NavItem title="Ativos" icon={faHandHoldingUsd} link={Routes.Transactions.path}/>
+                            <NavItem title="Resumo" icon={faChartPie} link={Routes.DashboardOverview.path}/>
+                            <NavItem title="Ativos" icon={faHandHoldingUsd} link={Routes.AssetsList.path}/>
                             <NavItem title="Extrato" icon={faList} link={Routes.Transactions.path}/>
                             <NavItem title="Adicionar" icon={faPlus} link={Routes.AddTransaction.path}/>
                             <NavItem title="Perfil" icon={faUserCircle} link={Routes.Settings.path}/>
