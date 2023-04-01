@@ -71,10 +71,10 @@ WSGI_APPLICATION = 'engine.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'voltage',
-        'USER': 'postgres',
-        'PASSWORD': 'postgres',
-        'HOST': 'localhost'
+        'NAME': config('NAME'),
+        'USER': config('USER'),
+        'PASSWORD': config('PASSWORD'),
+        'HOST': config('HOST')
     }
 }
 
@@ -82,8 +82,8 @@ DATABASES = {
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
-EMAIL_HOST_USER = 'jorge.mustafa@itmss.com.br'
-EMAIL_HOST_PASSWORD = 'Mohamet20@!'
+EMAIL_HOST_USER = config('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
 EMAIL_USE_TLS = True
 
 AUTH_PASSWORD_VALIDATORS = [
@@ -175,9 +175,5 @@ SIMPLE_JWT = {
 }
 
 AUTH_USER_MODEL = 'auth_users.UserAccount'
-
-BINANCE_KEY = config('BINANCE_KEY')
-
-BINANCE_SECRET = config('BINANCE_SECRET')
 
 DOWNLOAD_REPORT_FOLDER = config('DOWNLOAD_REPORT_FOLDER')

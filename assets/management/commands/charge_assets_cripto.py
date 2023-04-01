@@ -10,7 +10,7 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         ListCriptomoeda.objects.all().delete()
-        client = Client(api_key=BINANCE_KEY, api_secret=BINANCE_SECRET)
+        client = Client(api_key='', api_secret='')
         # get all tickers and prices
         assets = client.get_all_tickers()
 
