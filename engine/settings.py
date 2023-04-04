@@ -1,3 +1,4 @@
+import json
 import os
 from datetime import timedelta
 from pathlib import Path
@@ -9,6 +10,7 @@ from django.utils.encoding import force_str
 django.utils.encoding.force_text = force_str
 
 BASE_DIR = Path(__file__).resolve().parent.parent
+GOOGLE_APPLICATION_CREDENTIALS = os.path.join(BASE_DIR, 'credentials', 'voltage-invest-manager-4daa18c94073.json')
 
 SECRET_KEY = config('SECRET_KEY')
 
@@ -177,3 +179,12 @@ SIMPLE_JWT = {
 AUTH_USER_MODEL = 'auth_users.UserAccount'
 
 DOWNLOAD_REPORT_FOLDER = config('DOWNLOAD_REPORT_FOLDER')
+
+# Configurações do Cloud SQL
+with open(GOOGLE_APPLICATION_CREDENTIALS, 'r') as f:
+    GOOGLE_CREDENTIALS = json.loads(f.read())
+
+if not DEBUG:
+    DATABASES['default']['HOST'] = '/cloudsql/voltage-invest-manager:southamerica-east1:voltage'
+    DATABASES['default']['USER'] = GOOGLE_CREDENTIALS['client_email']
+    DATABASES['default']['PASSWORD'] = config('DB_PASS')
