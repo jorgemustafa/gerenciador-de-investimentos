@@ -2,7 +2,6 @@ from binance import Client
 from django.core.management.base import BaseCommand
 
 from assets.models.assets import ListCriptomoeda
-from engine.settings import BINANCE_KEY, BINANCE_SECRET
 
 
 class Command(BaseCommand):
