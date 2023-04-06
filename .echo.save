@@ -1,0 +1,2 @@
+echo GS_BUCKET_NAME=voltage-invest-manager_bucket_voltage_1 >> .env
+echo SECRET_KEY=$(cat /dev/urandom | LC_ALL=C tr -dc '[:alpha:]'| fold -w 50 | head -n1) >> .envdq

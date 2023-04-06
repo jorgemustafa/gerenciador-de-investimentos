@@ -6,7 +6,9 @@ from pathlib import Path
 import django
 from decouple import config
 from django.utils.encoding import force_str
+from urllib.parse import quote
 
+django.utils.http.urlquote = quote
 django.utils.encoding.force_text = force_str
 
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -72,11 +74,12 @@ WSGI_APPLICATION = 'engine.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': config('DB_NAME'),
         'USER': config('DB_USER'),
         'PASSWORD': config('DB_PASS'),
-        'HOST': config('DB_HOST')
+        'HOST': config('DB_HOST'),
+	'PORT': config('DB_PORT')
     }
 }
 
@@ -180,11 +183,4 @@ AUTH_USER_MODEL = 'auth_users.UserAccount'
 
 DOWNLOAD_REPORT_FOLDER = config('DOWNLOAD_REPORT_FOLDER')
 
-# Configurações do Cloud SQL
-with open(GOOGLE_APPLICATION_CREDENTIALS, 'r') as f:
-    GOOGLE_CREDENTIALS = json.loads(f.read())
 
-if not DEBUG:
-    DATABASES['default']['HOST'] = '/cloudsql/voltage-invest-manager:southamerica-east1:voltage'
-    DATABASES['default']['USER'] = GOOGLE_CREDENTIALS['client_email']
-    DATABASES['default']['PASSWORD'] = config('DB_PASS')

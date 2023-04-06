@@ -1,0 +1,9 @@
+runtime: python38
+
+handlers:
+- url: /static
+  static_dir: static/
+- url: /.*
+  script: auto
+env_variables:
+    APPENGINE_URL: http://voltage-invest-manager.uc.r.appspot.com
