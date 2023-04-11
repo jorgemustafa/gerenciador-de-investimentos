@@ -39,7 +39,7 @@ export default ({asset, venda=false}) => {
     useEffect(() => {
         const loadData = () => {
         }
-        fetch(`${process.env.REACT_APP_API_URL}/list/cripto/`, {
+        fetch(`${process.env.REACT_APP_API_URL}/assets/list/cripto/`, {
             headers: {
                 'Authorization': `JWT ${localStorage.getItem('access')}`
             }
