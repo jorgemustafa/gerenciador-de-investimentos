@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faEnvelope, faUnlockAlt} from "@fortawesome/free-solid-svg-icons";
 import {faGoogle} from "@fortawesome/free-brands-svg-icons";
-import {Col, Row, Form, Card, Button, FormCheck, Container, InputGroup} from '@themesberg/react-bootstrap';
+import {Button, Card, Col, Container, Form, FormCheck, InputGroup, Row} from '@themesberg/react-bootstrap';
 import {Link, Redirect} from 'react-router-dom';
 import {connect} from 'react-redux';
 import axios from 'axios';
@@ -48,11 +48,11 @@ const Login = ({login, isAuthenticated}) => {
                         <Col xs={12} className="d-flex align-items-center justify-content-center">
                             <div className="bg-white shadow-soft border rounded border-light p-4 p-lg-5 w-100 fmxw-500">
                                 <div className="text-center text-md-center mb-4 mt-md-0">
-                                    <h3 className="mb-0">Sign in to Voltage</h3>
+                                    <h3 className="mb-0">Login no Voltage</h3>
                                 </div>
                                 <Form className="mt-4" onSubmit={e => onSubmit(e)}>
                                     <Form.Group id="email" className="mb-4">
-                                        <Form.Label>Your Email</Form.Label>
+                                        <Form.Label>Email</Form.Label>
                                         <InputGroup>
                                             <InputGroup.Text>
                                                 <FontAwesomeIcon icon={faEnvelope}/>
@@ -61,7 +61,7 @@ const Login = ({login, isAuthenticated}) => {
                                                 autoFocus
                                                 required
                                                 type="email"
-                                                placeholder="example@company.com"
+                                                placeholder="exemplo@dominio.com"
                                                 name='email'
                                                 value={email}
                                                 onChange={e => onChange(e)}
@@ -70,7 +70,7 @@ const Login = ({login, isAuthenticated}) => {
                                     </Form.Group>
                                     <Form.Group>
                                         <Form.Group id="password" className="mb-4">
-                                            <Form.Label>Your Password</Form.Label>
+                                            <Form.Label>Senha</Form.Label>
                                             <InputGroup>
                                                 <InputGroup.Text>
                                                     <FontAwesomeIcon icon={faUnlockAlt}/>
@@ -97,7 +97,7 @@ const Login = ({login, isAuthenticated}) => {
                                         </div>
                                     </Form.Group>
                                     <Button variant="primary" type="submit" className="w-100">
-                                        Sign in
+                                        Entrar
                                     </Button>
                                 </Form>
 
@@ -113,9 +113,9 @@ const Login = ({login, isAuthenticated}) => {
                                 </div>
                                 <div className="d-flex justify-content-center align-items-center mt-4">
                   <span className="fw-normal">
-                    Not registered?
+                    Não é registrado?
                     <Card.Link as={Link} to={Routes.Signup.path} className="fw-bold">
-                      {` Create account `}
+                      {` Criar conta `}
                     </Card.Link>
                   </span>
                                 </div>

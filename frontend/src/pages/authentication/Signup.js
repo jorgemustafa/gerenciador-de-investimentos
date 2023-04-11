@@ -64,11 +64,11 @@ const Signup = ({signup, isAuthenticated}) => {
                         <Col xs={12} className="d-flex align-items-center justify-content-center">
                             <div className="bg-white shadow-soft border rounded border-light p-4 p-lg-5 w-100 fmxw-500">
                                 <div className="text-center text-md-center mb-4 mt-md-0">
-                                    <h3 className="mb-0">Sign up to Voltage</h3>
+                                    <h3 className="mb-0">Registrar-se</h3>
                                 </div>
                                 <Form className="mt-4" onSubmit={e => onSubmit(e)}>
                                     <Form.Group id="first_name" className="mb-4">
-                                        <Form.Label>First Name</Form.Label>
+                                        <Form.Label>Nome</Form.Label>
                                         <InputGroup>
                                             <InputGroup.Text>
                                                 <FontAwesomeIcon icon={faPen}/>
@@ -85,7 +85,7 @@ const Signup = ({signup, isAuthenticated}) => {
                                         </InputGroup>
                                     </Form.Group>
                                     <Form.Group id="last_name" className="mb-4">
-                                        <Form.Label>Last Name</Form.Label>
+                                        <Form.Label>Sobrenome</Form.Label>
                                         <InputGroup>
                                             <InputGroup.Text>
                                                 <FontAwesomeIcon icon={faPen}/>
@@ -111,7 +111,7 @@ const Signup = ({signup, isAuthenticated}) => {
                                                 autoFocus
                                                 required
                                                 type="email"
-                                                placeholder="example@company.com"
+                                                placeholder="exemplo@dominio.com"
                                                 name='email'
                                                 value={email}
                                                 onChange={e => onChange(e)}
@@ -119,7 +119,7 @@ const Signup = ({signup, isAuthenticated}) => {
                                         </InputGroup>
                                     </Form.Group>
                                     <Form.Group id="password" className="mb-4">
-                                        <Form.Label>Password</Form.Label>
+                                        <Form.Label>Senha</Form.Label>
                                         <InputGroup>
                                             <InputGroup.Text>
                                                 <FontAwesomeIcon icon={faUnlockAlt}/>
@@ -136,7 +136,7 @@ const Signup = ({signup, isAuthenticated}) => {
                                         </InputGroup>
                                     </Form.Group>
                                     <Form.Group id="re_password" className="mb-4">
-                                        <Form.Label>Confirm Password</Form.Label>
+                                        <Form.Label>Confirmar Senha</Form.Label>
                                         <InputGroup>
                                             <InputGroup.Text>
                                                 <FontAwesomeIcon icon={faUnlockAlt}/>
@@ -153,7 +153,7 @@ const Signup = ({signup, isAuthenticated}) => {
                                         </InputGroup>
                                     </Form.Group>
                                     <Button variant="primary" type="submit" className="w-100">
-                                        Register
+                                        Registrar
                                     </Button>
                                 </Form>
                                 <div className="mt-3 mb-4 text-center">
