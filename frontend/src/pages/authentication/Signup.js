@@ -58,7 +58,7 @@ const Signup = ({signup, isAuthenticated}) => {
                     <Row className="justify-content-center form-bg-image" style={{backgroundImage: `url(${BgImage})`}}>
                         <p className="text-center">
                             <Card.Link as={Link} to={Routes.Signin.path} className="text-gray-700">
-                                <FontAwesomeIcon icon={faAngleLeft} className="me-2"/> Back to sign in
+                                <FontAwesomeIcon icon={faAngleLeft} className="me-2"/> Voltar para Login
                             </Card.Link>
                         </p>
                         <Col xs={12} className="d-flex align-items-center justify-content-center">
@@ -157,7 +157,7 @@ const Signup = ({signup, isAuthenticated}) => {
                                     </Button>
                                 </Form>
                                 <div className="mt-3 mb-4 text-center">
-                                    <span className="fw-normal">or login with</span>
+                                    <span className="fw-normal">ou entre com</span>
                                 </div>
                                 <div className="d-flex justify-content-center my-4">
                                     <Button variant="outline-light"

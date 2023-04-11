@@ -40,7 +40,7 @@ const ResetPasswordConfirm = ({match, reset_password_confirm}) => {
                     <Row className="justify-content-center">
                         <p className="text-center">
                             <Card.Link as={Link} to={Routes.Signin.path} className="text-gray-700">
-                                <FontAwesomeIcon icon={faAngleLeft} className="me-2"/> Back to sign in
+                                <FontAwesomeIcon icon={faAngleLeft} className="me-2"/> Voltar para Login
                             </Card.Link>
                         </p>
                         <Col xs={12} className="d-flex align-items-center justify-content-center">

@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faEnvelope, faUnlockAlt} from "@fortawesome/free-solid-svg-icons";
 import {faGoogle} from "@fortawesome/free-brands-svg-icons";
-import {Button, Card, Col, Container, Form, FormCheck, InputGroup, Row} from '@themesberg/react-bootstrap';
+import {Button, Card, Col, Container, Form, InputGroup, Row} from '@themesberg/react-bootstrap';
 import {Link, Redirect} from 'react-router-dom';
 import {connect} from 'react-redux';
 import axios from 'axios';
@@ -48,7 +48,7 @@ const Login = ({login, isAuthenticated}) => {
                         <Col xs={12} className="d-flex align-items-center justify-content-center">
                             <div className="bg-white shadow-soft border rounded border-light p-4 p-lg-5 w-100 fmxw-500">
                                 <div className="text-center text-md-center mb-4 mt-md-0">
-                                    <h3 className="mb-0">Login no Voltage</h3>
+                                    <h3 className="mb-0">Entrar no Voltage</h3>
                                 </div>
                                 <Form className="mt-4" onSubmit={e => onSubmit(e)}>
                                     <Form.Group id="email" className="mb-4">
@@ -87,13 +87,8 @@ const Login = ({login, isAuthenticated}) => {
                                             </InputGroup>
                                         </Form.Group>
                                         <div className="d-flex justify-content-between align-items-center mb-4">
-                                            <Form.Check type="checkbox">
-                                                <FormCheck.Input id="defaultCheck5" className="me-2"/>
-                                                <FormCheck.Label htmlFor="defaultCheck5" className="mb-0">Remember
-                                                    me</FormCheck.Label>
-                                            </Form.Check>
                                             <Card.Link as={Link} to={Routes.ResetPassword.path}
-                                                       className="small text-end">Lost password?</Card.Link>
+                                                       className="small text-end">Esqueceu a senha?</Card.Link>
                                         </div>
                                     </Form.Group>
                                     <Button variant="primary" type="submit" className="w-100">
@@ -102,7 +97,7 @@ const Login = ({login, isAuthenticated}) => {
                                 </Form>
 
                                 <div className="mt-3 mb-4 text-center">
-                                    <span className="fw-normal">or login with</span>
+                                    <span className="fw-normal">ou entre com</span>
                                 </div>
                                 <div className="d-flex justify-content-center my-4">
                                     <Button variant="outline-light"
