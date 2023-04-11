@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react'
-import {Button, Col, Form, FormLabel, FormSelect, InputGroup, Row} from "@themesberg/react-bootstrap";
+import {Button, Col, Form, FormLabel, InputGroup, Row} from "@themesberg/react-bootstrap";
 import CurrencyInput from 'react-currency-input-field';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -21,7 +21,7 @@ export default ({asset, venda=false}) => {
     // get carteira id
     useEffect(() => {
         const loadData = () => {
-            fetch('http://localhost:8000/assets/carteira/', {
+            fetch(`${process.env.REACT_APP_API_URL}/assets/carteira/`, {
                 headers: {
                     'Authorization': `JWT ${localStorage.getItem('access')}`
                 }
@@ -39,7 +39,7 @@ export default ({asset, venda=false}) => {
     useEffect(() => {
         const loadData = () => {
         }
-        fetch('http://localhost:8000/assets/list/cripto/', {
+        fetch(`${process.env.REACT_APP_API_URL}/list/cripto/`, {
             headers: {
                 'Authorization': `JWT ${localStorage.getItem('access')}`
             }
@@ -59,7 +59,7 @@ export default ({asset, venda=false}) => {
     let handleSubmit = async (e) => {
         e.preventDefault()
         try {
-            let res = await fetch('http://localhost:8000/assets/criptomoeda/',
+            let res = await fetch(`${process.env.REACT_APP_API_URL}/assets/criptomoeda/`,
                 {
                     method: 'POST',
                     headers: {

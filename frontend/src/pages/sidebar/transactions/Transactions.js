@@ -8,7 +8,7 @@ export default () => {
     const [dlMsg, setDlMsg] = useState(0)
     let generateReport = async () => {
         try {
-            let res = await fetch('http://localhost:8000/assets/exportar/',
+            let res = await fetch(`${process.env.REACT_APP_API_URL}/assets/exportar/`,
                 {
                     method: 'GET',
                     headers: {
@@ -28,7 +28,7 @@ export default () => {
     }
     let downloadReport = async () => {
         try {
-            let res = await fetch('http://localhost:8000/assets/baixar/',
+            let res = await fetch(`${process.env.REACT_APP_API_URL}/assets/baixar/`,
                 {
                     method: 'GET',
                     headers: {

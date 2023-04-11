@@ -34,7 +34,7 @@ export default ({asset}) => {
     // get carteira id
     useEffect(() => {
         const loadData = () => {
-            fetch('http://localhost:8000/assets/carteira/', {
+            fetch(`${process.env.REACT_APP_API_URL}/assets/carteira/`, {
                 headers: {
                     'Authorization': `JWT ${localStorage.getItem('access')}`
                 }
@@ -55,7 +55,7 @@ export default ({asset}) => {
     let handleSubmit = async (e) => {
         e.preventDefault()
         try {
-            let res = await fetch('http://localhost:8000/assets/tesouro/',
+            let res = await fetch(`${process.env.REACT_APP_API_URL}/assets/tesouro/`,
                 {
                     method: 'POST',
                     headers: {

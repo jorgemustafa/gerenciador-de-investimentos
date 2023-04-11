@@ -1,7 +1,7 @@
 import React, {Fragment, useEffect, useState} from "react";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faSignOutAlt} from "@fortawesome/free-solid-svg-icons";
-import {Nav, Navbar, Dropdown, Container} from '@themesberg/react-bootstrap';
+import {Container, Dropdown, Nav, Navbar} from '@themesberg/react-bootstrap';
 import {logout} from "../actions/auth";
 import {Redirect} from "react-router-dom";
 import {connect} from "react-redux";
@@ -15,7 +15,7 @@ const NavBar = ({logout}) => {
     useEffect(() => {
         const loadData = () => {
             // api for auth
-            fetch('http://localhost:8000/api/user/', {
+            fetch(`${process.env.REACT_APP_API_URL}/api/user/`, {
                 headers: {
                     'Authorization': `JWT ${localStorage.getItem('access')}`
                 }
@@ -26,7 +26,7 @@ const NavBar = ({logout}) => {
                     console.log('Navbar.js - Auth', err)
                 })
             // api for get total value
-            fetch('http://localhost:8000/assets/carteira/', {
+            fetch(`${process.env.REACT_APP_API_URL}/assets/carteira/`, {
                 headers: {
                     'Authorization': `JWT ${localStorage.getItem('access')}`
                 }

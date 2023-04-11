@@ -8,7 +8,7 @@ export const AlocacaoChart = () => {
 
     useEffect(() => {
         const loadData = () => {
-            fetch('http://localhost:8000/assets/carteira/', {
+            fetch(`${process.env.REACT_APP_API_URL}/assets/carteira/`, {
                 headers: {
                     'Authorization': `JWT ${localStorage.getItem('access')}`
                 }

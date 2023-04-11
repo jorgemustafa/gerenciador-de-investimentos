@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {Col, Row, Card, Form, Button} from '@themesberg/react-bootstrap';
+import {Col, Row, Card, Form} from '@themesberg/react-bootstrap';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faPencilAlt} from "@fortawesome/free-solid-svg-icons";
 import {EditEmail, EditLastName, EditName} from "./ProfileModal";
@@ -15,7 +15,7 @@ export const GeneralInfoForm = () => {
 
     useEffect(() => {
         const loadData = () => {
-            fetch('http://localhost:8000/api/user/', {
+            fetch(`${process.env.REACT_APP_API_URL}/api/user/`, {
                 headers: {
                     'Authorization': `JWT ${localStorage.getItem('access')}`
                 }

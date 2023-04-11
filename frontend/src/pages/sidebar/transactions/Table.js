@@ -9,7 +9,7 @@ export default () => {
     useEffect(() => {
         const loadData = () => {
         }
-        fetch('http://localhost:8000/assets/list/extrato/', {
+        fetch(`${process.env.REACT_APP_API_URL}/assets/list/extrato/`, {
             headers: {
                 'Authorization': `JWT ${localStorage.getItem('access')}`
             }

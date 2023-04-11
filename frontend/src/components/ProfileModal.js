@@ -11,7 +11,7 @@ export const EditName = (props) => {
     let handleSubmit = async (e) => {
         e.preventDefault()
         try {
-            let res = await fetch('http://localhost:8000/api/user/change/',
+            let res = await fetch(`${process.env.REACT_APP_API_URL}/api/user/change/`,
                 {
                     method: 'POST',
                     headers: {
@@ -84,7 +84,7 @@ export const EditLastName = (props) => {
     let handleSubmit = async (e) => {
         e.preventDefault()
         try {
-            let res = await fetch('http://localhost:8000/api/user/change/',
+            let res = await fetch(`${process.env.REACT_APP_API_URL}/api/user/change/`,
                 {
                     method: 'POST',
                     headers: {
@@ -156,7 +156,7 @@ export const EditEmail = (props) => {
     let handleSubmit = async (e) => {
         e.preventDefault()
         try {
-            let res = await fetch('http://localhost:8000/api/user/change/',
+            let res = await fetch(`${process.env.REACT_APP_API_URL}/api/user/change/`,
                 {
                     method: 'POST',
                     headers: {

@@ -143,7 +143,7 @@ DJOSER = {
     'ACTIVATION_URL': 'activate/{uid}/{token}',
     'SEND_ACTIVATION_EMAIL': True,
     'SOCIAL_AUTH_TOKEN_STRATEGY': 'djoser.social.token.jwt.TokenStrategy',
-    'SOCIAL_AUTH_ALLOWED_REDIRECT_URIS': 'http://localhost:8000/google',
+    'SOCIAL_AUTH_ALLOWED_REDIRECT_URIS': config('SOCIAL_AUTH_ALLOWED_REDIRECT_URIS'),
     'SERIALIZERS': {
         'user_create': 'auth_users.serializers.UserCreateSerializer',
         'user': 'auth_users.serializers.UserCreateSerializer',

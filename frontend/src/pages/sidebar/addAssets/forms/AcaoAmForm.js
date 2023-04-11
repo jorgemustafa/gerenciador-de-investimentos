@@ -21,7 +21,7 @@ export default ({asset, venda = false}) => {
     // get carteira id
     useEffect(() => {
         const loadData = () => {
-            fetch('http://localhost:8000/assets/carteira/', {
+            fetch(`${process.env.REACT_APP_API_URL}/assets/carteira/`, {
                 headers: {
                     'Authorization': `JWT ${localStorage.getItem('access')}`
                 }
@@ -39,7 +39,7 @@ export default ({asset, venda = false}) => {
     useEffect(() => {
         const loadData = () => {
         }
-        fetch('http://localhost:8000/assets/list/am/', {
+        fetch(`${process.env.REACT_APP_API_URL}/assets/list/am/`, {
             headers: {
                 'Authorization': `JWT ${localStorage.getItem('access')}`
             }
@@ -59,7 +59,7 @@ export default ({asset, venda = false}) => {
     let handleSubmit = async (e) => {
         e.preventDefault()
         try {
-            let res = await fetch('http://localhost:8000/assets/acaoam/',
+            let res = await fetch(`${process.env.REACT_APP_API_URL}/assets/acaoam/`,
                 {
                     method: 'POST',
                     headers: {

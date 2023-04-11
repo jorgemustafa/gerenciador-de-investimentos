@@ -4,12 +4,11 @@ import React, {useEffect, useState} from "react";
 export default () => {
 
     const [dataResponse, setDataResponse] = useState([])
-    console.log(dataResponse)
     // get transactions list
     useEffect(() => {
         const loadData = () => {
         }
-        fetch('http://localhost:8000/assets/list/', {
+        fetch(`${process.env.REACT_APP_API_URL}/assets/list/`, {
             headers: {
                 'Authorization': `JWT ${localStorage.getItem('access')}`
             }
