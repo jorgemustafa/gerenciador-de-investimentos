@@ -45,10 +45,10 @@ const ResetPasswordConfirm = ({match, reset_password_confirm}) => {
                         </p>
                         <Col xs={12} className="d-flex align-items-center justify-content-center">
                             <div className="bg-white shadow-soft border rounded border-light p-4 p-lg-5 w-100 fmxw-500">
-                                <h3 className="mb-4">Reset password</h3>
+                                <h3 className="mb-4">Redefinir Senha</h3>
                                 <Form onSubmit={e => onSubmit(e)}>
                                     <Form.Group id="password_confirm" className="mb-4">
-                                        <Form.Label>New Password</Form.Label>
+                                        <Form.Label>Nova Senha</Form.Label>
                                         <InputGroup>
                                             <InputGroup.Text>
                                                 <FontAwesomeIcon icon={faUnlockAlt}/>
@@ -56,7 +56,7 @@ const ResetPasswordConfirm = ({match, reset_password_confirm}) => {
                                             <Form.Control
                                                 required
                                                 type="password"
-                                                placeholder="New Password"
+                                                placeholder="NovaSenha@123"
                                                 name='new_password'
                                                 value={new_password}
                                                 onChange={e => onChange(e)}
@@ -65,7 +65,7 @@ const ResetPasswordConfirm = ({match, reset_password_confirm}) => {
                                         </InputGroup>
                                     </Form.Group>
                                     <Form.Group id="re_password_confirm" className="mb-4">
-                                        <Form.Label>Confirm Password</Form.Label>
+                                        <Form.Label>Confirme a senha</Form.Label>
                                         <InputGroup>
                                             <InputGroup.Text>
                                                 <FontAwesomeIcon icon={faUnlockAlt}/>
@@ -73,7 +73,7 @@ const ResetPasswordConfirm = ({match, reset_password_confirm}) => {
                                             <Form.Control
                                                 required
                                                 type="password"
-                                                placeholder="Confirm Password"
+                                                placeholder="NovaSenha@123"
                                                 name='re_new_password'
                                                 value={re_new_password}
                                                 onChange={e => onChange(e)}
@@ -82,7 +82,7 @@ const ResetPasswordConfirm = ({match, reset_password_confirm}) => {
                                         </InputGroup>
                                     </Form.Group>
                                     <Button variant="primary" type="submit" className="w-100">
-                                        Reset password
+                                        Redefinir
                                     </Button>
                                 </Form>
                             </div>

@@ -41,10 +41,10 @@ const ResetPassword = ({reset_password}) => {
                         </p>
                         <Col xs={12} className="d-flex align-items-center justify-content-center">
                             <div className="bg-white shadow-soft border rounded border-light p-4 p-lg-5 w-100 fmxw-500">
-                                <h3 className="mb-4">Reset password</h3>
+                                <h3 className="mb-4">Redefinir Senha</h3>
                                 <Form onSubmit={e => onSubmit(e)}>
                                     <Form.Group id="email" className="mb-4">
-                                        <Form.Label>Your Email</Form.Label>
+                                        <Form.Label>Seu Email</Form.Label>
                                         <InputGroup>
                                             <InputGroup.Text>
                                                 <FontAwesomeIcon icon={faEnvelope}/>
@@ -52,7 +52,7 @@ const ResetPassword = ({reset_password}) => {
                                             <Form.Control
                                                 required
                                                 type="email"
-                                                placeholder="example@company.com"
+                                                placeholder="exemplo@dominio.com"
                                                 name='email'
                                                 value={email}
                                                 onChange={e => onChange(e)}
@@ -60,7 +60,7 @@ const ResetPassword = ({reset_password}) => {
                                         </InputGroup>
                                     </Form.Group>
                                     <Button variant="primary" type="submit" className="w-100">
-                                        Reset password
+                                        Redefinir
                                     </Button>
                                 </Form>
                             </div>
