@@ -1,8 +1,8 @@
 import React, {useState} from "react";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faEnvelope, faUnlockAlt, faPen, faAngleLeft} from "@fortawesome/free-solid-svg-icons";
+import {faAngleLeft, faEnvelope, faPen, faUnlockAlt} from "@fortawesome/free-solid-svg-icons";
 import {faGoogle} from "@fortawesome/free-brands-svg-icons";
-import {Col, Row, Form, Card, Button, Container, InputGroup} from '@themesberg/react-bootstrap';
+import {Button, Card, Col, Container, Form, InputGroup, Row} from '@themesberg/react-bootstrap';
 import {Link, Redirect} from 'react-router-dom';
 import {connect} from 'react-redux';
 import axios from 'axios';
@@ -20,7 +20,7 @@ const Signup = ({signup, isAuthenticated}) => {
         password: '',
         re_password: ''
     });
-
+    const [message, setMessage] = useState(<></>)
     const {first_name, last_name, email, password, re_password} = formData;
 
     const onChange = e => setFormData({...formData, [e.target.name]: e.target.value});
@@ -31,6 +31,9 @@ const Signup = ({signup, isAuthenticated}) => {
         if (password === re_password) {
             signup(first_name, last_name, email, password, re_password);
             setAccountCreated(true);
+            setMessage(<p className="text-success text-center">Email de confirmação enviado!<br/>Redirecionando em 3,2,1...</p>)
+        } else {
+            setMessage(<p className="text-danger text-center">Senhas não conferem</p>)
         }
     };
 
@@ -48,7 +51,9 @@ const Signup = ({signup, isAuthenticated}) => {
         return <Redirect to='/'/>
     }
     if (accountCreated) {
-        return <Redirect to='/login'/>
+        setTimeout(() => {
+            window.location.replace('/login')
+        }, 3000)
     }
 
     return (
@@ -167,6 +172,7 @@ const Signup = ({signup, isAuthenticated}) => {
                                     </Button>
                                 </div>
                                 <div className="d-flex justify-content-center align-items-center mt-4">
+                                    {message}
                                 </div>
                             </div>
                         </Col>

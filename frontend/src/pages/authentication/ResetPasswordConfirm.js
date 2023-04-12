@@ -1,8 +1,8 @@
 import React, {useState} from "react";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faAngleLeft, faUnlockAlt} from "@fortawesome/free-solid-svg-icons";
-import {Col, Row, Form, Card, Button, Container, InputGroup} from '@themesberg/react-bootstrap';
-import {Link, Redirect} from 'react-router-dom';
+import {Button, Card, Col, Container, Form, InputGroup, Row} from '@themesberg/react-bootstrap';
+import {Link} from 'react-router-dom';
 import {connect} from "react-redux";
 import {Routes} from "../../routes";
 import {reset_password_confirm} from "../../actions/auth";
@@ -14,7 +14,7 @@ const ResetPasswordConfirm = ({match, reset_password_confirm}) => {
         new_password: '',
         re_new_password: ''
     });
-
+    const [message, setMessage] = useState(<></>);
     const {new_password, re_new_password} = formData;
 
     const onChange = e => setFormData({...formData, [e.target.name]: e.target.value});
@@ -27,10 +27,13 @@ const ResetPasswordConfirm = ({match, reset_password_confirm}) => {
 
         reset_password_confirm(uid, token, new_password, re_new_password);
         setRequestSent(true);
+        setMessage(<p className="text-success text-center">Senha alterada com sucesso!<br/>Redirecionando em 3,2,1...</p>)
     };
 
     if (requestSent) {
-        return <Redirect to='/login'/>
+        setTimeout(() => {
+            window.location.replace('/login')
+        }, 3000)
     }
 
     return (
@@ -45,7 +48,9 @@ const ResetPasswordConfirm = ({match, reset_password_confirm}) => {
                         </p>
                         <Col xs={12} className="d-flex align-items-center justify-content-center">
                             <div className="bg-white shadow-soft border rounded border-light p-4 p-lg-5 w-100 fmxw-500">
-                                <h3 className="mb-4">Redefinir Senha</h3>
+                                <div className="text-center text-md-center mb-4 mt-md-0">
+                                    <h3 className="mb-0">Redefinir senha</h3>
+                                </div>
                                 <Form onSubmit={e => onSubmit(e)}>
                                     <Form.Group id="password_confirm" className="mb-4">
                                         <Form.Label>Nova Senha</Form.Label>
@@ -85,6 +90,9 @@ const ResetPasswordConfirm = ({match, reset_password_confirm}) => {
                                         Redefinir
                                     </Button>
                                 </Form>
+                                <div className="d-flex justify-content-center align-items-center mt-4">
+                                    {message}
+                                </div>
                             </div>
                         </Col>
                     </Row>
