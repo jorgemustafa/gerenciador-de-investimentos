@@ -34,11 +34,14 @@ class AcaoFiiViewSet(APIView):
         return Response(acoes_serializer.data)
 
     def post(self, request):
-        if request.data['venda']:
-            criado = sell_assets(request, AcaoFii)
-            if criado:
-                return Response(200)
-            return Response(400)
+        try:
+            if request.data['venda']:
+                criado = sell_assets(request, AcaoFii)
+                if criado:
+                    return Response(200)
+                return Response(400)
+        except KeyError:
+            pass
 
         acoes_serializer = AcaoFiiSerializer(data=request.data)
         if acoes_serializer.is_valid():
@@ -54,11 +57,14 @@ class AcaoAmViewSet(APIView):
         return Response(acoes_am_serializer.data)
 
     def post(self, request):
-        if request.data['venda']:
-            criado = sell_assets(request, AcaoAmericana)
-            if criado:
-                return Response(200)
-            return Response(400)
+        try:
+            if request.data['venda']:
+                criado = sell_assets(request, AcaoAmericana)
+                if criado:
+                    return Response(200)
+                return Response(400)
+        except ValueError:
+            pass
 
         acoes_am_serializer = AcaoAmericanaSerializer(data=request.data)
         if acoes_am_serializer.is_valid():
@@ -102,11 +108,14 @@ class CriptomoedaViewSet(APIView):
         return Response(cripto_serializer.data)
 
     def post(self, request):
-        if request.data['venda']:
-            criado = sell_assets(request, Criptomoeda)
-            if criado:
-                return Response(200)
-            return Response(400)
+        try:
+            if request.data['venda']:
+                criado = sell_assets(request, Criptomoeda)
+                if criado:
+                    return Response(200)
+                return Response(400)
+        except KeyError:
+            pass
 
         cripto_serializer = CriptomoedaSerializer(data=request.data)
         if cripto_serializer.is_valid():
