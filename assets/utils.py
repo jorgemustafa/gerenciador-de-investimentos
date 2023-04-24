@@ -1,3 +1,4 @@
+import decimal
 import os
 from datetime import datetime
 
@@ -8,13 +9,13 @@ from engine.settings import DOWNLOAD_REPORT_FOLDER
 
 
 def sell_assets(request, classe):
-    unidades = int(request.data['unidades'])
-    cotacao = int(request.data['cotacao'])
+    unidades = float(request.data['unidades'])
+    cotacao = float(request.data['cotacao'])
     carteira = int(request.data['carteira'])
     obj = classe.objects.filter(nome__id=int(request.data['nome']),
                                 carteira__id=carteira).last()
     if unidades <= obj.unidades:
-        obj.unidades -= unidades
+        obj.unidades -= decimal.Decimal(unidades)
         obj.save()
         # criar extrato
         Extrato.objects.create(

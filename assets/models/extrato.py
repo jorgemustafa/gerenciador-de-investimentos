@@ -13,7 +13,7 @@ class Extrato(models.Model):
     tipo_transacao = models.CharField(max_length=10, choices=[('compra', 'Compra'), ('venda', 'Venda')])
     rentabilidade = models.DecimalField(max_digits=11, decimal_places=2, default=0)
     cotacao = models.DecimalField(max_digits=10, decimal_places=2)
-    unidades = models.IntegerField()
+    unidades = models.DecimalField(max_digits=15, decimal_places=2)
     saldo = models.DecimalField(max_digits=15, decimal_places=2)
     inclusao = models.DateTimeField(auto_now_add=True)
 
