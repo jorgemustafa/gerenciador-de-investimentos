@@ -51,7 +51,8 @@ export default function(state = initialState, action) {
         case USER_LOADED_SUCCESS:
             return {
                 ...state,
-                user: payload
+                user: payload,
+                isAuthenticated: true
             }
         case AUTHENTICATED_FAIL:
             return {
