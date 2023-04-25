@@ -30,7 +30,6 @@ def sell_assets(request, classe):
         if obj.unidades == 0:
             obj.delete()
         return True
-    return print('Venda é maior que total de ações')
 
 
 def gen_report(user):

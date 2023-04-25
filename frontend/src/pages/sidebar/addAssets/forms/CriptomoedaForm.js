@@ -4,7 +4,7 @@ import CurrencyInput from 'react-currency-input-field';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
-export default ({asset, venda=false}) => {
+export default ({asset, venda = false}) => {
 
     // if asset the request is Reinvestment, else NewInvestment
     let nomeHide = !!asset;
@@ -86,6 +86,10 @@ export default ({asset, venda=false}) => {
                 setCotacao('')
                 setUnidades('')
                 setTaxa('')
+            } else if (res.status === 400) {
+                setMessage(<p className="text-danger text-center">
+                    Venda é maior que total de criptos
+                </p>);
             } else {
                 setMessage(<p className="text-danger text-center">Um erro ocorreu: ${res.statusText}</p>)
             }
@@ -99,7 +103,7 @@ export default ({asset, venda=false}) => {
             <Col xs={12} className="ps-5 pe-5 align-items-center">
                 <Form className="mt-4" onSubmit={handleSubmit}>
                     <Form.Group id="nome" className="mb-4">
-                         <InputGroup>
+                        <InputGroup>
                             <Form.Select
                                 autoFocus
                                 required

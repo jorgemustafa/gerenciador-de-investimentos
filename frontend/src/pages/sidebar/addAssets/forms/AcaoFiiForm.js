@@ -76,6 +76,7 @@ export default ({asset, venda = false}) => {
                         venda: venda
                     })
                 })
+            console.log(res)
             if (res.status === 200) {
                 setMessage(<p className="text-success text-center">
                     {venda ? 'Venda realizada com sucesso' : 'Ativo cadastrado com sucesso!'}
@@ -87,9 +88,8 @@ export default ({asset, venda = false}) => {
                 setUnidades('');
                 setTaxa('');
             }
-            // not working --> test
             else if (res.status === 400) {
-                setMessage(<p className="text-success text-center">
+                setMessage(<p className="text-danger text-center">
                     Venda é maior que total de ações
                 </p>);
             } else {

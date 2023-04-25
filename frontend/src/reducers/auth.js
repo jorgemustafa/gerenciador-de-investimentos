@@ -49,10 +49,10 @@ export default function(state = initialState, action) {
                 isAuthenticated: false
             }
         case USER_LOADED_SUCCESS:
+            localStorage.setItem('isAuthenticated', true);
             return {
                 ...state,
                 user: payload,
-                isAuthenticated: true
             }
         case AUTHENTICATED_FAIL:
             return {

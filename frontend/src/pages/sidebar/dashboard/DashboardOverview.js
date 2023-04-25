@@ -4,6 +4,8 @@ import {Col, Row} from '@themesberg/react-bootstrap';
 import {AlocacaoChart} from "./AlocacaoChart";
 import * as PropTypes from "prop-types";
 import PerformanceNumbers from "./PerformanceNumbers";
+import {Redirect} from "react-router-dom";
+import {Routes} from "../../../routes";
 
 function Fragmento(props) {
     return null;
@@ -32,6 +34,11 @@ export default () => {
 
     const value = desempenho.value ? desempenho.value : 0
     const percent = desempenho.percent ? desempenho.percent : 0
+    const isAuthenticated = localStorage.getItem('isAuthenticated')
+
+    if (isAuthenticated === 'null'){
+        window.location.replace('/login')
+    }
 
     return (
         <Fragment>

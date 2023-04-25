@@ -86,6 +86,10 @@ export default ({asset, venda = false}) => {
                 setCotacao('')
                 setUnidades('')
                 setTaxa('')
+            } else if (res.status === 400) {
+                setMessage(<p className="text-danger text-center">
+                    Venda é maior que total de ações
+                </p>);
             } else {
                 setMessage(<p className="text-danger text-center">Um erro ocorreu: ${res.statusText}</p>)
             }

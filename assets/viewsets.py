@@ -1,10 +1,10 @@
 import mimetypes
 
 from django.core.exceptions import ValidationError
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from rest_framework import viewsets
 from rest_framework.response import Response
-from rest_framework.views import APIView
+from rest_framework.views import APIView, exception_handler
 
 from assets.models.assets import AcaoFii, AcaoAmericana, RendaFixa, TesouroDireto, Criptomoeda, Propriedade, \
     ListAcaoFii, ListAcaoAmericana, ListCriptomoeda
@@ -39,7 +39,9 @@ class AcaoFiiViewSet(APIView):
                 criado = sell_assets(request, AcaoFii)
                 if criado:
                     return Response(200)
-                return Response(400)
+                response = JsonResponse({'msg': 'Venda é maior que total de ações'})
+                response.status_code = 400
+                return response
         except KeyError:
             pass
 
@@ -62,7 +64,9 @@ class AcaoAmViewSet(APIView):
                 criado = sell_assets(request, AcaoAmericana)
                 if criado:
                     return Response(200)
-                return Response(400)
+                response = JsonResponse({'msg': 'Venda é maior que total de ações'})
+                response.status_code = 400
+                return response
         except ValueError:
             pass
 
@@ -113,7 +117,9 @@ class CriptomoedaViewSet(APIView):
                 criado = sell_assets(request, Criptomoeda)
                 if criado:
                     return Response(200)
-                return Response(400)
+                response = JsonResponse({'msg': 'Venda é maior que total de ações'})
+                response.status_code = 400
+                return response
         except KeyError:
             pass
 
