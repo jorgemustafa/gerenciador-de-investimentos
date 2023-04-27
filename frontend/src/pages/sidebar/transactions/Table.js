@@ -30,7 +30,7 @@ export default () => {
             <tr>
                 <td>
           <span className="fw-normal">
-            {nome}
+            {nome.toUpperCase()}
           </span>
                 </td>
                 <td>
@@ -40,7 +40,7 @@ export default () => {
                 </td>
                 <td>
           <span className="fw-normal">
-            {unidades}
+            {unidades !== '0.00' ? unidades : <>N/A</>}
           </span>
                 </td>
                 <td>

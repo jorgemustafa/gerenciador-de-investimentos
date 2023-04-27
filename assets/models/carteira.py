@@ -26,13 +26,13 @@ class Carteira(models.Model):
         categorias += [self.propriedade_set.all()]
         ativos = []
         for categoria in categorias:
-            qs = categoria.filter().distinct('nome') if unique else categoria
-            for ativo in qs:
+            # qs = categoria.filter().distinct('self') if unique else categoria
+            for ativo in categoria:
                 if json:
                     try:
                         ativos.append({
                             'id': ativo.nome.id,
-                            'name': str(ativo.nome),
+                            'name': str(ativo),
                             'pm': ativo.get_preco_medio(),
                             'units': ativo.get_unidades(),
                             'total_current': ativo.get_desempenho(total=True),
@@ -44,7 +44,7 @@ class Carteira(models.Model):
                     except AttributeError:
                         ativos.append({
                             'id': int(ativo.id),
-                            'name': str(ativo.nome),
+                            'name': str(ativo),
                             'pm': ativo.get_preco_medio(),
                             'units': ativo.get_unidades(),
                             'total_current': ativo.get_desempenho(total=True),

@@ -89,8 +89,8 @@ export default () => {
                                 {
                                     acoesFiiVisible ? <AcaoFiiForm asset={assetId} venda={true}/> :
                                         acoesAmVisible ? <AcaoAmForm asset={assetId} venda={true}/> :
-                                            rendaFixaVisible ? <RendaFixaForm asset={assetName}/> :
-                                                tesouroVisible ? <TesouroDiretoForm asset={assetName}/> :
+                                            rendaFixaVisible ? <RendaFixaForm asset={assetId} venda={true}/> :
+                                                tesouroVisible ? <TesouroDiretoForm asset={assetId} venda={true}/> :
                                                     criptoVisible ? <CriptomoedaForm asset={assetId} venda={true}/> :
                                                         propVisible ? <PropriedadeForm asset={assetName}/> :
                                                             null

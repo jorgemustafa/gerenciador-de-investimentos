@@ -78,17 +78,18 @@ export default ({asset, venda = false}) => {
                 })
             console.log(res)
             if (res.status === 200) {
-                setMessage(<p className="text-success text-center">
-                    {venda ? 'Venda realizada com sucesso' : 'Ativo cadastrado com sucesso!'}
-                </p>);
+                setMessage(
+                    <p className="text-success text-center">
+                        {venda ? 'Venda realizada com sucesso' : 'Ativo cadastrado com sucesso!'}
+                    </p>
+                );
                 // clean fields
                 setNome('Ticker do ativo');
                 setDataOperacao(new Date());
                 setCotacao('');
                 setUnidades('');
                 setTaxa('');
-            }
-            else if (res.status === 400) {
+            } else if (res.status === 400) {
                 setMessage(<p className="text-danger text-center">
                     Venda é maior que total de ações
                 </p>);

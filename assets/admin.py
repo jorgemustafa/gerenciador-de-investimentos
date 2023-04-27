@@ -80,5 +80,5 @@ class CriptomoedaAdmin(admin.ModelAdmin):
 @admin.register(Extrato)
 class ExtratoAdmin(admin.ModelAdmin):
     list_display = ('objeto', 'tipo_transacao', 'cotacao', 'unidades', 'saldo', 'inclusao',)
-    search_fields = ('objeto__',)
+    search_fields = ('objeto__nome',)
     readonly_fields = ('inclusao',)

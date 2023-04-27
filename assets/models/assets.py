@@ -143,15 +143,15 @@ class AcaoAmericana(models.Model):
 
 class RendaFixa(models.Model):
     PRODUTO_CHOICES = [
-        ('cdb', 'CDB'),
-        ('rdb', 'RDB'),
-        ('lc', 'LC'),
-        ('lci', 'LCI'),
-        ('lca', 'LCA'),
-        ('lig', 'LIG'),
-        ('cpr', 'CPR'),
-        ('cri', 'CRI'),
-        ('cra', 'CRA'),
+        ('CDB', 'CDB'),
+        ('RDB', 'RDB'),
+        ('LC', 'LC'),
+        ('LCI', 'LCI'),
+        ('LCA', 'LCA'),
+        ('LIG', 'LIG'),
+        ('CPR', 'CPR'),
+        ('CRI', 'CRI'),
+        ('CRA', 'CRA'),
     ]
 
     nome = models.CharField(max_length=3, choices=PRODUTO_CHOICES, verbose_name='Produto')
@@ -167,7 +167,7 @@ class RendaFixa(models.Model):
     inclusao = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return self.nome
+        return f'{self.nome} {self.emissor} {self.tipo_aplicacao} {self.rentabilidade}%'
 
     def get_valor_investido(self):
         return float(self.valor_investido)

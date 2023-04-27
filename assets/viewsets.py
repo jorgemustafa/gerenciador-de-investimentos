@@ -4,7 +4,7 @@ from django.core.exceptions import ValidationError
 from django.http import HttpResponse, JsonResponse
 from rest_framework import viewsets
 from rest_framework.response import Response
-from rest_framework.views import APIView, exception_handler
+from rest_framework.views import APIView
 
 from assets.models.assets import AcaoFii, AcaoAmericana, RendaFixa, TesouroDireto, Criptomoeda, Propriedade, \
     ListAcaoFii, ListAcaoAmericana, ListCriptomoeda
@@ -13,7 +13,7 @@ from assets.models.extrato import Extrato
 from assets.serializers import CarteiraSerializer, AcaoFiiSerializer, AcaoAmericanaSerializer, RendaFixaSerializer, \
     TesouroDiretoSerializer, CriptomoedaSerializer, PropriedadeSerializer, B3AcaoFiiSerializer, \
     ListAcaoAmericanaSerializer, ExtratoSerializer, ListCriptoSerializer
-from assets.utils import sell_assets, gen_report, get_today_file, delete_files
+from assets.utils import sell_assets, gen_report, get_today_file, delete_files, sell_fixas
 from engine.settings import DOWNLOAD_REPORT_FOLDER
 
 
@@ -39,7 +39,7 @@ class AcaoFiiViewSet(APIView):
                 criado = sell_assets(request, AcaoFii)
                 if criado:
                     return Response(200)
-                response = JsonResponse({'msg': 'Venda é maior que total de ações'})
+                response = JsonResponse({'msg': 'Venda é maior que total'})
                 response.status_code = 400
                 return response
         except KeyError:
@@ -64,7 +64,7 @@ class AcaoAmViewSet(APIView):
                 criado = sell_assets(request, AcaoAmericana)
                 if criado:
                     return Response(200)
-                response = JsonResponse({'msg': 'Venda é maior que total de ações'})
+                response = JsonResponse({'msg': 'Venda é maior que total'})
                 response.status_code = 400
                 return response
         except ValueError:
@@ -84,6 +84,17 @@ class RendaFixaViewSet(APIView):
         return Response(renda_fixa_serializer.data)
 
     def post(self, request):
+        try:
+            if request.data['venda']:
+                criado = sell_fixas(request, RendaFixa)
+                if criado:
+                    return Response(200)
+                response = JsonResponse({'msg': 'Venda é maior que total'})
+                response.status_code = 400
+                return response
+        except ValueError:
+            pass
+
         renda_fixa_serializer = RendaFixaSerializer(data=request.data)
         if renda_fixa_serializer.is_valid():
             renda_fixa_serializer.save()
@@ -98,6 +109,17 @@ class TesouroDiretoViewSet(APIView):
         return Response(tesouro_serializer.data)
 
     def post(self, request):
+        try:
+            if request.data['venda']:
+                criado = sell_fixas(request, TesouroDireto)
+                if criado:
+                    return Response(200)
+                response = JsonResponse({'msg': 'Venda é maior que total'})
+                response.status_code = 400
+                return response
+        except ValueError:
+            pass
+
         tesouro_serializer = TesouroDiretoSerializer(data=request.data)
         if tesouro_serializer.is_valid():
             tesouro_serializer.save()
