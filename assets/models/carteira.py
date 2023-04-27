@@ -26,7 +26,6 @@ class Carteira(models.Model):
         categorias += [self.propriedade_set.all()]
         ativos = []
         for categoria in categorias:
-            # qs = categoria.filter().distinct('self') if unique else categoria
             for ativo in categoria:
                 if json:
                     try:

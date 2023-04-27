@@ -44,12 +44,12 @@ export default () => {
                 </td>
                 <td>
           <span className="fw-normal">
-            R${invested}
+            R${parseFloat(invested).toFixed(2)}
           </span>
                 </td>
                 <td>
           <span className="fw-normal">
-            R${total_current}
+            R${parseFloat(total_current).toFixed(2)}
           </span>
                 </td>
                 <td>

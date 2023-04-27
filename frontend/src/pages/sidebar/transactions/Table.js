@@ -40,7 +40,7 @@ export default () => {
                 </td>
                 <td>
           <span className="fw-normal">
-            {unidades !== '0.00' ? unidades : <>N/A</>}
+            {unidades !== '0.00' ? Math.round(parseFloat(unidades)) : <>N/A</>}
           </span>
                 </td>
                 <td>
@@ -71,7 +71,7 @@ export default () => {
                         <th className="border-bottom">Ativo</th>
                         <th className="border-bottom">Cotação</th>
                         <th className="border-bottom">Unidades</th>
-                        <th className="border-bottom">Saldo</th>
+                        <th className="border-bottom">Valor</th>
                         <th className="border-bottom">Inclusão</th>
                         <th className="border-bottom">Tipo</th>
                     </tr>

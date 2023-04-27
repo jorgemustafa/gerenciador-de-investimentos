@@ -26,17 +26,15 @@ def sell_assets(request, classe):
             saldo=unidades * cotacao,
             carteira_id=carteira
         )
-        # excluir ativo se tiver 0
-        if obj.unidades == 0:
-            obj.delete()
         return True
     print('Valor da venda maior que total')
+
 
 def sell_fixas(request, classe):
     carteira = int(request.data['carteira'])
     valor_venda = float(request.data['valor_investido'])
     obj = classe.objects.get(id=int(request.data['nome']),
-                                carteira__id=carteira)
+                             carteira__id=carteira)
     if valor_venda <= obj.valor_investido:
         obj.valor_investido -= decimal.Decimal(valor_venda)
         obj.save()
@@ -49,11 +47,25 @@ def sell_fixas(request, classe):
             saldo=valor_venda,
             carteira_id=carteira
         )
-        # excluir ativo se tiver 0
-        if obj.valor_investido == 0:
-            obj.delete()
         return True
     print('Valor da venda maior que total')
+
+
+def sell_prop(request, classe):
+    carteira = int(request.data['carteira'])
+    obj = classe.objects.get(id=int(request.data['nome']), carteira__id=carteira)
+    # criar extrato
+    Extrato.objects.create(
+        objeto=obj,
+        tipo_transacao='venda',
+        unidades=0,
+        cotacao=0,
+        saldo=obj.valor_investido,
+        carteira_id=carteira
+    )
+    obj.valor_investido = 0
+    obj.save()
+    return True
 
 
 def gen_report(user):

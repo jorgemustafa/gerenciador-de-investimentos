@@ -3,10 +3,7 @@ import {Button, Col, Form, InputGroup, Row} from "@themesberg/react-bootstrap";
 import CurrencyInput from 'react-currency-input-field';
 import "react-datepicker/dist/react-datepicker.css";
 
-export default ({asset}) => {
-
-    // if asset the request is Reinvestment, else NewInvestment
-    let nomeHide = !!asset;
+export default ({asset, venda = false}) => {
 
     const [nome, setNome] = useState(asset);
     const [dataOperacao, setDataOperacao] = useState(new Date());
@@ -53,11 +50,16 @@ export default ({asset}) => {
                         valor_investido: valorInvestido,
                         tipo_aplicacao: tipoAplicacao,
                         taxa: taxa,
-                        carteira: carteira[0].id
+                        carteira: carteira[0].id,
+                        venda: venda
                     })
                 })
             if (res.status === 200) {
-                setMessage(<p className="text-success text-center">Ativo cadastrado com sucesso!</p>);
+                setMessage(
+                    <p className="text-success text-center">
+                        {venda ? 'Venda realizada com sucesso' : 'Ativo cadastrado com sucesso!'}
+                    </p>
+                );
                 // clean fields
                 setNome('')
                 setDataOperacao(new Date())
@@ -75,55 +77,79 @@ export default ({asset}) => {
     return (
         <Row>
             <Col xs={12} className="ps-5 pe-5 align-items-center">
-                <Form className="mt-4" onSubmit={handleSubmit}>
-                    <Form.Group id="nome" className="mb-4">
-                        <InputGroup>
-                            <Form.Control
-                                autoFocus
-                                required
-                                type="text"
-                                placeholder="Nome do Título"
-                                name="nome"
-                                value={nome}
-                                onChange={(e) => setNome(e.target.value)}
-                                hidden={nomeHide}
-                            />
-                        </InputGroup>
-                    </Form.Group>
-                    <Form.Group id="valor_investido" className="mb-4">
-                        <InputGroup>
-                            <CurrencyInput
-                                className="form-control"
-                                required
-                                name="valorInvestido"
-                                defaultValue={valorInvestido}
-                                placeholder="Valor Investido"
-                                decimalsLimit={2}
-                                prefix="R$"
-                                value={valorInvestido}
-                                onChange={(e) => setValorInvestido(e.target.value.replace('R$', '').replaceAll(',', ''))}
-                            />
-                        </InputGroup>
-                    </Form.Group>
-                    <Form.Group id="taxa" className="mb-4">
-                        <InputGroup>
-                            <Form.Control
-                                autoFocus
-                                type="text"
-                                placeholder="Taxas (opcional)"
-                                name="taxa"
-                                value={taxa}
-                                onChange={(e) => setTaxa(e.target.value)}
-                            />
-                        </InputGroup>
-                    </Form.Group>
-                    <div className="message pt-1 pb-2 text-center">Seu investimento está sendo de</div>
-                    <div className="text-center h3 pb-3">R$ {(1 * valorInvestido).toFixed(2)}</div>
-                    <Button variant="primary" type="submit" className="w-100">
-                        Concluir
-                    </Button>
-                    <div className="message pt-2">{message ? <>{message}</> : null}</div>
-                </Form>
+                {
+                    venda ?
+                        <Form className="mt-4" onSubmit={handleSubmit}>
+                            <Form.Group id="nome" className="mb-4">
+                                <InputGroup>
+                                    <Form.Control
+                                        autoFocus
+                                        required
+                                        type="text"
+                                        placeholder="Nome do Título"
+                                        name="nome"
+                                        value={nome}
+                                        onChange={(e) => setNome(e.target.value)}
+                                        hidden={true}
+                                    />
+                                </InputGroup>
+                            </Form.Group>
+                            <Button variant="primary" type="submit" className="w-100">
+                                Concluir
+                            </Button>
+                            <div className="message pt-2">{message ? <>{message}</> : null}</div>
+                        </Form>
+                        // else
+                        :
+                        <Form className="mt-4" onSubmit={handleSubmit}>
+                            <Form.Group id="nome" className="mb-4">
+                                <InputGroup>
+                                    <Form.Control
+                                        autoFocus
+                                        required
+                                        type="text"
+                                        placeholder="Nome do Título"
+                                        name="nome"
+                                        value={nome}
+                                        onChange={(e) => setNome(e.target.value)}
+                                    />
+                                </InputGroup>
+                            </Form.Group>
+                            <Form.Group id="valor_investido" className="mb-4">
+                                <InputGroup>
+                                    <CurrencyInput
+                                        className="form-control"
+                                        required
+                                        name="valorInvestido"
+                                        defaultValue={valorInvestido}
+                                        placeholder="Valor Investido"
+                                        decimalsLimit={2}
+                                        prefix="R$"
+                                        value={valorInvestido}
+                                        onChange={(e) => setValorInvestido(e.target.value.replace('R$', '').replaceAll(',', ''))}
+                                    />
+                                </InputGroup>
+                            </Form.Group>
+                            <Form.Group id="taxa" className="mb-4">
+                                <InputGroup>
+                                    <Form.Control
+                                        autoFocus
+                                        type="text"
+                                        placeholder="Taxas (opcional)"
+                                        name="taxa"
+                                        value={taxa}
+                                        onChange={(e) => setTaxa(e.target.value)}
+                                    />
+                                </InputGroup>
+                            </Form.Group>
+                            <div className="message pt-1 pb-2 text-center">Seu investimento está sendo de</div>
+                            <div className="text-center h3 pb-3">R$ {(1 * valorInvestido).toFixed(2)}</div>
+                            <Button variant="primary" type="submit" className="w-100">
+                                Concluir
+                            </Button>
+                            <div className="message pt-2">{message ? <>{message}</> : null}</div>
+                        </Form>
+                }
             </Col>
         </Row>
     )

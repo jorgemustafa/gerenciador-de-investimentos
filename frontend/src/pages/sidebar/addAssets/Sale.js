@@ -92,7 +92,7 @@ export default () => {
                                             rendaFixaVisible ? <RendaFixaForm asset={assetId} venda={true}/> :
                                                 tesouroVisible ? <TesouroDiretoForm asset={assetId} venda={true}/> :
                                                     criptoVisible ? <CriptomoedaForm asset={assetId} venda={true}/> :
-                                                        propVisible ? <PropriedadeForm asset={assetName}/> :
+                                                        propVisible ? <PropriedadeForm asset={assetId} venda={true}/> :
                                                             null
                                 }
                             </div>
