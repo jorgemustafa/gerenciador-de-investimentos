@@ -13,7 +13,8 @@ from assets.models.extrato import Extrato
 from assets.serializers import CarteiraSerializer, AcaoFiiSerializer, AcaoAmericanaSerializer, RendaFixaSerializer, \
     TesouroDiretoSerializer, CriptomoedaSerializer, PropriedadeSerializer, B3AcaoFiiSerializer, \
     ListAcaoAmericanaSerializer, ExtratoSerializer, ListCriptoSerializer
-from assets.utils import sell_assets, gen_report, get_today_file, delete_files, sell_fixas, sell_prop
+from assets.utils import sell_assets, gen_report, get_today_file, delete_files, sell_fixas, sell_prop, \
+    reinvestment_order
 from engine.settings import DOWNLOAD_REPORT_FOLDER
 
 
@@ -78,7 +79,12 @@ class AcaoAmViewSet(APIView):
 
 
 class RendaFixaViewSet(APIView):
-    def get(self, request):
+    def get(self, request, pk=None):
+        if pk:
+            renda_fixa = RendaFixa.objects.get(id=pk)
+            renda_fixa_serializer = RendaFixaSerializer(renda_fixa)
+            return Response(renda_fixa_serializer.data)
+
         renda_fixa = RendaFixa.objects.all()
         renda_fixa_serializer = RendaFixaSerializer(renda_fixa, many=True)
         return Response(renda_fixa_serializer.data)
@@ -92,6 +98,14 @@ class RendaFixaViewSet(APIView):
                 response = JsonResponse({'msg': 'Venda é maior que total'})
                 response.status_code = 400
                 return response
+        except ValueError:
+            pass
+
+        try:
+            if request.data['reinvestimento']:
+                reinvestimento = reinvestment_order(request, RendaFixa)
+                if reinvestimento:
+                    return Response(200)
         except ValueError:
             pass
 
@@ -117,6 +131,14 @@ class TesouroDiretoViewSet(APIView):
                 response = JsonResponse({'msg': 'Venda é maior que total'})
                 response.status_code = 400
                 return response
+        except ValueError:
+            pass
+
+        try:
+            if request.data['reinvestimento']:
+                reinvestimento = reinvestment_order(request, TesouroDireto)
+                if reinvestimento:
+                    return Response(200)
         except ValueError:
             pass
 

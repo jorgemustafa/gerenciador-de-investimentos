@@ -6,7 +6,7 @@ import "react-datepicker/dist/react-datepicker.css";
 
 export default ({asset, venda = false}) => {
 
-    //     // if asset the request is Reinvestment, else NewInvestment
+    // if asset the request is Reinvestment, else NewInvestment
     let nomeHide = !!asset;
 
     const [nome, setNome] = useState(asset);

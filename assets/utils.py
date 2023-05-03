@@ -68,6 +68,23 @@ def sell_prop(request, classe):
     return True
 
 
+def reinvestment_order(request, classe):
+    valor_compra = request.data['valor_investido']
+    obj = classe.objects.get(id=int(request.data['nome']))
+    obj.valor_investido += decimal.Decimal(valor_compra)
+    obj.save()
+    Extrato.objects.create(
+        objeto=obj,
+        tipo_transacao='compra',
+        unidades=0,
+        cotacao=0,
+        rentabilidade=obj.rentabilidade,
+        saldo=valor_compra,
+        carteira_id=int(request.data['carteira'])
+    )
+    return True
+
+
 def gen_report(user):
     data = []
     extratos = Extrato.objects.filter(carteira__user=user).order_by('-id')

@@ -80,11 +80,13 @@ const Login = ({login, isAuthenticated}) => {
                                                     type="password"
                                                     placeholder="Password@123"
                                                     name='password'
+                                                    id='input_password'
                                                     value={password}
                                                     onChange={e => onChange(e)}
                                                     minLength='6'
                                                 />
                                             </InputGroup>
+                                            <div className="text-danger text-center" id="error-pass"></div>
                                         </Form.Group>
                                         <div className="d-flex justify-content-between align-items-center mb-4">
                                             <Card.Link as={Link} to={Routes.ResetPassword.path}

@@ -1,17 +1,12 @@
 {
   "name": "@mustafa_jorge/voltage-asset-manager",
-  "description": "Voltage Asset Manager",
+  "description": "Voltage Manager | Gerenciador de Investimentos",
   "author": "Jorge Fernando Mohamet Mustafa",
   "keywords": [
     "bootstrap 5",
     "react",
     "react dashboard",
-    "react admin template",
-    "free react",
-    "react ui library",
-    "react bootstrap 5",
-    "bootstrap 5 dashboard",
-    "themesberg"
+    "investment manager"
   ],
   "license": "MIT",
   "homepage": "",

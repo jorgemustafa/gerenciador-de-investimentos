@@ -1,22 +1,22 @@
 import axios from 'axios';
 import {
-    LOGIN_SUCCESS,
-    LOGIN_FAIL,
-    USER_LOADED_SUCCESS,
-    USER_LOADED_FAIL,
-    AUTHENTICATED_SUCCESS,
-    AUTHENTICATED_FAIL,
-    PASSWORD_RESET_SUCCESS,
-    PASSWORD_RESET_FAIL,
-    PASSWORD_RESET_CONFIRM_SUCCESS,
-    PASSWORD_RESET_CONFIRM_FAIL,
-    SIGNUP_SUCCESS,
-    SIGNUP_FAIL,
-    ACTIVATION_SUCCESS,
     ACTIVATION_FAIL,
-    GOOGLE_AUTH_SUCCESS,
+    ACTIVATION_SUCCESS,
+    AUTHENTICATED_FAIL,
+    AUTHENTICATED_SUCCESS,
     GOOGLE_AUTH_FAIL,
-    LOGOUT
+    GOOGLE_AUTH_SUCCESS,
+    LOGIN_FAIL,
+    LOGIN_SUCCESS,
+    LOGOUT,
+    PASSWORD_RESET_CONFIRM_FAIL,
+    PASSWORD_RESET_CONFIRM_SUCCESS,
+    PASSWORD_RESET_FAIL,
+    PASSWORD_RESET_SUCCESS,
+    SIGNUP_FAIL,
+    SIGNUP_SUCCESS,
+    USER_LOADED_FAIL,
+    USER_LOADED_SUCCESS
 } from './types';
 
 export const load_user = () => async dispatch => {
@@ -138,6 +138,10 @@ export const login = (email, password) => async dispatch => {
         dispatch({
             type: LOGIN_FAIL
         })
+        document.getElementById('error-pass').appendChild(
+            document.createTextNode("Email ou senha incorretos! Tente novamente.")
+        )
+        document.getElementById('input_password').value = ''
     }
 };
 

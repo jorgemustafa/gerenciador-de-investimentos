@@ -36,7 +36,6 @@ export default () => {
     // get assets by user
     useEffect(() => {
         const loadData = () => {
-        }
         fetch(`${process.env.REACT_APP_API_URL}/assets/list/`, {
             headers: {
                 'Authorization': `JWT ${localStorage.getItem('access')}`
@@ -47,6 +46,7 @@ export default () => {
             .catch(err => {
                 console.log('Reinvestment.js', err)
             })
+        }
         loadData()
     }, [])
 
@@ -88,8 +88,8 @@ export default () => {
                                 {
                                     acoesFiiVisible ? <AcaoFiiForm asset={assetId}/> :
                                         acoesAmVisible ? <AcaoAmForm asset={assetId}/> :
-                                            rendaFixaVisible ? <RendaFixaForm asset={assetName}/> :
-                                                tesouroVisible ? <TesouroDiretoForm asset={assetName}/> :
+                                            rendaFixaVisible ? <RendaFixaForm asset={assetId}/> :
+                                                tesouroVisible ? <TesouroDiretoForm asset={assetId}/> :
                                                     criptoVisible ? <CriptomoedaForm asset={assetId}/> :
                                                         propVisible ? <PropriedadeForm asset={assetName}/> :
                                                             null
