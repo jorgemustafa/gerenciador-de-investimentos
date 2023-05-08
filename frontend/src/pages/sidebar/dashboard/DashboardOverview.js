@@ -4,8 +4,6 @@ import {Col, Row} from '@themesberg/react-bootstrap';
 import {AlocacaoChart} from "./AlocacaoChart";
 import * as PropTypes from "prop-types";
 import PerformanceNumbers from "./PerformanceNumbers";
-import {Redirect} from "react-router-dom";
-import {Routes} from "../../../routes";
 
 function Fragmento(props) {
     return null;
@@ -36,12 +34,13 @@ export default () => {
     const percent = desempenho.percent ? desempenho.percent : 0
     const isAuthenticated = localStorage.getItem('isAuthenticated')
 
-    if (isAuthenticated === 'null'){
+    if (isAuthenticated === 'null') {
         window.location.replace('/login')
     }
 
     return (
         <Fragment>
+            {value ?
             <Row className="justify-content-md-center">
                 <Col xs={6} sm={6} xl={6} className="mb-4 d-none d-sm-block">
                     <PerformanceNumbers
@@ -54,6 +53,13 @@ export default () => {
                     <AlocacaoChart/>
                 </Col>
             </Row>
+            :
+            <Row>
+            <Col xs={12} sm={12} xl={12} className="m-5 text-center">
+                    <h4>Você ainda não tem ativos para serem calculados, acesse a aba Adicionar e cadastre-os!</h4>
+                </Col>
+            </Row>
+            }
         </Fragment>
     );
 };
