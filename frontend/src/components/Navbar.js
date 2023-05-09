@@ -44,9 +44,12 @@ const NavBar = ({logout}) => {
     const logout_user = () => {
         logout();
         setRedirect(true)
+        setRedirect(true)
     };
 
     const totalCarteira = carteira.map(c => c.valor_total)
+    const desempenho = carteira.map(c => c.desempenho)
+    const totalAtual = (parseInt(totalCarteira[0]) * parseInt(desempenho[0]) / 100 + parseInt(totalCarteira[0])).toFixed(2)
 
     return (
         <Fragment>
@@ -54,7 +57,9 @@ const NavBar = ({logout}) => {
                 <Container fluid className="px-0">
                     <div className="d-flex justify-content-between w-100">
                         <div className="d-flex align-items-start">
-                            <Nav className="align-items-center">Total:&nbsp;<b>R$ {totalCarteira}</b></Nav>
+                            <Nav className="align-items-center">Total investido:&nbsp;<b>R$ {totalCarteira}</b></Nav>
+                            <Nav className="align-items-center">&nbsp;&nbsp;Total atual:&nbsp;
+                                <b>R$ {totalAtual}</b></Nav>
                         </div>
                         <Nav className="align-items-center">
                             <Dropdown as={Nav.Item}>

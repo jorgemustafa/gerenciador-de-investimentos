@@ -237,7 +237,8 @@ class DesempenhoViewSet(APIView):
 
 class ExtratoViewSet(APIView):
     def get(self, request):
-        extrato = Extrato.objects.all().order_by('-inclusao')
+        carteira = request.user.carteira_set.get()
+        extrato = Extrato.objects.filter(carteira=carteira).order_by('-inclusao')
         extrato_serializer = ExtratoSerializer(extrato, many=True)
         return Response(extrato_serializer.data)
 

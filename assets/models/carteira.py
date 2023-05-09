@@ -84,6 +84,8 @@ class Carteira(models.Model):
         # desempenho += self.get_desempenho_cripto(carteira_acoes_fiis)
         desempenho_geral = {k: desempenho.get(k, 0) + desempenho2.get(k, 0) for k in set(desempenho) & set(desempenho2)}
         desempenho_geral['percent'] = round(desempenho_geral['percent'], 2)
+        self.desempenho = desempenho_geral.get('percent')
+        self.save()
         return desempenho_geral
 
     def get_desempenho_percent_valor(self, carteira):
