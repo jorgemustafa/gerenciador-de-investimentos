@@ -86,7 +86,10 @@ class AcaoFii(models.Model):
         return float(self.unidades * self.cotacao)
 
     def get_percentual_carteira(self):
-        return round(self.get_valor_investido() / self.carteira.valor_total, 5)
+        percentual = round(self.get_desempenho(total=True) * 100 / self.carteira.get_total_atual(), 3)
+        if percentual >= 0:
+            return percentual
+        return 0
 
     def get_desempenho(self, percentual=False, total=False):
         lucro = (self.nome.preco_fechamento - self.cotacao) * self.unidades
@@ -123,7 +126,10 @@ class AcaoAmericana(models.Model):
         return float(self.unidades * self.cotacao)
 
     def get_percentual_carteira(self):
-        return round(self.get_valor_investido() / self.carteira.valor_total, 5)
+        percentual = round(self.get_desempenho(total=True) * 100 / self.carteira.get_total_atual(), 3)
+        if percentual >= 0:
+            return percentual
+        return 0
 
     def get_desempenho(self, percentual=False, total=False):
         lucro = (self.nome.preco_fechamento - self.cotacao) * self.unidades
@@ -173,7 +179,10 @@ class RendaFixa(models.Model):
         return float(self.valor_investido)
 
     def get_percentual_carteira(self):
-        return round(self.get_valor_investido() / self.carteira.valor_total, 5)
+        percentual = round(self.get_desempenho(total=True) * 100 / self.carteira.get_total_atual(), 3)
+        if percentual >= 0:
+            return percentual
+        return 0
 
     @staticmethod
     def get_desempenho(percentual=False, total=False):
@@ -223,7 +232,10 @@ class TesouroDireto(models.Model):
         return float(self.valor_investido)
 
     def get_percentual_carteira(self):
-        return round(self.get_valor_investido() / self.carteira.valor_total, 5)
+        percentual = round(self.get_desempenho(total=True) * 100 / self.carteira.get_total_atual(), 3)
+        if percentual >= 0:
+            return percentual
+        return 0
 
     @staticmethod
     def get_desempenho(percentual=False, total=False):
@@ -271,7 +283,10 @@ class Criptomoeda(models.Model):
         return float(self.unidades * self.cotacao)
 
     def get_percentual_carteira(self):
-        return round(self.get_valor_investido() / self.carteira.valor_total, 5)
+        percentual = round(self.get_desempenho(total=True) * 100 / self.carteira.get_total_atual(), 3)
+        if percentual >= 0:
+            return percentual
+        return 0
 
     @staticmethod
     def get_desempenho(percentual=False, total=False):
@@ -302,7 +317,10 @@ class Propriedade(models.Model):
         return float(self.valor_investido)
 
     def get_percentual_carteira(self):
-        return round(self.get_valor_investido() / self.carteira.valor_total, 5)
+        percentual = round(self.get_desempenho(total=True) * 100 / self.carteira.get_total_atual(), 3)
+        if percentual >= 0:
+            return percentual
+        return 0
 
     @staticmethod
     def get_desempenho(percentual=False, total=False):

@@ -64,6 +64,12 @@ class Carteira(models.Model):
         self.save()
         return round(self.valor_total, 2)
 
+    def get_total_atual(self):
+        percent = self.get_desempenho().get('percent')
+        valor_investido = self.get_valor_carteira()
+        total_atual = valor_investido * percent / 100 + valor_investido
+        return round(total_atual)
+
     def get_desempenho(self):
         todos_ativos = self.get_ativos_carteira()
         carteira_stocks = []
