@@ -135,6 +135,8 @@ class AcaoAmericana(models.Model):
         lucro = (self.nome.preco_fechamento - self.cotacao) * self.unidades
         if percentual:
             lucro = float(lucro) / self.get_valor_investido() * 100
+        if total:
+            lucro = self.cotacao * self.unidades + lucro
         return round(float(lucro), 2)
 
     def get_preco_medio(self):
@@ -179,7 +181,7 @@ class RendaFixa(models.Model):
         return float(self.valor_investido)
 
     def get_percentual_carteira(self):
-        percentual = round(self.get_desempenho(total=True) * 100 / self.carteira.get_total_atual(), 3)
+        percentual = round(self.get_valor_investido() * 100 / self.carteira.get_total_atual(), 3)
         if percentual >= 0:
             return percentual
         return 0
@@ -232,7 +234,7 @@ class TesouroDireto(models.Model):
         return float(self.valor_investido)
 
     def get_percentual_carteira(self):
-        percentual = round(self.get_desempenho(total=True) * 100 / self.carteira.get_total_atual(), 3)
+        percentual = round(self.get_valor_investido() * 100 / self.carteira.get_total_atual(), 3)
         if percentual >= 0:
             return percentual
         return 0
@@ -317,7 +319,7 @@ class Propriedade(models.Model):
         return float(self.valor_investido)
 
     def get_percentual_carteira(self):
-        percentual = round(self.get_desempenho(total=True) * 100 / self.carteira.get_total_atual(), 3)
+        percentual = round(self.get_valor_investido() * 100 / self.carteira.get_total_atual(), 3)
         if percentual >= 0:
             return percentual
         return 0
