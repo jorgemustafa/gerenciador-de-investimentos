@@ -239,9 +239,8 @@ class TesouroDireto(models.Model):
             return percentual
         return 0
 
-    @staticmethod
-    def get_desempenho(percentual=False, total=False):
-        return 0
+    def get_desempenho(self, percentual=False, total=False):
+        return self.get_valor_investido()
 
     def get_preco_medio(self):
         return self.valor_investido
@@ -290,9 +289,13 @@ class Criptomoeda(models.Model):
             return percentual
         return 0
 
-    @staticmethod
-    def get_desempenho(percentual=False, total=False):
-        return 0
+    def get_desempenho(self, percentual=False, total=False):
+        lucro = (self.nome.preco_fechamento - self.cotacao) * self.unidades
+        if percentual:
+            lucro = float(lucro) / self.get_valor_investido() * 100
+        if total:
+            lucro = self.cotacao * self.unidades + lucro
+        return round(float(lucro), 2)
 
     def get_preco_medio(self):
         return self.cotacao
@@ -324,9 +327,8 @@ class Propriedade(models.Model):
             return percentual
         return 0
 
-    @staticmethod
-    def get_desempenho(percentual=False, total=False):
-        return 0
+    def get_desempenho(self, percentual=False, total=False):
+        return self.get_valor_investido()
 
     def get_preco_medio(self):
         return self.valor_investido

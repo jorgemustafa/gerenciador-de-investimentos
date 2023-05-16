@@ -46,9 +46,9 @@ class Carteira(models.Model):
                             'name': str(ativo),
                             'pm': ativo.get_preco_medio(),
                             'units': ativo.get_unidades(),
-                            'total_current': ativo.get_desempenho(total=True),
+                            'total_current': ativo.get_valor_investido(),
                             'invested': ativo.get_valor_investido(),
-                            'performance': ativo.get_desempenho(percentual=True),
+                            'performance': 0,
                             'perc_wallet': ativo.get_percentual_carteira(),
                             'type': str(ativo.__class__.__name__),
                         })

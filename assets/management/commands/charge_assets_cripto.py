@@ -8,7 +8,6 @@ class Command(BaseCommand):
     help = 'Create objs in database getting by binance API'
 
     def handle(self, *args, **options):
-        ListCriptomoeda.objects.all().delete()
         client = Client(api_key='', api_secret='')
         # get all tickers and prices
         assets = client.get_all_tickers()
@@ -18,5 +17,10 @@ class Command(BaseCommand):
             if len(nome) <= 10 and 'BRL' in nome:
                 nome = nome.replace('BRL', '')
                 preco = round(float(cripto['price']), 10)
-                ListCriptomoeda.objects.create(nome=nome, preco_fechamento=preco)
+                ListCriptomoeda.objects.update_or_create(
+                    nome=nome,
+                    defaults={
+                        'preco_fechamento': preco
+                    }
+                )
         print('criptos cadastradas')
