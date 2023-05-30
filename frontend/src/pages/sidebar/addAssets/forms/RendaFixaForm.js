@@ -11,15 +11,15 @@ export default ({asset, venda = false}) => {
 
     const produtos = [
         {name: 'Selecione um Produto', value: ''},
-        {name: 'CDB', value: 'cdb'},
-        {name: 'RDB', value: 'rdb'},
-        {name: 'LC', value: 'lc'},
-        {name: 'LCI', value: 'lci'},
-        {name: 'LCA', value: 'lca'},
-        {name: 'LIG', value: 'lig'},
-        {name: 'CPR', value: 'cpr'},
-        {name: 'CRI', value: 'cri'},
-        {name: 'CRA', value: 'cra'}
+        {name: 'CDB', value: 'CDB'},
+        {name: 'RDB', value: 'RDB'},
+        {name: 'LC', value: 'LC'},
+        {name: 'LCI', value: 'LCI'},
+        {name: 'LCA', value: 'LCA'},
+        {name: 'LIG', value: 'LIG'},
+        {name: 'CPR', value: 'CPR'},
+        {name: 'CRI', value: 'CRI'},
+        {name: 'CRA', value: 'CRA'}
     ]
 
     const tipoAplicacoes = [

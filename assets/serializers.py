@@ -82,36 +82,6 @@ class RendaFixaSerializer(serializers.ModelSerializer):
         model = RendaFixa
         fields = '__all__'
 
-    def save(self, **kwargs):
-        validated_data = {**self.validated_data, **kwargs}
-        unidades_compra = validated_data['unidades']
-        cotacao_compra = validated_data['cotacao']
-        carteira = validated_data['carteira']
-
-        if self.instance is not None:
-            self.instance = self.update(self.instance, validated_data)
-        else:
-            self.instance = AcaoAmericana.objects.filter(nome=validated_data['nome'],
-                                                         carteira=carteira).last()
-            if self.instance:
-                # making average price -> total operation + total invested / total units
-                pm_atualizado = (float(unidades_compra * cotacao_compra) + self.instance.get_valor_investido()) / (
-                        self.instance.unidades + float(unidades_compra))
-                validated_data['cotacao'] = pm_atualizado
-                validated_data['unidades'] += self.instance.unidades
-                self.update(self.instance, validated_data)
-            else:
-                self.instance = self.create(validated_data)
-            Extrato.objects.create(
-                objeto=self.instance,
-                tipo_transacao='compra',
-                unidades=unidades_compra,
-                cotacao=cotacao_compra,
-                saldo=unidades_compra * cotacao_compra,
-                carteira=carteira
-            )
-        return self.instance
-
 
 class TesouroDiretoSerializer(serializers.ModelSerializer):
     class Meta:

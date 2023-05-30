@@ -232,6 +232,7 @@ class DesempenhoViewSet(APIView):
     def get(self, request):
         carteira = request.user.carteira_set.get()
         desempenho = carteira.get_desempenho()
+        desempenho.update({'total_value': carteira.get_valor_carteira()})
         return Response(desempenho)
 
 

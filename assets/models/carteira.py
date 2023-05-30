@@ -1,3 +1,5 @@
+from decimal import Decimal
+
 from django.db import models
 
 from auth_users.models import UserAccount
@@ -6,7 +8,7 @@ from auth_users.models import UserAccount
 class Carteira(models.Model):
     user = models.ForeignKey(UserAccount, on_delete=models.CASCADE)
     valor_total = models.DecimalField(max_digits=20, decimal_places=2, default=0)
-    desempenho = models.DecimalField(max_digits=4, decimal_places=2, default=0)
+    desempenho = models.DecimalField(max_digits=10, decimal_places=2, default=0)
     inclusao = models.DateTimeField(auto_now_add=True)
 
     def __init__(self, *args, **kwargs):

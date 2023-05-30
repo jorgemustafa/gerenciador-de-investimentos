@@ -31,6 +31,7 @@ export default () => {
     }, [])
 
     const value = desempenho.value ? desempenho.value : 0
+    const total_value = desempenho.total_value ? desempenho.total_value : 0
     const percent = desempenho.percent ? desempenho.percent : 0
     const isAuthenticated = localStorage.getItem('isAuthenticated')
 
@@ -40,7 +41,7 @@ export default () => {
 
     return (
         <Fragment>
-            {value ?
+            {total_value ?
             <Row className="justify-content-md-center">
                 <Col xs={6} sm={6} xl={6} className="mb-4 d-none d-sm-block">
                     <PerformanceNumbers

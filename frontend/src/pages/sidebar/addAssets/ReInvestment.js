@@ -36,16 +36,16 @@ export default () => {
     // get assets by user
     useEffect(() => {
         const loadData = () => {
-        fetch(`${process.env.REACT_APP_API_URL}/assets/list/`, {
-            headers: {
-                'Authorization': `JWT ${localStorage.getItem('access')}`
-            }
-        })
-            .then(response => response.json())
-            .then(data => setResponseAtivos(data))
-            .catch(err => {
-                console.log('Reinvestment.js', err)
+            fetch(`${process.env.REACT_APP_API_URL}/assets/list/`, {
+                headers: {
+                    'Authorization': `JWT ${localStorage.getItem('access')}`
+                }
             })
+                .then(response => response.json())
+                .then(data => setResponseAtivos(data))
+                .catch(err => {
+                    console.log('Reinvestment.js', err)
+                })
         }
         loadData()
     }, [])
@@ -76,10 +76,15 @@ export default () => {
                                                 <option className="fw-bold" key="" value="0">
                                                     --------------
                                                 </option>
-                                                {responseAtivos.map(ativo =>
-                                                    <option className="fw-bold" value={ativo.type + ';' + ativo.name + ';' + ativo.id}>
-                                                        {ativo.name}
-                                                    </option>
+                                                {responseAtivos.map((ativo) => (
+                                                        ativo.type !== 'RendaFixa' || ativo.type !== 'TesouroDireto' || ativo.type !== 'Propriedade' ?
+                                                            (<option className="fw-bold"
+                                                                     value={ativo.type + ';' + ativo.name + ';' + ativo.id}>
+                                                                {ativo.name}
+                                                            </option>)
+                                                            :
+                                                            <></>
+                                                    )
                                                 )}
                                             </FormSelect>
                                         </InputGroup>
